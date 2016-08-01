@@ -1,0 +1,53 @@
+\newcommand{\HRule}{     % lijn tekenen ===> wordt gebruikt in titlepage
+	\rule{\linewidth}{0.5mm}
+}
+
+\author{
+	Tr\'esor Akimana\\
+	Nick De Smedt\\
+	Tom Hoet\\
+	Dean Parmentier\\
+	Simon Scheerlynck\\
+	Xavier Seyssens\\
+	Jonas Van Wilder\\
+	Lennart Vermeir
+}
+\date{2015-2016}
+
+\makeatletter		%zorgt ervoor dat we de macros kunnen gebruiken die met @ beginnen
+\begin{titlepage}
+
+		\center
+		 
+		\textsc{\LARGE Universiteit Gent}\\[1.5cm]
+		\textsc{\Large Vakoverschrijdend project}\\[0.5cm]
+		\textsc{\large Project Mobiliteitsbedrijf Gent}\\[0.5cm]
+
+		\HRule \\[0.4cm]
+		{ \huge \bfseries \@title }\\[0.4cm]
+		\HRule \\[1.5cm]
+		 
+		\begin{minipage}{0.4\textwidth}
+			\begin{flushleft} \large
+				\emph{Groep 7:}\\
+				\@author
+			\end{flushleft}
+		\end{minipage}
+			~
+		\begin{minipage}{0.4\textwidth}
+			\begin{flushright} \large
+				\emph{Lesverantwoordelijken:}\\
+				Jan \textsc{Goedgebeur}\\
+				Annick \textsc{Van Daele}\\
+				Prof. Dr. Marko \textsc{Van Dooren}
+			\end{flushright}
+		\end{minipage}\\[4cm]
+
+
+		{\large \@date}\\[1cm]
+
+
+		\includegraphics[width=0.3\textwidth]{\logo}
+
+\end{titlepage}
+\makeatother %annuleren \makeatletter

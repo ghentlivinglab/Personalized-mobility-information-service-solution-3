@@ -1,0 +1,1564 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Class: eventAddController</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Class: eventAddController</h1>
+
+    
+
+
+
+
+<section>
+
+<header>
+    
+        <h2>eventAddController</h2>
+        
+    
+</header>
+
+<article>
+    <div class="container-overview">
+    
+        
+
+    
+
+    <h4 class="name" id="eventAddController"><span class="type-signature"></span>new eventAddController<span class="signature">()</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-author">Author:</dt>
+    <dd class="tag-author">
+        <ul>
+            <li>Frontend team</li>
+        </ul>
+    </dd>
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="controllers_events_eventAddController.js.html">controllers/events/eventAddController.js</a>, <a href="controllers_events_eventAddController.js.html#line3">line 3</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+    </div>
+
+    
+
+    
+
+    
+
+     
+
+    
+
+    
+        <h3 class="subsection-title">Members</h3>
+
+        
+            
+<h4 class="name" id=".event"><span class="type-signature">(static) </span>event<span class="type-signature"></span></h4>
+
+
+
+
+<div class="description">
+    Json object which represents an event and which will be posted to the server
+</div>
+
+
+
+
+
+
+
+    <h5 class="subsection-title">Properties:</h5>
+
+    
+
+<table class="props">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>active</code></td>
+            
+
+            <td class="type">
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Boolean which says if the event is still active</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>jams</code></td>
+            
+
+            <td class="type">
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Array with all jam objects in JSON format</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>coordinates</code></td>
+            
+
+            <td class="type">
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The lat and lon of the event (json representation of coordinates)</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>relevant_for_transportation_types</code></td>
+            
+
+            <td class="type">
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">JSONArray of the relevant transportation types</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="controllers_events_eventAddController.js.html">controllers/events/eventAddController.js</a>, <a href="controllers_events_eventAddController.js.html#line16">line 16</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+            
+<h4 class="name" id=".eventtypes"><span class="type-signature">(static) </span>eventtypes<span class="type-signature"></span></h4>
+
+
+
+
+<div class="description">
+    array of strings with all the event types
+</div>
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="controllers_events_eventAddController.js.html">controllers/events/eventAddController.js</a>, <a href="controllers_events_eventAddController.js.html#line106">line 106</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+            
+<h4 class="name" id=".jam"><span class="type-signature">(static) </span>jam<span class="type-signature"></span></h4>
+
+
+
+
+<div class="description">
+    Model which is used in the html view
+</div>
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="controllers_events_eventAddController.js.html">controllers/events/eventAddController.js</a>, <a href="controllers_events_eventAddController.js.html#line10">line 10</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+            
+<h4 class="name" id=".jamAddSuccess"><span class="type-signature">(static) </span>jamAddSuccess<span class="type-signature"></span></h4>
+
+
+
+
+<div class="description">
+    variable which says wheter a jam has been added successfully (true) or not (false)
+</div>
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-default">Default Value:</dt>
+    <dd class="tag-default"><ul class="dummy">
+            <li>false</li>
+        </ul></dd>
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="controllers_events_eventAddController.js.html">controllers/events/eventAddController.js</a>, <a href="controllers_events_eventAddController.js.html#line28">line 28</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+            
+<h4 class="name" id=".jamjam"><span class="type-signature">(static) </span>jamjam<span class="type-signature"></span></h4>
+
+
+
+
+<div class="description">
+    model for the jam
+</div>
+
+
+
+
+
+
+
+    <h5 class="subsection-title">Properties:</h5>
+
+    
+
+<table class="props">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>speed</code></td>
+            
+
+            <td class="type">
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The average speed in the jam</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>delay</code></td>
+            
+
+            <td class="type">
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The average delay in seconds of the jam</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="directives_gmapsEventAddDirective.js.html">directives/gmapsEventAddDirective.js</a>, <a href="directives_gmapsEventAddDirective.js.html#line79">line 79</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+            
+<h4 class="name" id=".map"><span class="type-signature">(static) </span>map<span class="type-signature"></span></h4>
+
+
+
+
+<div class="description">
+    The google map
+</div>
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="directives_gmapsEventAddDirective.js.html">directives/gmapsEventAddDirective.js</a>, <a href="directives_gmapsEventAddDirective.js.html#line107">line 107</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+            
+<h4 class="name" id=".mapOptions"><span class="type-signature">(static) </span>mapOptions<span class="type-signature"></span></h4>
+
+
+
+
+<div class="description">
+    options for the google map
+</div>
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="directives_gmapsEventAddDirective.js.html">directives/gmapsEventAddDirective.js</a>, <a href="directives_gmapsEventAddDirective.js.html#line94">line 94</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+            
+<h4 class="name" id=".selectedTransportationTypesTemp"><span class="type-signature">(static) </span>selectedTransportationTypesTemp<span class="type-signature"></span></h4>
+
+
+
+
+<div class="description">
+    variable which holds temporarily the selected transportation types
+</div>
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="controllers_events_eventAddController.js.html">controllers/events/eventAddController.js</a>, <a href="controllers_events_eventAddController.js.html#line36">line 36</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+            
+<h4 class="name" id=".transportationTypes"><span class="type-signature">(static) </span>transportationTypes<span class="type-signature"></span></h4>
+
+
+
+
+<div class="description">
+    array of strings with all the possible transportation types
+</div>
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="controllers_events_eventAddController.js.html">controllers/events/eventAddController.js</a>, <a href="controllers_events_eventAddController.js.html#line42">line 42</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+    
+
+    
+        <h3 class="subsection-title">Methods</h3>
+
+        
+            
+
+    
+
+    <h4 class="name" id=".addJam"><span class="type-signature">(static) </span>addJam<span class="signature">()</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+<div class="description">
+    Add a jam to the event + render on map
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="directives_gmapsEventAddDirective.js.html">directives/gmapsEventAddDirective.js</a>, <a href="directives_gmapsEventAddDirective.js.html#line13">line 13</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id=".close"><span class="type-signature">(static) </span>close<span class="signature">()</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+<div class="description">
+    close the error message div
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="directives_gmapsEventAddDirective.js.html">directives/gmapsEventAddDirective.js</a>, <a href="directives_gmapsEventAddDirective.js.html#line222">line 222</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id=".createEvent"><span class="type-signature">(static) </span>createEvent<span class="signature">()</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+<div class="description">
+    Send an event to the API
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="controllers_events_eventAddController.js.html">controllers/events/eventAddController.js</a>, <a href="controllers_events_eventAddController.js.html#line78">line 78</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id=".goBack"><span class="type-signature">(static) </span>goBack<span class="signature">()</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+<div class="description">
+    Go back to the eventList page.
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="controllers_events_eventAddController.js.html">controllers/events/eventAddController.js</a>, <a href="controllers_events_eventAddController.js.html#line97">line 97</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id=".makeJamForm"><span class="type-signature">(static) </span>makeJamForm<span class="signature">()</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+<div class="description">
+    Clear the jam form and reset for the next jam
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="directives_gmapsEventAddDirective.js.html">directives/gmapsEventAddDirective.js</a>, <a href="directives_gmapsEventAddDirective.js.html#line71">line 71</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id=".placeAddress"><span class="type-signature">(static) </span>placeAddress<span class="signature">(autocomplete)</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+<div class="description">
+    place address marker on the map
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>autocomplete</code></td>
+            
+
+            <td class="type">
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">the addressAutocompleter of google</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="directives_gmapsEventAddDirective.js.html">directives/gmapsEventAddDirective.js</a>, <a href="directives_gmapsEventAddDirective.js.html#line142">line 142</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id=".showErrorMessage"><span class="type-signature">(static) </span>showErrorMessage<span class="signature">(msg)</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+<div class="description">
+    show an error message on the page
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>msg</code></td>
+            
+
+            <td class="type">
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The message in string notation</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="directives_gmapsEventAddDirective.js.html">directives/gmapsEventAddDirective.js</a>, <a href="directives_gmapsEventAddDirective.js.html#line208">line 208</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+    
+
+    
+
+    
+</article>
+
+</section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="angular_module.vopApp.vopTravel.module_routeEditController.html">routeEditController</a></li><li><a href="angular_module.vopApp.vopTravel.module_travelAddController.html">travelAddController</a></li><li><a href="angular_module.vopApp.vopTravel.module_travelListController.html">travelListController</a></li></ul><h3>Classes</h3><ul><li><a href="angular_module.myApp.html">myApp</a></li><li><a href="angular_module.vopApp.contactController.html">contactController</a></li><li><a href="angular_module.vopApp.404Controller.html">404Controller</a></li><li><a href="angular_module.vopApp.indexController.html">indexController</a></li><li><a href="angular_module.vopApp.notImpController.html">notImpController</a></li><li><a href="angular_module.vopApp.vopAuth.Authentication.html">Authentication</a></li><li><a href="angular_module.vopApp.vopAuth.authenticationController.html">authenticationController</a></li><li><a href="angular_module.vopApp.vopAuth.authInterceptor.html">authInterceptor</a></li><li><a href="angular_module.vopApp.vopAuth.Authorization.html">Authorization</a></li><li><a href="angular_module.vopApp.vopAuth.403Controller.html">403Controller</a></li><li><a href="angular_module.vopApp.vopAuth.Roles.html">Roles</a></li><li><a href="angular_module.vopApp.vopAuth.Session.html">Session</a></li><li><a href="angular_module.vopApp.vopEvent.eventAddController.html">eventAddController</a></li><li><a href="angular_module.vopApp.vopEvent.eventEditController.html">eventEditController</a></li><li><a href="angular_module.vopApp.vopEvent.eventListController.html">eventListController</a></li><li><a href="angular_module.vopApp.vopEvent.eventShowController.html">eventShowController</a></li><li><a href="angular_module.vopApp.vopPOI.poiAddController.html">poiAddController</a></li><li><a href="angular_module.vopApp.vopPOI.poiEditController.html">poiEditController</a></li><li><a href="angular_module.vopApp.vopPOI.poiListController.html">poiListController</a></li><li><a href="angular_module.vopApp.vopPOI.poiShowController.html">poiShowController</a></li><li><a href="angular_module.vopApp.vopRoute.routeAddController.html">routeAddController</a></li><li><a href="angular_module.vopApp.vopRoute.routeEditController.html">routeEditController</a></li><li><a href="angular_module.vopApp.vopUser.userAddController.html">userAddController</a></li><li><a href="angular_module.vopApp.vopUser.userChangePassController.html">userChangePassController</a></li><li><a href="angular_module.vopApp.vopUser.userEditController.html">userEditController</a></li><li><a href="angular_module.vopApp.vopUser.userEventsShowController.html">userEventsShowController</a></li><li><a href="angular_module.vopApp.vopUser.userForgotPasswordController.html">userForgotPasswordController</a></li><li><a href="angular_module.vopApp.vopUser.userForgotPasswordRecoverController.html">userForgotPasswordRecoverController</a></li><li><a href="angular_module.vopApp.vopUser.userListAdminController.html">userListAdminController</a></li><li><a href="angular_module.vopApp.vopUser.userListController.html">userListController</a></li><li><a href="angular_module.vopApp.vopUser.userMailValidationController.html">userMailValidationController</a></li><li><a href="angular_module.vopApp.vopUser.userShowController.html">userShowController</a></li></ul><h3>Global</h3><ul><li><a href="global.html#config">config</a></li><li><a href="global.html#configmoduleEvent">config module Event</a></li><li><a href="global.html#configmodulePOI">config module POI</a></li><li><a href="global.html#configmoduleRoute">config module Route</a></li><li><a href="global.html#configmoduleTravel">config module Travel</a></li><li><a href="global.html#configmoduleuser">config module user</a></li><li><a href="global.html#formatTime">formatTime</a></li><li><a href="global.html#icon">icon</a></li><li><a href="global.html#MARKERICON">MARKERICON</a></li><li><a href="global.html#ROLE_ADMIN">ROLE_ADMIN</a></li><li><a href="global.html#ROLE_OPERATOR">ROLE_OPERATOR</a></li><li><a href="global.html#ROLE_USER">ROLE_USER</a></li><li><a href="global.html#SPECIALMARKERICON">SPECIALMARKERICON</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.0</a> on Mon May 16 2016 22:07:46 GMT+0200 (Romance (zomertijd))
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

@@ -1,0 +1,35 @@
+Postgres configureren
+	- Download postgresql (http://www.postgresql.org/download/)
+	- Installeer postgresql
+		* Kies 'postgres' password naar keuze
+		* Neem default waarden (Zeker poort: 5432)
+	- Download pgadmin (http://www.pgadmin.org/download/)
+	- Gebruik pgadmin om te connecteren met de db op localhost. (Login met 'postgres' password)
+	- Maak een nieuwe db aan met naam 'userappdata'.
+	- Create role 'backend' met password 'backend'. (In pgadmin: create login role) (OPM: password invullen onder tab definition)
+	- Voer het database script uit. (te vinden in de master branch: postgres directory)
+	- Voer de database fill scripts uit. (Best in dezelfde volgorde als die waarin ze aangemaakt worden in het database script)
+	
+
+MongoDB configureren
+	- Download mongodb(https://www.mongodb.org/downloads#production)
+	- Installeer mongodb(Default waarden)
+	- Maak ergens een directory data/db/ aan.
+		Voorbeeld (WINDOWS): "C:\Program Files\MongoDB\data\db\"
+	- Start mongodb server (met adminrechten): mongod.exe (met optie --dbpath <path naar data directory>)
+		Voorbeeld (WINDOWS): "C:\Program Files\MongoDB\Server\3.2\bin\mongod.exe" --dbpath "C:\Program Files\MongoDB\data"
+	- Start mongodb client shell: mongo.exe
+		Voorbeeld (WINDOWS): "C:\Program Files\MongoDB\Server\3.2\bin\mongo.exe"
+	- In de mongodb shell:
+		* Maak database events aan met 'use events'
+		* Maak collections aan met 'db.createCollection("event")' en 'db.createCollection("eventtype")'
+	- Importeer json file met testevents 
+		*In normale shell (niet de mongo shell): 'mongoimport --db events --collection event --file <TEST_EVENTS_FILE_LOCATION> --jsonArray'
+	
+
+Server
+	- Download de jar file met de backend code (https://vopro7.ugent.be/test/testbackend.jar)
+	- Voer de server uit met het commando: java -jar testbackend.jar
+	- De server gebruikt poort 8081. (OPM: de /api moet weggelaten worden in urls op localhost)
+		* Bijvoorbeeld: URL alle users: GET localhost:8081/user/
+

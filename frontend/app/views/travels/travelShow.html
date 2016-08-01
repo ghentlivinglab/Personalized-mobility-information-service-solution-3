@@ -1,0 +1,140 @@
+<div class="container-fluid" gmaps-travel-show>
+  <!-- route add div -->
+  <div id="routeAddDiv" data-ng-controller="routeAddController">
+    <div class="row">
+      <div class="col-sm-10 col-sm-offset-1">
+        <div id="routeMap" class="col-md-12" style="height: 575px;">
+          <center>Waiting for the map...</center>
+        </div>
+        <select id="mode" class="form-control" data-ng-options="type as ('TransportationTypes.'+type | translate) for type in transportationTypes" data-ng-model="$parent.transportationModel" data-ng-change="$parent.renderRoute()" >
+          <!--<option data-ng-repeat="type in transportationTypes" value="{{type}}">{{"TransportationTypes." + type | translate}}</option>-->
+        </select>
+        <div id="addWaypoint" class="divMessages">
+          <h3 class="text-center">Waypoint toevoegen met adres</h3>
+          <br/>
+          <input id="waypointAutocomplete" placeholder=" Voeg uw waypoint toe" type="text" class = "form-control"/>
+          <input data-ng-click="addMarkerWaypoint()" type="submit" class="btn btn-primary pull-right specialButton" value="Voeg toe" id="addWaypointButton"/>
+        </div>
+      </div>
+    </div>
+    <form name="addRoute" role="form" class="form-horizontal col-md-10 col-md-offset-1">
+      <div class="form-group">
+        <label>Meldingen via:</label>
+        <input type="checkbox" data-ng-value="true" data-ng-model="$parent.email"/> E-mail
+        <!--<input type="checkbox" data-ng-value="true" data-ng-model="$parent.cellphone"/> Gsm-->
+      </div>
+      <div class="form-group">
+        <label>Informeer me bij:</label>
+        <div data-ng-repeat="type in entries">
+          <input type="checkbox" data-ng-true-value="'{{type.type}}'" data-ng-model="$parent.selectedEventTypesTemp[$index]"/> {{ "EventTypes." + type.type | translate }}
+        </div>
+      </div>
+      <button class="btn icon-btn btn-danger" data-ng-click = "$parent.cancelRoute()" title="Annuleren">
+        <span class="glyphicon btn-glyphicon glyphicon-minus img-circle text-danger"></span>
+        Annuleren
+      </button>
+      <button class="btn icon-btn btn-success" data-ng-click = "$parent.saveRoute()" title="Opslaan">
+        <span class="glyphicon btn-glyphicon glyphicon-floppy-disk img-circle text-success"></span>
+        Opslaan
+      </button>
+    </form>
+  </div>
+
+  <!-- travel -->
+  <div id="travelDetailDiv">
+    <button class="btn icon-btn " data-ng-click = "back()" title="Route toevoegen">
+      <span class="glyphicon btn-glyphicon glyphicon-circle-arrow-left img-circle"></span>
+      Ga terug
+    </button>
+    <h1>Traject details:</h1>
+
+
+    <div class="well row row-fluid" >
+      <!-- data travel -->
+      <div class="col-sm-3" >
+        <p><label>Naam:</label></p><p> {{travel.name}}</p>
+        <p><label>Tijdsinterval:</label></p><p> {{travel.time_interval[0]}} - {{travel.time_interval[1]}} </p>
+        <p><label>Vertrekpunt:</label></p><p> {{travel.startpoint.street}} {{travel.startpoint.housenumber}}, {{travel.startpoint.postal_code}} {{travel.startpoint.city}}, {{travel.startpoint.country}}</p>
+        <p><label>Bestemming:</label></p><p>{{travel.endpoint.street}} {{travel.endpoint.housenumber}}, {{travel.endpoint.postal_code}} {{travel.endpoint.city}}, {{travel.endpoint.country}}</p>
+        <p><label>Herhalend op:</label></p>
+        <ul data-ng-repeat = "day in week">
+          <li>{{day}}</li>
+        </ul>
+      </div>
+
+      <!-- kaart routes van travel -->
+      <div class="well col-sm-9">
+        <button class="btn icon-btn btn-success pull-right" data-ng-click = "showRouteDiv()" title="Route toevoegen">
+          <span class="glyphicon btn-glyphicon glyphicon-plus img-circle text-success"></span>
+          Route toevoegen
+        </button>
+        <h4>Kaart:</h4>
+        <br/>
+        <div class="row">
+          <div class="col--10 col-sm-offset-1">
+            <div id="map" class="col-md-12" style="height: 575px;">
+              <center>Waiting for the map...</center>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <button class="btn icon-btn btn-primary btn-200px btn-vop" data-ng-click = "editTravel(travel)" title="wijzig travel">
+        <span class="glyphicon btn-glyphicon glyphicon-edit img-circle text-primary pull-left"></span>
+        <span class="btn-vop-center-text"> Traject wijzigen</span>
+      </button>
+      <button class="btn icon-btn btn-danger btn-200px btn-vop" data-ng-click = "deleteTravel(travel)" title="travel verwijderen">
+        <span class="glyphicon btn-glyphicon glyphicon-trash img-circle text-danger pull-left"></span>
+        <span class="btn-vop-center-text"> Traject verwijderen</span>
+      </button>
+
+      <!-- routes van travel -->
+      <div class="row">
+        <h1>Routes:</h1>
+        <div class="table-responsive">
+          <table class="route_list table table-condensed">
+            <thead>
+              <tr>
+                <th>Vervoersmiddel</th>
+                <th>Informeer me bij:</th>
+                <th>E-mail</th>
+                <!--<th>Gsm</th>-->
+                <th> <!-- Empty the to make a column for the buttons --> </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="hoverTableRow" data-ng-repeat="route in routes" data-ng-click="showRoute(route.id)">
+                <td>
+                  {{ "TransportationTypes." + route.route.transportation_type | translate }}
+                </td>
+                <td>
+                  <div data-ng-repeat="event in route.route.notify_for_event_types">{{ "EventTypes." + event.type | translate }}</div>
+                </td>
+                <td class="text-center">
+                  <span data-ng-show="route.route.notify.email" class="glyphicon glyphicon-ok text-success"></span>
+                  <span data-ng-hide="route.route.notify.email" class="glyphicon glyphicon-remove text-danger"></span>
+                </td>
+                <!--<td class="text-center">-->
+                  <!--<span data-ng-show="route.route.notify.cell_number" class="glyphicon glyphicon-ok text-success text-center"></span>-->
+                  <!--<span data-ng-hide="route.route.notify.cell_number" class="glyphicon glyphicon-remove text-danger text-center"></span>-->
+                <!--</td>-->
+                <td>
+                  <div class="pull-right">
+                    <button data-ng-click = "editRoute(route.route.id)" class="btn badge" title="Wijzigen">
+                      <span class="glyphicon glyphicon-edit"></span>
+                    </button>
+                    <button data-ng-click = "deleteRoute(route.route)" class="btn badge" title="Verwijderen">
+                      <span class = "glyphicon glyphicon-remove"></span>
+                    </button>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div id="markerDropper"></div>
+  <div id="waypointAdder"></div>
+</div>

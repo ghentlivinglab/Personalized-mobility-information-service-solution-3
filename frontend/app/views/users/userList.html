@@ -1,0 +1,35 @@
+<div class="container-fluid panel ">
+	<div id="userList" class="well table-responsive">
+		<h2>
+			Alle gebruikers
+		</h2>
+		<table class = "table table-condensed table-striped table-hover">
+			<thead>
+				<tr>
+					<th>
+						Id
+					</th>
+					<th>
+						voornaam
+					</th>
+					<th>
+						achternaam
+					</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr data-ng-repeat = "user in users">
+					<td>
+						{{user.id}}
+					</td>
+					<td>
+						{{user.first_name}}
+					</td>
+					<td>
+						{{user.last_name}}
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</div>

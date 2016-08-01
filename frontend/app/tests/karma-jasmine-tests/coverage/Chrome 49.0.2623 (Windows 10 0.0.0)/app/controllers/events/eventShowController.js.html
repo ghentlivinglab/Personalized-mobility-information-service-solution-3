@@ -1,0 +1,539 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for app\controllers\events\eventShowController.js</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../../../prettify.css" />
+    <link rel="stylesheet" href="../../../base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="../../../index.html">all files</a> / <a href="index.html">app/controllers/events/</a> eventShowController.js
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">3.13% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>2/64</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">0% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>0/8</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">0% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>0/12</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">3.13% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>2/64</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line low'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154
+155
+156
+157
+158
+159</td><td class="line-coverage quiet"><span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">var googleLoaded = false;
+/**
+@author Lennart Vermeir
+@memberof angular_module.myApp
+@constructor eventShowController
+*/
+angular.module('vopEvent').controller('eventShowController', <span class="fstat-no" title="function not covered" >function($scope, $http, $routeParams, $interval, Event, $q, $location, $timeout/*, $route*/) {</span>
+<span class="cstat-no" title="statement not covered" >	var lt;</span>
+<span class="cstat-no" title="statement not covered" >	var lg;</span>
+<span class="cstat-no" title="statement not covered" >	var geocoder, bounds, directionsService, directionsDisplay, markers=[];</span>
+<span class="cstat-no" title="statement not covered" >	var MARKERICON = 'assets/images/map-marker.svg';</span>
+<span class="cstat-no" title="statement not covered" >	var SPECIALMARKERICON = 'assets/images/map-pin-special.svg';</span>
+<span class="cstat-no" title="statement not covered" >	$scope.back=<span class="fstat-no" title="function not covered" >function(){</span></span>
+<span class="cstat-no" title="statement not covered" >		$location.path("/event/")</span>
+	};
+<span class="cstat-no" title="statement not covered" >	$scope.jamRender=<span class="fstat-no" title="function not covered" >function(start_node, end_node){</span></span>
+<span class="cstat-no" title="statement not covered" >		markers.forEach(<span class="fstat-no" title="function not covered" >function(m){</span></span>
+<span class="cstat-no" title="statement not covered" >			m.setMap(null);</span>
+		});
+<span class="cstat-no" title="statement not covered" >		var jamMarkerStart = new google.maps.Marker({</span>
+			position:{
+				lat: start_node.lat,
+				lng: start_node.lon
+			},
+			icon: MARKERICON,
+			draggable: false,
+			animation: google.maps.Animation.DROP,
+			map: $scope.map
+		});
+<span class="cstat-no" title="statement not covered" >		var jamMarkerEnd = new google.maps.Marker({</span>
+			position:{
+				lat: end_node.lat,
+				lng: end_node.lon
+			},
+			icon: MARKERICON,
+			draggable: false,
+			animation: google.maps.Animation.DROP,
+			map: $scope.map
+		});
+<span class="cstat-no" title="statement not covered" >		bounds.extend(jamMarkerStart.getPosition());</span>
+<span class="cstat-no" title="statement not covered" >		bounds.extend(jamMarkerEnd.getPosition());</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >		var request = {</span>
+			origin:jamMarkerStart.getPosition(),
+			destination:jamMarkerEnd.getPosition(),
+			optimizeWaypoints: true,
+			travelMode: google.maps.DirectionsTravelMode.DRIVING,
+		};
+<span class="cstat-no" title="statement not covered" >		directionsService.route(request, <span class="fstat-no" title="function not covered" >function(response, status){</span></span>
+<span class="cstat-no" title="statement not covered" >			if(status==google.maps.DirectionsStatus.OK){</span>
+<span class="cstat-no" title="statement not covered" >				directionsDisplay.setDirections(response);</span>
+			}
+		});
+<span class="cstat-no" title="statement not covered" >		markers.push(jamMarkerStart);</span>
+<span class="cstat-no" title="statement not covered" >		markers.push(jamMarkerEnd);</span>
+<span class="cstat-no" title="statement not covered" >		$scope.map.fitBounds(bounds);</span>
+	};
+<span class="cstat-no" title="statement not covered" >	$scope.editEvent=<span class="fstat-no" title="function not covered" >function(){</span></span>
+<span class="cstat-no" title="statement not covered" >		$location.path("/event/"+$routeParams.id+"/edit/");</span>
+	};
+	// initialize map
+<span class="cstat-no" title="statement not covered" >	$scope.initialize=<span class="fstat-no" title="function not covered" >function(){</span></span>
+		// GET request naar server voor data op te vragen
+<span class="cstat-no" title="statement not covered" >		Event.get({ eventId : $routeParams.id }, <span class="fstat-no" title="function not covered" >function(data) {</span></span>
+			/**
+			@member event
+			@description The event filled with data from the server
+			@memberof angular_module.myApp.eventShowController
+			*/
+<span class="cstat-no" title="statement not covered" >			$scope.event = data;</span>
+&nbsp;
+			/**
+			@member lastEditDate
+			@description The last time when edited in data format
+			@memberof angular_module.myApp.eventShowController
+			*/
+<span class="cstat-no" title="statement not covered" >			$scope.lastEditDate = new Date(data.last_edit_time);</span>
+<span class="cstat-no" title="statement not covered" >			lt = data.coordinates.lat;</span>
+<span class="cstat-no" title="statement not covered" >			lg = data.coordinates.lon;</span>
+<span class="cstat-no" title="statement not covered" >			console.log(lt);</span>
+<span class="cstat-no" title="statement not covered" >			console.log(lg);</span>
+<span class="cstat-no" title="statement not covered" >			var options = {</span>
+				center: {
+					lat: lt,
+					lng: lg
+				},
+				zoom: 14
+			};
+<span class="cstat-no" title="statement not covered" >			directionsService = new google.maps.DirectionsService();</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >			geocoder = new google.maps.Geocoder();</span>
+<span class="cstat-no" title="statement not covered" >			$scope.map = new google.maps.Map(document.getElementById('map'), options);</span>
+<span class="cstat-no" title="statement not covered" >			var marker = new google.maps.Marker({</span>
+				position:{
+					lat:lt,
+					lng:lg
+				},
+				map: $scope.map,
+				animation: google.maps.Animation.DROP,
+				draggable:false,
+				icon:SPECIALMARKERICON
+			});
+&nbsp;
+<span class="cstat-no" title="statement not covered" >			console.log($scope.event);</span>
+			// ADRES WERKT NIET!!
+			// Replace coordinates with addresses
+<span class="cstat-no" title="statement not covered" >			geocoder.geocode({'location': marker.position}, <span class="fstat-no" title="function not covered" >function(results, status){</span></span>
+<span class="cstat-no" title="statement not covered" >				if (status === google.maps.GeocoderStatus.OK) {</span>
+<span class="cstat-no" title="statement not covered" >					$scope.$apply(<span class="fstat-no" title="function not covered" >function(){</span></span>
+<span class="cstat-no" title="statement not covered" >						if (results[0]) {</span>
+<span class="cstat-no" title="statement not covered" >							console.log(results[0]);</span>
+<span class="cstat-no" title="statement not covered" >							$scope.event.addr = results[0].formatted_address;</span>
+<span class="cstat-no" title="statement not covered" >							console.log($scope.event.addr);</span>
+						} else {
+<span class="cstat-no" title="statement not covered" >							console.log('No results found');</span>
+						}
+					});
+				} else {
+<span class="cstat-no" title="statement not covered" >					console.log('Geocoder failed due to: ' + status);</span>
+				}
+			});
+<span class="cstat-no" title="statement not covered" >			directionsDisplay = new google.maps.DirectionsRenderer({</span>
+				polylineOptions: {
+					strokeColor: "red"
+				}
+			});
+<span class="cstat-no" title="statement not covered" >			directionsDisplay.setMap($scope.map);</span>
+<span class="cstat-no" title="statement not covered" >			directionsDisplay.setOptions( { suppressMarkers: true,</span>
+				preserveViewport: true
+			} );
+<span class="cstat-no" title="statement not covered" >			bounds = new google.maps.LatLngBounds();</span>
+<span class="cstat-no" title="statement not covered" >			bounds.extend(marker.getPosition());</span>
+<span class="cstat-no" title="statement not covered" >			$scope.map.fitBounds(bounds);</span>
+			/**
+			@member pubDate
+			@description The publication date in data format
+			@memberof angular_module.myApp.eventShowController
+			*/
+<span class="cstat-no" title="statement not covered" >			$scope.pubDate = new Date(data.publication_time);</span>
+		});
+	}
+	// Load the map each time the page is loaded
+<span class="cstat-no" title="statement not covered" >	$scope.loadScript = <span class="fstat-no" title="function not covered" >function() {</span></span>
+<span class="cstat-no" title="statement not covered" >		if(!googleLoaded){</span>
+<span class="cstat-no" title="statement not covered" >			var script = document.createElement('script');</span>
+<span class="cstat-no" title="statement not covered" >			script.type = 'text/javascript';</span>
+<span class="cstat-no" title="statement not covered" >			script.src = 'https://maps.googleapis.com/maps/api/js?libraries=places&amp;sensor=false&amp;key=AIzaSyA1ouRfRDPJsTHjpUd1IDzCJBCCjQxlu5M';</span>
+<span class="cstat-no" title="statement not covered" >			document.body.appendChild(script);</span>
+<span class="cstat-no" title="statement not covered" >			googleLoaded = true;</span>
+		}
+<span class="cstat-no" title="statement not covered" >		$scope.timeout=$timeout(<span class="fstat-no" title="function not covered" >function() {</span></span>
+<span class="cstat-no" title="statement not covered" >			$scope.initialize();</span>
+	  	}, 500);
+		/*setTimeout(function() {
+			$scope.initialize();
+		}, 500);*/
+	};
+});
+&nbsp;</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Fri Apr 29 2016 12:47:49 GMT+0200 (Romance Daylight Time)
+</div>
+</div>
+<script src="../../../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../../../sorter.js"></script>
+</body>
+</html>

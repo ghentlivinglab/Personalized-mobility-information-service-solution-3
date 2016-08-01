@@ -1,0 +1,30 @@
+{
+  "name": "karma-jasmine-tests",
+  "version": "1.0.0",
+  "main": "angular-mocks.js",
+  "scripts": {
+    "test": "karma start karma-jasmine-tests/conf.js",
+    "protractor": "protractor protractor-tests/conf.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "keywords": [],
+  "description": "",
+  "devDependencies": {
+    "httpbackend": "^2.0.0",
+    "jasmine-core": "^2.4.1",
+    "karma": "^0.13.22",
+    "karma-chai-plugins": "^0.7.0",
+    "karma-chrome-launcher": "^0.2.2",
+    "karma-coverage": "^0.5.5",
+    "karma-html-reporter": "^0.2.7",
+    "karma-jasmine": "^0.3.7",
+    "karma-mocha-reporter": "^2.0.0",
+    "karma-ng-html2js-preprocessor": "^1.0.0",
+    "karma-phantomjs-launcher": "^1.0.0",
+    "karma-phantomjs2-launcher": "^0.5.0",
+    "ng-mock-e2e": "^0.1.1",
+    "phantomjs-prebuilt": "^2.1.7",
+    "protractor": "^3.3.0"
+  }
+}

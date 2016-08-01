@@ -1,0 +1,123 @@
+<div class="container-fluid" gmaps-event-add>
+  <div id="pageWrap">
+    <div class ="row">
+      <div class="col-md-6  col-md-offset-1 alert alert-dismissable alert-info fade in">
+        <p>
+          De velden met een <span class = "glyphicon glyphicon-asterisk" style="font-size: xx-small; color:red;"></span> zijn verplicht in te vullen.
+          <a class ="close" data-dismiss="alert" aria-label="close">&times;</a>
+        </p>
+      </div>
+    </div>
+    <h2 class="col-md-offset-1">Geef het probleem</h2>
+    <br/>
+    <form data-ng-submit="createEvent()" role="form" name="eventAddForm" class="form-horizontal" id="eventAddForm">
+      <div class="form-group row">
+        <div class="col-md-6 col-md-offset-1">
+          <label class="control-label"> Adres <span class = "glyphicon glyphicon-asterisk" ></span></label>
+          <input type="text" id="addressAutocomplete" class="form-control input-md" required/>
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <div class="col-md-6 col-md-offset-1">
+          <label class="control-label">Beschrijving <span class = "glyphicon glyphicon-asterisk"></span></label>
+          <textarea data-ng-model="event.description" rows="5" cols="35" class="form-control input-md" required></textarea>
+        </div>
+      </div>
+      <div class="form-group row">
+        <div class="col-md-6 col-md-offset-1">
+          <label class="control-label ">Bron</label>
+          <input type="text" data-ng-model="event.source.name" class="form-control input-md "/>
+        </div>
+      </div>
+      <div class="form-group row">
+        <div class="col-md-6 col-md-offset-1">
+          <label class="control-label"> Type <span class = "glyphicon glyphicon-asterisk"></span></label>
+          <select data-ng-model="event.type.type" class="form-control input-md">
+            <option value="{{type.type}}" data-ng-repeat="type in eventtypes">{{ "EventTypes." + type.type | translate }}</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group row">
+        <div class="col-md-6 col-md-offset-1">
+          <label class="control-label"> Relevant voor: </label>
+          <div data-ng-repeat="type in transportationTypes">
+            <input type="checkbox" data-ng-true-value="'{{type}}'" data-ng-model="selectedTransportationTypesTemp[$index]"/> {{ "TransportationTypes." + type | translate }}
+          </div>
+        </div>
+      </div>
+      <div class="form-group row">
+        <div class="col-md-6 col-md-offset-1">
+          <label>Actief:</label>
+          <input type="checkbox" data-ng-model="event.active" data-ng-value="true"/>
+          <label>File:</label>
+          <input type="checkbox" data-ng-model="jam" data-ng-click="makeJamForm()"/>
+        </div>
+      </div>
+      <div class="jam" data-ng-show="jam" id="jamDiv">
+        <div class="row form-group">
+          <div class="col-md-6 col-md-offset-1">
+            <br/>
+            <h4>Geef een begin- en eindadres van de file, of duid 2 punten aan op de kaart</h4>
+            <label>Startpunt:</label>
+            <input type="text" id="startpointAddressAutocomplete" class="form-control input-md"/>
+          </div>
+        </div>
+        <div class="form-group row">
+          <div class="col-md-6 col-md-offset-1">
+            <label>Eindpunt:</label>
+            <input type="text" id="endpointAddressAutocomplete" class="form-control input-md"/>
+          </div>
+        </div>
+        <div class="form-group row">
+          <div class="col-md-6 col-md-offset-1">
+            <label>Gemiddelde snelheid (km/u)</label>
+            <input type="number" step="any" min="0" max="120" data-ng-model="jamjam.speed" class="form-control input-md"/>
+          </div>
+        </div>
+        <div class="form-group row">
+          <div class="col-md-6 col-md-offset-1">
+            <label>Gemiddelde vertraging (sec)</label>
+            <input type="number" step="any" min="0" data-ng-model="jamjam.delay" class="form-control input-md"/>
+          </div>
+        </div>
+        <div id="mapWrapper" class="row">
+          <div id="map" class="col-md-6 col-md-offset-1" style="height: 575px;">
+            <center>Waiting for the map...</center>
+          </div>
+
+        </div>
+        <div class="alert alert-success col-md-offset-1 col-md-6" data-ng-show="jamAddSuccess" style="margin-top: 30px;">
+          <a class="close" data-dismiss="alert" aria-label="close">&times;</a>
+          <strong>Gelukt!</strong> De file werd correct opgeslagen. U kan eventueel een extra file toevoegen.
+        </div>
+        <div class="row col-md-12">
+          <button type="button" class="btn icon-btn btn-primary col-md-offset-1" data-ng-click = "addJam()" style="margin-bottom: 3em;" title="Event toevoegen">
+            <span class="glyphicon btn-glyphicon glyphicon-plus img-circle text-primary"></span>
+            Voeg nog een file toe
+          </button>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-12">
+          <button type="submit" class="btn icon-btn btn-danger col-md-offset-1 btn-vop btn-155px" data-ng-click = "goBack()" style="margin-bottom: 1em;" title="Annuleren">
+            <span class="glyphicon btn-glyphicon glyphicon-remove img-circle text-danger pull-left"></span>
+            <span class="btn-vop-center-text">Annuleren</span>
+          </button>
+          <button type="submit" class="btn icon-btn btn-success btn-vop btn-155px" data-ng-click = "addNewEvent()" style="margin-bottom: 1em;" title="Event toevoegen">
+            <span class="glyphicon btn-glyphicon glyphicon-floppy-disk img-circle text-success pull-left"></span>
+            <span class="btn-vop-center-text">Opslaan</span>
+          </button>
+
+        </div>
+      </div>
+    </form>
+  </div>
+  <div id="errorMessage" class="row form-group divMessages">
+    <h3 class="text-center">Opgelet</h3>
+    <br/>
+    <p class="text-center"></p>
+    <input type="submit" class="btn btn-primary pull-right specialButton" value="Sluiten" data-ng-click="close()"/>
+    <!-- Here comes the error message as specified in javascript -->
+  </div>
+</div>

@@ -1,0 +1,206 @@
+%\documentclass[11pt,twoside,a4paper]{report}
+\documentclass{scrbook}
+
+\usepackage[dutch]{babel}
+\usepackage{a4wide}
+\usepackage{enumitem}
+\usepackage{graphicx}                   % Om figuren te kunnen verwerken
+\usepackage{graphics}			% Om figuren te verwerken.
+\usepackage{hyperref}
+
+
+\renewcommand*{\familydefault}{\sfdefault}
+
+\newcommand*{\veld}[1]{
+	\item \textbf{#1} 
+}
+
+%\newcommand*{\verplicht}[1]{
+%	\item \underline{\textbf{*#1}}
+%}
+
+\newcommand*{\verplicht}[1]{
+	\textbf{#1}
+}
+
+\newcommand*{\copyimage}[4]{ 			%SYNTAX: \copyimage{<img_name>}{<label>}{<width>}{caption}
+	\begin{figure}
+	%\begin{center}
+	\includegraphics[width=#3]{../latex_extra/images/#1}
+	\caption{\textit{#4}}\label{#2}
+	%\end{center}
+	\end{figure}
+}
+
+\newcommand*{\copyimageH}[2]{ 			%SYNTAX: \copyimageH{<img_name>}{<width>}
+	%\begin{figure}[ht]
+	%\begin{center}
+	\includegraphics[width=#2]{../latex_extra/images/#1}
+	%\end{center}
+	%\end{figure}
+}
+
+\title{Specificatiedocument}
+
+\newcommand*{\logo}{../latex_extra/images/ugent.png}
+
+
+\begin{document}
+
+\input{../latex_extra/titlepage/titlepage}
+
+\section*{Voorwoord}
+In dit document worden specificaties opgelijst die ervoor zorgen dat de applicatie correct kan werken. Deze specificaties zijn details waarmee de gebruiker rekening moet houden tijdens het gebruiken van de applicatie. Er wordt  gespecificeerd welke data deze applicatie gebruikt, waarvoor het dient, welke informatie de gebruiker precies te zien krijgt, welke informatie er wordt gevraagd aan de gebruiker en wat hij/zij verplicht moet ingeven tijdens het toevoegen of wijzigen van de data.
+
+\paragraph{}De specificaties zijn gegroepeerd volgens het entiteit waarbij ze horen en de functionaliteit van deze. Onze applicatie is gebaseerd op de interractie tussen drie entiteiten: een gebruikersprofiel, de voorkeuren van de gebruiker (gelinkt aan zijn profiel) en tenslotte gebeurtenissen. Voor elk van deze entiteiten zullen de bijhorende specificaties vermeldt en uitgelegd worden. De belangerijkste zijn de gegevens dat ingegeven moet worden bij het aanmaken, bij het wijzigen en welke van ze later opgevraagd/getoond kunnen woorden en wanneer. Als de gegevens afhankelijk zijn van de actie dat wordt uitgevoerd(aanmaken, wijzigen, opvragen, ...) dan wordt voor elk van de mogelijke acties vermeld welke gegevens daarbij van toepassing zijn.
+
+\paragraph{}Voorlopig gaan de specificaties enkel over het gedeelte van de functionaliteit dat werd gevraagd voor \href{https://github.ugent.be/pages/VakOverschrijdendProject/opgave/#toc2}{milestone 2} en die al beschikbaar is in onze webapplicatie.
+
+\newpage
+\tableofcontents
+%\newpage
+
+
+\chapter{Gebruikersprofiel}\label{profile}
+
+\section{Aanmaken (registreren)}
+Bij het registreren wordt een nieuw profiel aangemaakt en zijn er daarvoor een paar velden dat de gebruiker moet invullen met zijn informatie.
+\begin{itemize}
+\veld{Voornaam:} de voornaam van de gebruiker.
+\veld{Achternaam:} de achternaam van de gebruiker.
+\veld{GSM-nummer:} de telefoonnummer van de gebruiker.
+\veld{E-mail:} het e-mailadres waarop de gebruiker verkeersinformatie wilt ontvangen.
+\veld{Notificeer mij:} dit is een vak dat de gebruiker kan uitvinken als hij/zij geen verkeersmeldingen wenst te ontvangen. Deze staat standaard aangevinkt.\footnote{De gebruiker kan beslissen geen meldingen te willen ontvangen voor gelijk welke gebeurtenis(zie sectie \ref{profile}) of voor enkele van zijn voorkeuren(zie sectie \ref{pref}).\label{foot_meld}}
+\veld{Wachtwoord:} het wachtwoord dat de gebruiker wenst te gebruiken om zich te kunnen aanmelden.
+\veld{Wachtwoord:} dit veld dient ter verificatie. De gebruiker moet opnieuw hetzelfde wachtwoord ingeven als die van het vorige veld. Als het verschilt wordt het aanmaken of wijzigen van het profiel niet voltooid.
+\veld{Privacy-beleid:} de gebruiker moet dit vakje aanvinken om een nieuw profiel te kunnen aanmaken. Door deze aan te vinken geeft de gebruiker de toestemming om zijn persoonlijke gegevens te gebruiken voor andere stadsdiensten(OCMW Gent, Stad Gent, Stadsbibliotheek Gent, ...). Dit laat toe de verschillende profielen dat de gebruiker heeft bij de stadsdiensten aan elkaar te linken zodat de diensten van de stad Gent beter kunnen presteren en het gebruik ervan ook makkelijker wordt.
+\end{itemize}
+ \paragraph{}De verplicht in te vullen (aan te vinken) velden (vakjes) zijn: \verplicht{voornaam, achternaam, e-mail, wachtwoord, wachtwoord, privacy-beleid}.
+Wanneer deze niet ingevuld zijn kan het aanmaken of het wijzigen niet worden voltooid \footnote{zie \href{usecases.pdf}{usecases}}.
+
+\section{Wijzigen}
+Bij het wijzigen van een profiel wordt er \'e\'en veld niet meer getoond, nl. het vakje met het privacy-beleid. De andere velden worden aangeboden voor wijzigingen. Behalve het wachtwoord worden ze allemaal ingevuld met de informatie dat de gebruiker als laatst v\'o\'or het wijzigen correct had opgeslagen. De velden die men kan wijzigen in zijn profiel zijn dus
+\begin{itemize}
+\veld{Voornaam}
+\veld{Achternaam}
+\veld{GSM-nummer}
+\veld{E-mail:}
+\veld{Notificeer mij}
+\veld{Wachtwoord}
+\veld{Wachtwoord}
+\end{itemize}
+ \paragraph{}Voor deze velden gelden dezelfde verplichtingen als bij het aanmaken van een profiel. De velden die dus verplicht ingevuld moeten worden bij het wijzigen van zijn profiel zijn: \verplicht{voornaam, achternaam, e-mail, wachtwoord, wachtwoord}.
+
+ \section{Tonen van een profiel}
+Wanneer er wordt gevraagd zijn eigen profiel te tonen, worden enkel de volgende velden weergegeven met de laatste correct opgeslagen gegevens:
+\begin{itemize}
+\veld{Voornaam}
+\veld{Achternaam}
+\veld{GSM-nummer}
+\veld{E-mail}
+\veld{Meldingen aan:} dit veld geeft \copyimageH{vinkje.PNG}{1em} als het vakje \textit{Notificeer mij} werd aangevinkt bij het registreren of tijdens de laatste wijziging anders geeft het \copyimageH{krijsje.PNG}{1em}
+\end{itemize}
+
+
+\chapter{Voorkeuren van een gebruiker}\label{pref}
+Een gebruiker kan zijn voorkeuren ingeven bij het aanmaken van zijn profiel en/of later nog aanvullen of wijzigen. Er zijn verschillende types van voorkeuren dat een gebruiker kan ingeven:
+\begin{itemize}
+\item \textbf{Trajecten:} die worden gekenmerkt door een vertrekpunt en een bestemming. Een traject bevat dan op zijn beurt meerdere routes die de verschillende manieren voorstellen waarop de gebruiker van het vertrekpunt naar de bestemming gaat.
+\item \textbf{Interessante punten:} dit zijn gebieden die niet gespecificeerd zijn in de trajecten maar waarover de gebruiker wel verkeersmeldingen wilt krijgen of simpelweg ter beschikking wilt hebben in zijn profiel.%\footnotemark[\ref{foot_meld}].
+\end{itemize}
+Het is enkel voor de voorkeuren dat de gebruiker heeft ingegeven (en opgeslagen) in zijn profiel dat hij/zij verkeersmeldingen zal ontvangen tenzij expliciet werd vermeld %\footnotemark[\ref{foot_meld}] 
+dat het niet gewenst is.\\
+
+\section{Trajecten}
+\subsection{Traject aanmaken}\label{trav_new}
+Wanneer een traject wordt toegevoegd aan een profiel van een gebruiker worden volgende velden voorgelegd aan de gebruiker:
+\begin{itemize}
+\veld{Naam:} een naam dat de gebruiker toekent aan het traject
+% indien de gebruiker een naam wilt toekennen aan deze route moet dit veld gebruikt worden om de naam in te geven. Als de gebruiker geen naam opgeeft, genereert het systeem zelf een standaardnaam: \emph{``trajectN"'} waar $N$ een getal voorstelt.
+\veld{Tijdsinterval:} twee tijdstippen worden gevraagd aan de gebruiker om een tijdsinterval te defini\"eren die dan bepaalt wanneer de gebruiker meldingen mag krijgen over dit traject.
+\veld{Voorkomens:} deze zijn vakken die de dagen van de week voorstellen. De dagen die aangevinkt moeten worden zijn de dagen waarop de gebruiker de meldingen wilt krijgen over deze route.
+\veld{Vertrekpunt:} is het punt waarvan de gebruiker vertrekt. Deze wordt aangeduid op een kaart.  Na het aanmaken is deze niet meer wijzigbaar
+\veld{Bestemming:} de bestemming van de gebruiker. Deze wordt ook aangeduid op een kaart. Na het aanmaken is deze ook niet meer wijzigbaar
+\veld{Route:} stelt een manier voor waarop de gebruiker van het vertrekpunt naar de bestemming gaat. Deze kan al aangemaakt worden samen met het traject of later. Specificaties daarover volgen in punt \ref{routes}.
+\end{itemize}
+ Het is enkel in de aangegeven tijdsinterval op de aangevinkte dagen dat de gebruiker meldingen kan krijgen over gebeurtenissen op zijn routes. Dus zolang geen enkele dag wordt aangevinkt en geen route bestaat voor een traject zal de gebruiker zeker geen meldingen krijgen over gebeurtenissen omtrent dat traject.
+\paragraph{}De verplicht in te geven gegevens zijn hier:\verplicht{naam, tijdsinterval, vertrekpunt en bestemming}.
+
+
+\subsection{Traject wijzigen}
+Bij het wijzigen van een traject worden het vertrekpunt en de bestemming niet aangeboden voor wijzigingen. Het is dus niet mogelijk om een traject een nieuw vertrekpunt of een nieuwe bestemming te geven eenmaal het al opgeslagen is. De enige gegevens die wijzigbaar zijn zijn de volgende:
+\begin{itemize}
+\veld{Naam}
+\veld{Tijdsinterval}
+\veld{Voorkomens}
+\end{itemize}
+\paragraph{}De velden die niet leeg mogen zijn en verplicht ingevuld moeten blijven zijn:\verplicht{naam en tijdsinterval}.
+
+\subsection{Traject tonen}
+Wanneer een traject wordt opgevraagd dan worden dezelfde velden getoond als degene die bij het aanmaken zijn vermeld (zie punt \ref{trav_new}). 
+
+
+\subsection{Routes}\label{routes}
+Zoals eerder al vermeld bestaat een traject ook uit verschillende routes waarin de gebruiker aangeeft hoe hij/zij van het ingegeven vertrekpunt naar de bestemming gaat. 
+Bij het defini\"eren van een nieuwe route, het wijzigen van een oude route en het tonen van een route worden dezelfde velden aangeboden.\\Hieronder volgt een oplijsting van die velden.
+\begin{itemize}
+\veld{Tussenpunten} dit zijn punten waar de gebruiker wenst langs te gaan telkens wanneer hij deze route neemt. Deze punten worden aangeduid en weergegeven op een kaart.
+\veld{Vervoersmiddel} de gebruiker krijgt de keuze tussen verschillende transportmiddelen en kiest degene die hij/zij gebruikt om deze route af te leggen.
+\veld{Meldingsmedium} de gebruiker kan de manier kiezen waarop hij/zij de meldingen voor deze route wilt ontvangen(voorlopig enkel per GSM of per mail).
+\veld{Gebeurtenistypes:} hier kan de gebruiker kiezen voor welke type gebeurtenissen hij/zij meldingen wilt krijgen voor deze route. De types gebeurtenissen worden later gespecificeerd.
+\end{itemize}
+\paragraph{}Er is hier maar 1 verplicht veld, nl. \verplicht{transportmiddel}. Als er geen tussenpunten worden gegeven komt dit overeen met een route dat van het vertrekpunt van het traject onmiddelijk naar de bestemming gaat zonder verplichte tussenstops.
+\paragraph{}Deze specificaties gelden voor het aanmaken en het wijzigen van een route. Bij het tonen van een route worden ook al deze velden getoond. De tussenpunten worden dan op een kaart gemarkeerd samen met het vertrekpunt en de bestemming van het bijhorende traject.
+
+
+\section{Interessante punten}
+Naast de trajecten met de routes is er nog een andere type voorkeuren: interessante punten van de gebruiker in de stad.
+Als de gebruiker graag op de hoogte wordt gehouden van gebeurtenissen rond een plaats(bvb. buurtomgeving, buurt rond de school, ...) kan hij/zij deze ingeven in zijn interessante punten en een straal specificeren om zo een gebied te begrenzen waarvan de gebruiker specifieke verkeersmeldingen wilt krijgen. Interessante punten zijn dus gebieden/streken waarin de gebruiker ge\"interesseerd is en waarvoor hij/zij graag een melding wenst te krijgen als er daar iets misloopt met het verkeer.
+
+\paragraph{}Velden die bij interessante punten horen zijn de volgende:
+\begin{itemize}
+\veld{Naam} de gebruiker kan een naam aan dit aandachtspunt geven. Als de gebruiker geen naam opgeeft, genereert het systeem zelf een standaardnaam: \emph{``aandachtspuntN"'} waar $N$ een getal voorstelt.
+\veld{Actief} een vak dat aangevinkt moet worden als de gebruiker geen meldingen wenst te krijgen voor deze route.%\footnotemark[\ref{foot_meld}]
+\veld{Gebeurtenistypes} de gebruiker kan hier types van gebeurtenissen kiezen waarvoor hij meldingen wilt krijgen.
+\veld{Meldingsmedium} de gebruiker kan de manier kiezen waarop hij/zij de meldingen voor deze route wilt ontvangen(voorlopig enkel per GSM of per mail).
+\veld{Interessant punt:} het centraal punt van de zone dat u wilt aanduiden. Deze wordt ingegeven met behulp van een kaart.
+\veld{Straal} de straal die de grootte van het gebied rondom het interessant punt bepaald. Deze wordt ook ingegeven met behulp van een kaart om de aangeduide zone grafisch te kunnen weergeven.
+\end{itemize} 
+\paragraph{}De velden die verplicht ingevuld moeten zijn zijn \verplicht{interessant punt en straal}. 
+\paragraph{}Deze specificaties gelden voor het aanmaken en het wijzigen van een interessant punt. Bij het weergeven van een interessant punt worden ook al deze velden getoond. Het interessant punt zelf en de straal worden voor de duidelijkheid op een kaart weergegeven.
+
+
+\chapter{Gebeurtenis}
+Een gebeurtenis is een evenement dat zich heeft voorgedaan(of gaat voordoen) en dat er voor kan zorgen dat een gebruiker een bepaalde plaats niet meer kan bereiken met bepaalde vervoersmiddelen. Gebruikers die dan een route hebben die via deze plaats gaat en die vervoesmiddelen gebruiken waarvoor de gebeurtenis relevant is of die een interessant punt hebben waarin die plaats zit, zijn de enige die dan een melding kunnen krijgen. Ze krijgen een melding als in hun profiel en in de velden van het interessant punt of de route niet staat dat ze geen meldingen willen krijgen daarover en als de gebeurtenis zelf op actief staat. Geen enkele gebruiker zal een melding krijgen van de gebeurtenis als het onactief is.
+
+\section{Gebeurtenistypes}
+\paragraph{}Welke vervoersmiddelen en plaatsen in aanmerking komen bij een gebeurtenis hangt af van de gebeurtenistype. Er zijn verschillende gebeurtenistypes aanwezig in onze applicatie:
+\begin{itemize}
+\veld{Ongeval}
+\veld{File} 
+\veld{Slecht weer}
+\veld{Gevaar op de baan}
+\veld{Niet gedefinieerd}
+\veld{Wegenwerken}
+\veld{Weg afgesloten}
+\end{itemize}
+
+
+\section{Aanmaken en wijzigen van een gebeurtenis}
+Wanneer een gebeurtenis wordt aangemaakt moet er informatie gegeven worden over de gebeurtenis. Dit is dan dezelfde informatie die wordt weergegeven bij het tonen van de gegevens van die gebeurtenis en bij het wijzigen van die gegevens.\\ 
+De verplichte velden bij het aanmaken en het wijzigen worden onderstreept en met een asterisk(*) aangeduid.
+
+\begin{itemize}
+\veld{Naam:} hier wordt een naam gevraagd voor het event.
+\veld{Adres:} het adres van de plaats waar de gebeurtenis plaatsvindt.
+\veld{Beschrijving:} een beschrijving van de gebeurtenis.
+\veld{Bron:} de bron die de gebeurtenis heeft gepubliceerd.
+\veld{Type:} het type van de gebeurtenis. Enkel personen die geabonneerd zijn voor dit type zullen hiervoor een melding krijgen. Er is een lijst waaruit een type geselecteerd kan worden.
+\veld{Relevante vervoermiddel:} de vervoermiddel waarvoor de gebeurtenis relevant is.
+\veld{Actief:} is een vakje om de staat van de gebeurtenis aan te duiden. Het wordt enkel aangevinkt als de gebeurtenis actief is.
+\veld{File:} is een vakje dat enkel aangevinkt moet worden als de gebeurtenis voor file zorgt, heeft gezorgd of gaat zorgen. 
+\end{itemize}
+
+De verplicht in te vullen velden voor een gebeurtenis zijn: \verplicht{naam, adres, beschrijving, bron, type}.
+
+\end{document}

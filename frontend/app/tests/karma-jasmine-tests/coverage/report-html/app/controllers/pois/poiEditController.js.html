@@ -1,0 +1,641 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for app\controllers\pois\poiEditController.js</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../../../prettify.css" />
+    <link rel="stylesheet" href="../../../base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="../../../index.html">all files</a> / <a href="index.html">app/controllers/pois/</a> poiEditController.js
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">93.33% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>70/75</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">92.86% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>26/28</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">87.5% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>14/16</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">94.59% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>70/74</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line high'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154
+155
+156
+157
+158
+159
+160
+161
+162
+163
+164
+165
+166
+167
+168
+169
+170
+171
+172
+173
+174
+175
+176
+177
+178
+179
+180
+181
+182
+183
+184
+185
+186
+187
+188
+189
+190
+191
+192
+193</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">14×</span>
+<span class="cline-any cline-yes">98×</span>
+<span class="cline-any cline-yes">14×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">14×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">7×</span>
+<span class="cline-any cline-yes">7×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">7×</span>
+<span class="cline-any cline-yes">7×</span>
+<span class="cline-any cline-yes">7×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">7×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">14×</span>
+<span class="cline-any cline-yes">7×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">6×</span>
+<span class="cline-any cline-yes">6×</span>
+<span class="cline-any cline-yes">6×</span>
+<span class="cline-any cline-yes">42×</span>
+<span class="cline-any cline-yes">6×</span>
+<span class="cline-any cline-yes">36×</span>
+<span class="cline-any cline-yes">6×</span>
+<span class="cline-any cline-yes">30×</span>
+<span class="cline-any cline-yes">6×</span>
+<span class="cline-any cline-yes">24×</span>
+<span class="cline-any cline-yes">6×</span>
+<span class="cline-any cline-yes">18×</span>
+<span class="cline-any cline-yes">6×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">// Global variable to check if google api is already loaded (needed to avoid unexpected errors)
+var googleLoaded = false;
+&nbsp;
+/**
+ * @author Frontend team
+ * @memberof angular_module.vopApp.vopPOI
+ * @constructor poiEditController
+ */
+angular.module('vopPOI').controller('poiEditController', function($scope, $http, $location, $routeParams, $timeout, PointOfInterest, EventType) {
+    /**
+     * @constant icon
+     * @type {string}
+     */
+    var icon = 'assets/images/map-pin-special.svg';
+    // ...
+    $scope.geocoder;
+    // Variable that will contain the address-data of the added point entered by the user.
+    $scope.pointAutocomplete;
+    // Variable that will contain the data of the marker of the point in order to display a marker on the map.
+    $scope.pointMarker;
+    // Variable that will contain the data of the circle with the point at it's center.
+    $scope.circle;
+&nbsp;
+    // Gets the resource data in an async way through the service.
+    $scope.poi=PointOfInterest.get({userId: $routeParams.userId, poiId: $routeParams.poiId}, function(data){
+        /**
+         * @member poi
+         * @description point of interest to be edited
+         * @memberof angular_module.vopApp.vopPOI.poiEditController
+         */
+        $scope.poi = data;
+&nbsp;
+        /**
+         * @member eventTypes
+         * @description model to hold all the event types that can possibly selected
+         * @memberof angular_module.vopApp.vopPOI.poiEditController
+         * @type {*|{method, isArray}}
+         */
+        $scope.eventTypes = EventType.query();
+&nbsp;
+        /**
+         * @member tempHolder
+         * @description array to temporarily hold the answers of the selected events
+         * @memberof angular_module.vopApp.vopPOI.poiEditController
+         * @type {Array}
+         */
+        $scope.tempHolder = [];
+&nbsp;
+&nbsp;
+        //Checks the checkboxes that should be checked once the data has been received.
+        $scope.eventTypes.$promise.then(function(data2){
+            var i = 0;
+            angular.forEach(data2, function(event){
+                for(var j = 0; j &lt; $scope.poi.notify_for_event_types.length; j++){
+                    if(event.type == $scope.poi.notify_for_event_types[j].type){
+                        $scope.tempHolder[i] = event;
+                    }
+                }
+                i++;
+            });
+        });
+    });
+&nbsp;
+    /**
+     * @member selectedEventTypes
+     * @description array of the selected event types, ready to be send to the API
+     * @memberof angular_module.vopApp.vopPOI.poiEditController
+     * @type {Array}
+     */
+    $scope.selectedEventTypes = [];
+&nbsp;
+    /**
+     * @member selectedAll
+     * @description Boolean that checks if the user wishes to select all options
+     * @memberof angular_module.vopApp.vopPOI.poiEditController
+     * @type {Boolean}
+     */
+    $scope.selectedAll = false;
+    /**
+     * @function save
+     * @description The function will save the changes made to the point of interest and redirect to the show-page of this point of interest
+     * @memberof angular_module.vopApp.vopPOI.poiEditController
+     */
+    $scope.save = function(){
+        <span class="missing-if-branch" title="if path not taken" >I</span>if($scope.pointMarker==null){
+<span class="cstat-no" title="statement not covered" >            $scope.showErrorMessage("Gelieve een addres in te geven.");</span>
+<span class="cstat-no" title="statement not covered" >            return;</span>
+        }
+        $scope.geocoder.geocode({'location': $scope.pointMarker.position}, function(results, status){
+            if (status === google.maps.GeocoderStatus.OK) {
+                if (results[0]) {
+                    $scope.$apply(function () {
+                        $scope.poi.address = formatAddress(results[0], $scope.pointMarker.getPosition());
+                        angular.forEach($scope.tempHolder, function(entry){
+                            console.log(entry);
+                            <span class="missing-if-branch" title="if path not taken" >I</span>if(entry!=null &amp;&amp; entry != false){
+<span class="cstat-no" title="statement not covered" >                                $scope.selectedEventTypes.push(entry);</span>
+&nbsp;
+                            }
+                        });
+                        $scope.poi.notify_for_event_types = $scope.selectedEventTypes;
+                        console.log($scope.poi);
+                        $scope.poi.$edit({userId: $routeParams.userId});
+                        $location.path('/user/' + $routeParams.userId + '/poi/' + $routeParams.poiId);
+                    });
+                } else {
+                    window.alert('No results found');
+                }
+            } else {
+                window.alert('Geocoder failed due to: ' + status);
+            }
+        });
+&nbsp;
+    };
+&nbsp;
+    /**
+     * @function cancel
+     * @description The function will redirect to the show page of the point of interest
+     * @memberof angular_module.vopApp.vopPOI.poiEditController
+     */
+    $scope.cancel = function(){
+        $location.path('/user/' + $routeParams.userId + '/poi/' + $routeParams.poiId);
+    };
+&nbsp;
+    /**
+     * @function submit
+     * @description round about way of making the submit button work in multiple browsers as it is not inside the form
+     * @memberof angular_module.vopApp.vopPOI.poiEditController
+     */
+    $scope.submit = <span class="fstat-no" title="function not covered" >function(){</span>
+        //simulate the clicking of the submit button
+<span class="cstat-no" title="statement not covered" >        $timeout(<span class="fstat-no" title="function not covered" >function(){<span class="cstat-no" title="statement not covered" ></span>$("#poiEditForm").click();}</span>,0);</span>
+    };
+&nbsp;
+    /**
+     * @function selectAll
+     * @description functions that unchecks or checks all the boxes when necessary
+     * @memberof angular_module.vopApp.vopPOI.poiEditController
+     */
+    $scope.selectAll = function(){
+        if($scope.selectedAll){
+            var k = 0;
+            angular.forEach($scope.eventTypes, function(type){
+                console.log(type);
+                $scope.tempHolder[k] = type;
+                k++;
+            });
+        } else {
+            for(var i = 0; i &lt; $scope.eventTypes.length; i++){
+                $scope.tempHolder[i] = false;
+            }
+        }
+    };
+&nbsp;
+    /**
+     * @function checking
+     * @description functions that unchecks or checks the selected all option when necessary
+     * @memberof angular_module.vopApp.vopPOI.poiEditController
+     */
+    $scope.checking = function(){
+        var tmp = true;
+        for(var i = 0; i &lt; $scope.tempHolder.length; i++){
+            if($scope.tempHolder[i] == false){
+                tmp = false;
+            }
+        }
+        $scope.selectedAll = tmp;
+    };
+});
+&nbsp;
+var formatAddress = function(address, position){
+  var result={};
+  result.housenumber = "1";
+  address.address_components.forEach(function(entry){
+    if(entry.types[0]==="route" || entry.types[0]==="premise"){
+      result.street = entry.long_name;
+    } else if(entry.types[0]==="street_number"){
+      result.housenumber = entry.long_name;
+    } else if (entry.types[0]==="locality"){
+      result.city = entry.long_name;
+    } else if(entry.types[0]==="country"){
+      result.country = entry.short_name;
+    } else if(entry.types[0]==="postal_code"){
+      result.postal_code = entry.long_name;
+    }
+  });
+  result.coordinates = {
+    lat: position.lat(),
+    lon: position.lng()
+  };
+  return result;
+};
+&nbsp;</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Mon May 16 2016 00:41:26 GMT+0200 (Romance Daylight Time)
+</div>
+</div>
+<script src="../../../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../../../sorter.js"></script>
+</body>
+</html>

@@ -1,0 +1,60 @@
+<div class="container-fluid panel">
+
+    <div class="well table-responsive">
+
+        <div class="row">
+            <div class="col-sm-11">
+                <h2>
+                    Interessante punten
+                </h2>
+            </div>
+            <div class="col-sm-1 pull-right">
+                <button class="btn icon-btn btn-success pull-right" data-ng-click = "addNew()" title="nieuw punt aanmaken">
+                    <span class="glyphicon btn-glyphicon glyphicon-plus img-circle glyphicon-green"></span>
+                    Nieuw punt toevoegen
+                </button>
+            </div>
+        </div>
+
+
+        <table  class = "table table-condensed">
+            <thead>
+            <tr>
+                <th>Naam</th>
+                <th>Locatie</th>
+                <th class="text-center"> E-mail</th>
+                <th class="text-center">Actief</th>
+                <th> Informeer me bij</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr data-ng-repeat="poi in pois" data-ng-click="goto(poi.id)" class="hoverTableRow">
+                <td>{{ poi.name }}</td>
+                <td>{{ poi.address.street }} {{ poi.address.housenumber }}, {{ poi.address.postal_code }} {{ poi.address.city }}, {{ poi.address.country }}</td>
+                <td class="text-center">
+                    <span data-ng-show="poi.notify.email" class="glyphicon glyphicon-ok text-success"></span>
+                    <span data-ng-hide="poi.notify.email" class="glyphicon glyphicon-remove text-danger"></span>
+                </td>
+                <td class="text-center">
+                    <span data-ng-show="poi.active" class="glyphicon glyphicon-ok text-success"></span>
+                    <span data-ng-hide="poi.active" class="glyphicon glyphicon-remove text-danger"></span>
+                </td>
+                <td>
+                    <div data-ng-repeat="event in poi.notify_for_event_types">{{ "EventTypes." + event.type | translate }}</div>
+                </td>
+                <td>
+                    <div class="pull-right">
+                        <button data-ng-click = "edit(poi.id)" class="btn badge" title="Wijzigen">
+                            <span class="glyphicon glyphicon-edit"></span>
+                        </button>
+                        <button data-ng-click = "delete(poi)" class="btn badge" title="Verwijderen">
+                            <span class="glyphicon glyphicon-trash"></span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

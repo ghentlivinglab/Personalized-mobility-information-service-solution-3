@@ -1,0 +1,19 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-10 col-md-offset-1">
+            <div class="alert alert-danger" data-ng-show="notValid" id="alertBox">
+                <a class="close" data-ng-click="alert()" aria-label="close">&times;</a>
+                <p>{{notCompleteMessage}}</p>
+            </div>
+        </div>
+    </div>
+    <p class="well"> De server is uw verzoek aan het verwerken, gelieve een ogenblik geduld te hebben.</p>
+    <div class="row">
+        <div class="col-md-10 col-md-offset-1">
+            <div class="alert alert-success" data-ng-show="notValidSuccess" id="succesBox">
+                <a class="close" data-ng-click="alertSuccess()" aria-label="close">&times;</a>
+                <p>{{notCompleteMessage}}</p>
+            </div>
+        </div>
+    </div>
+</div>

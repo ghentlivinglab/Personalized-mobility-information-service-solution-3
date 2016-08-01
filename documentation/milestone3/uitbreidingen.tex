@@ -1,0 +1,114 @@
+\documentclass{article}
+
+\usepackage[dutch]{babel}
+\usepackage{a4wide}
+\usepackage{enumitem}
+\usepackage{graphicx}                   % Om figuren te kunnen verwerken
+\usepackage{graphics}			% Om figuren te verwerken.
+\usepackage{hyperref}
+\usepackage{listings}
+
+\lstset{
+    breaklines=true
+}
+
+\renewcommand*{\familydefault}{\sfdefault}
+
+\newcommand*{\javaclass}[1]{\emph{#1}}
+
+\newcommand*{\javaintfc}[1]{\javaclass{#1}}
+
+\newcommand*{\javapckg}[1]{\javaclass{#1}}
+
+\newcommand*{\javamethodpres}[1]{\javaclass{#1}}
+
+\newcommand*{\javamethod}[2]{\javaclass{#1(#2)}}
+
+
+
+\title{Uitbreidingsdocument}
+
+\newcommand*{\logo}{../latex_extra/images/ugent.png}
+
+
+\begin{document}
+
+\input{../latex_extra/titlepage/titlepage}
+\newpage
+\tableofcontents
+\newpage
+
+\section{Een nieuwe bron voor gebeurtenissen}
+Voorlopig is de enige bron voor gebeurtenissen Waze zoals de opgave het heeft gespecificeerd. Om een nieuwe bron van gebeurtenissen aan te maken van moet een nieuwe klasse aangemaakt worden die de interface \javaintfc{DataSource} in de package \javapckg{vop.groep7.vop7backend.Datasources} implementeert. Aangezien de package \javapckg{vop.groep7.vop7backend.Datasources} speciaal aangemaakt werd voor entiteiten die te maken hebben met bronnen van gebeurtenissen is het ook best dat de nieuwe klasse ook in diezelfde package aangemaakt wordt.\\
+Om de interface \javaintfc{DataSource} te kunnen implementeren moet een methode \javamethodpres{checkDataSource} aangemaakt worden met de volgende signatuur: \javamethod{public void checkDataSource}{} (zonder return-waarde en zonder argumenten). Deze is de methode die wordt opgeroepen wanneer een databron gecontroleerd moet worden. Het is dan ook in die methode dat de gebeurtenissen opgehaald worden en elk van hen verstuurd wordt naar de \javaclass{EventController} \footnote{De \javaclass{EventController} is bereikbaar via de klasse \javaclass{AppConfig} in de package \javapckg{vop.groep7.vop7backend} met de methode \javamethod{getEventController}{}} voor verdere bewerking (opslaan in databank en meldingen sturen naar de geïnteresseerde gebruikers).\\
+Om het systeem deftig te kunnen laten reageren op een gebeurtenis die net binnen is gekomen is het belangerijk dat er een onderscheid wordt gemaakt tussen gebeurtenissen die het aanmaken van een nieuwe gebeurtenis impliceren of gebeurtenissen die het wijzigen van een al bestaand gebeurtenis impliceren. In de \javaclass{EventController} mogen ze niet door dezelfde methode afgehandeld worden: de nieuwe gebeurtenissen worden meegegeven aan de methode \javamethod{modifyAPIEvent}{int eventId, APIEvent event} ($eventId$ is het id van de gebeurtenis die overschreven moet worden) en nieuwe gebeurtenissen worden meegegeven aan de methode \javamethod{createAPIEvent}{APIEvent event}. Beide methodes maken enkel gebruik van \javaclass{APIEvent}-objecten waardoor elke gebeurtenis omgevormd moet worden in een \javaclass{APIEvent}-object.\\
+%Een \javaclass{APIEvent}-object heeft volgende velden:
+%\begin{lstlisting}
+	%private String id;
+	%private APILinks[] links;
+	%private APICoordinate coordinates;
+	%private boolean active;
+	%@JsonProperty("publication_time")
+	%private String publicationTime;
+	%@JsonProperty("last_edit_time")
+	%private String lastEditTime;
+	%private String description;
+	%private APIJam[] jams;
+	%private APISource source;
+	%private APIEventType type;
+	%@JsonProperty("relevant_for_transportation_types")
+	%private APITransport[] relevantForTransportationTypes;
+%\end{lstlisting}
+%Hetgene dat nog speciaal moet aangemaakt worden voor de nieuwe databron is een \javaclass{APISource}-object. Een \javaclass{APISource}-object zorgt voor het identificeren van de bron van  de \javaclass{APIEvent}-object. Het is dus belangerijk dat elke bron zijn eigen \javaclass{APISource}-object heeft en die gebruikt voor alle \javaclass{APIEvent}-objecten dat hij gaat aanmaken.
+\paragraph{}Indien nodig en/of gewenst kan een nieuwe subklasse aangemaakt worden van de klasse \javaclass{Event} uit de domeinlaag in de package \javapckg{package vop.groep7.vop7backend.Models.Domain.Events} om een nieuw type javaclass{Event}-objecten te defini\"eren met een ander gedrag dan degene die al bestaan (nl. \javaclass{JamEvent} en \javaclass{AlertEvent}).
+\paragraph{}Als laatst kan ervoor gekozen worden om het ophalen van de gebeurtenissen met de nieuwe bron als een geplande taak(scheduled task) toe te voegen in het bean-bestand van Spring (bestand $beans.xml$ in de resources-directory van het Spring-project). Daarvoor moet men eerst een instantie van de bron-klasse registreren als een bean en een scheduled-task toevoegen bij de al reeds gedefini\"eerde scheduled-task(s) die dan de methode \javamethod{checkDataSource}{} gaat oproepen. Als we stellen dat we onze nieuwe bron-klasse  \javaclass{EventSource} hebben genoemd en we bvb om de 24 uren data moeten controleren als data beschikbaar is dan doen we dat als volgt:
+\begin{lstlisting}
+	...
+	<bean id="EventSourceConfig" class="vop.groep7.vop7backend.Datasources.EventSource" />
+	...
+   
+	<task:scheduled-tasks>
+		...
+		<task:scheduled ref="EventSourceConfig" method="checkDataSource" cron="0 0 0 * * *"></task:scheduled>
+		...
+	</task:scheduled-tasks>
+\end{lstlisting}
+Voor het gemak en meer structuur zou de \emph{cron}-eigenschap van de scheduled task in het bestand application.properties in de resources-map mogen gaan. Daar staat ook die van de scheduled task voor Waze gedefinieerd.
+
+\paragraph{In het kort} zijn dus de volgende stappen nodig om een nieuwe bron van gebeurtenissen te gebruiken:
+\begin{enumerate}
+\item In de package \javapckg{vop.groep7.vop7backend.Datasources} een klasse met een default constructor die de interface \javaintfc{DataSource}(in dezelfde package) implementeert aanmaken die de bron gaat voorstellen.
+%\item Een \javaclass{APISource}-object aanmaken waaraan een naam wordt meegegeven en desnoods ook de locatie van een icoontje voor die bron\label{api_source}
+\item Indien gewenst een nieuwe subklasse defini\"eren van de klasse \javaclass{Event} uit de domeinlaag in de \javapckg{package vop.groep7.vop7backend.Models.Domain.Events}-package.
+\item De methode  \javamethod{public void checkDataSource}{} implementeren. Deze moet:
+	\begin{enumerate}
+		\item de gebeurtenissen afhalen en omzetten naar \javaclass{APIEvent}-objecten %(niet vergeten het \javaclass{APISource}-object te gebruiken uit stap \label{api_source})
+		\item de gebeurtenissen \'e\'en voor \'e\'en doorgeven aan de \javaclass{EventController} via de methodes \javamethod{modifyAPIEvent}{int eventId, APIEvent event} voor  degene die een reeds opgeslagen gebeurtenis overschrijven en \javamethod{createAPIEvent}{APIEvent event} voor nieuwe gebeurtenissen.
+	\end{enumerate}
+\item Als een geplande taak(scheduled task) nodig is die de \javamethodpres{checkDataSource}-methode moet oproepen:
+	\begin{enumerate}
+		\item een object van de nieuwe bron-klasse registreren als bean in bean.xml in de resources-map
+		\item een nieuwe scheduled task die de methode van de bean gaat oproepen toevoegen in de lijst van scheduled tasks.
+	\end{enumerate}
+\end{enumerate}
+
+\section{Meertalige website}
+Op dit moment is de website slechts in  taal beschikbaar, namelijk Nederlands. Maar er gebeuren hier en daar al vertalingen in de achtergrond vermits we sommige data in het Engels binnenkrijgen. Hierdoor moeten er slechts een paar simpele uitbreidingen gebeuren om de website in een nieuwe taal te verkrijgen.
+
+De volgende stappen moeten echter ondernomen worden:
+\begin{enumerate}
+\item Voor alle teksten een vertaling voorzien in een bijhoordend json bestand.
+\item Alle teksten in het volgende formaat onderbrengen $\{\{$"tekst die vertaald moet worden" $|$ translate$\}\}$.
+\item Knop toevoegen in het bestand index.html die toelaat om tussen de talen te wisselen.
+\end{enumerate}
+
+Een andere mogelijkheid voor de laatste optie is de taal automatisch af te leiden uit de instellingen van de browser en/of de locatie van ip-adres.
+
+\section{Toevoeging interessante punten manipulatie in de app}
+Eerst moet er een \javaclass{Activity} en een \javaclass{View} bijgemaakt worden. De \javaclass{Activity} zit vast aan de respectievelijk view en moet bovendien overerven van de \javaclass{BaseActivity} klasse. Deze gaat dan elke actie van de gebruiker op het scherm interpreteren en zo de gepaste acties doen via de bijhorende \javaclass{POICommunication}. Deze moet ook zelf aangemaakt worden met overerving van \javaclass{Communication} en implementeerd voor elke gewenste handeling een functie. De zelfgedefinieerde \javaclass{POICommunication} moet aan een singleton eigenschap voldoen. De singleton eigenschap stipuleert dat in de hele werking van de applicatie (en op elk moment in de tijd) slechts 1 en enkel 1 instantie van dit object mag bestaan en bevraagd worden.
+
+\section{Toevoeging Trajecten manipulatie in de app}
+Eerst moet er een \javaclass{Activity} en een \javaclass{View} bijgemaakt worden. De \javaclass{Activity} zit vast aan de respectievelijk view en moet bovendien overerven van de \javaclass{BaseActivity} klasse. Deze gaat dan elke actie van de gebruiker op het scherm interpreteren en zo de gepaste acties doen via de bijhorende \javaclass{TrajectCommunication}. Deze moet ook zelf aangemaakt worden met overerving van \javaclass{Communication} en implementeerd voor elke gewenste handeling een functie. De zelfgedefinieerde \javaclass{TrajectCommunication} moet aan een singleton eigenschap voldoen. De singleton eigenschap stipuleert dat in de hele werking van de applicatie (en op elk moment in de tijd) slechts 1 en enkel 1 instantie van dit object mag bestaan en bevraagd worden.
+
+
+\end{document}

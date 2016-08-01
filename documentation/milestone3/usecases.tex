@@ -1,0 +1,1119 @@
+\documentclass[11pt,twoside,a4paper]{article}
+
+\usepackage[dutch]{babel}
+\usepackage{a4wide} % Bladgroote is A4
+\usepackage{enumitem}
+\usepackage{graphicx} % Om figuren te kunnen verwerken
+\usepackage{graphics} % Om figuren te verwerken.
+\usepackage{verbatim} 
+\usepackage{parskip} % witruimte tussen paragrafen introduceren.
+\usepackage{hyperref}
+
+\makeatletter
+\renewcommand\thesection{}
+\renewcommand\thesubsection{\@arabic\c@subsection}
+\makeatother
+
+\newcommand{\subpunt}[1]{
+	\noindent
+	\textbf{\small{#1}}
+}
+
+\newenvironment{precond}{
+	%begin environment
+	\subpunt{Preconditie:}
+	\begin{itemize}[label={}]
+}{
+	%end environment
+	\end{itemize}
+}
+
+\newenvironment{trigger}{
+	%begin environment
+	\subpunt{Trigger:}
+	\begin{itemize}[label={}]
+}{
+	%end environment
+	\end{itemize}
+}
+
+\newenvironment{mainss}{
+	%begin environment
+	\subpunt{Main succes scenario:}
+	\begin{enumerate}
+}{
+	%end environment
+	\end{enumerate}
+}
+
+\newenvironment{except}{
+	%begin environment
+	\subpunt{Exception flow:}
+	\begin{enumerate}
+}{
+	%end environment
+	\end{enumerate}
+}
+
+\newenvironment{altern}{
+	%begin environment
+	\subpunt{Alternative flow:}
+	\begin{enumerate}
+}{
+	%end environment
+	\end{enumerate}
+}
+
+\newenvironment{postcond}{
+	%begin environment
+	\subpunt{Postconditie:}
+	\begin{itemize}[label={}]
+}{
+	%end environment
+	\end{itemize}
+}
+
+\newcommand{\flowidx}{0}
+\newcounter{nstap}
+\setcounter{nstap}{0}
+
+%Commando om de titel van een exception flow of een alternative flow te genereren
+\newcommand{\flowtitle}[1]{					%SYNTAX: \flowtitle{<labels_of_steps_in_MSS>}{<title_flow>}
+	\setcounter{nstap}{0}
+	\item[\flowidx.][\emph{#1}]
+}
+
+%Commando om een stap in een flow te genereren
+\newcommand{\flowstap}{ 					%SYNTAX: \flowstap{<description>}
+	\stepcounter{nstap}
+	\item[\flowidx.\arabic{nstap}]
+}
+
+%Environment om een flow te beschrijven
+\newenvironment{flow}[2]{					
+																		%SYNTAX: \begin{flow}{<label_of_step_in_MSS>}{<title_flow>}
+																		%							\flowstap{...}
+																		%							\flowstap{...}
+																		%				 \end{flow}
+	%begin environment
+	\renewcommand{\flowidx}{#1}
+	
+	\flowtitle{#2}
+	\begin{enumerate}
+}{
+	%end environment
+	\end{enumerate}
+}
+
+
+
+
+\author{
+	Dean Parmentier\\
+	Simon Scheerlynck\\
+	Lennart Vermeir\\
+	Tr\'esor Akimana\\
+	Nick De Smedt\\
+	Jonas Van Wilder\\
+	Xavier Seyssens\\
+	Tom Hoet
+}
+\date{2015-2016}
+
+\title{Use-cases}
+
+\newcommand{\logo}{../latex_extra/images/ugent.png}
+
+
+\begin{document}
+
+	\input{../latex_extra/titlepage/titlepage}
+
+
+%------------------------- VOORWOORD -------------------------------
+
+\section*{Voorwoord: gebruik use-cases en belangerijke opmerkingen}\label{intro}
+	
+	Dit document beschrijft alle use-cases die gevolgd werden gedurende de ontwikkeling van de webapplicatie met al zijn componenten.
+Bij het beschrijven van een use-case worden telkens de hieronder geciteerde en uitgelegde kenmerken vermeldt.
+	\begin{itemize}
+	\item Eerst en vooral geven we bij elke use-case de precondities. Dit zijn de condities waaraan moet worden voldaan om het beschreven scenario te mogen uitvoeren. Als deze condities niet zijn vervuld zou het onmogelijk moeten zijn om in de beschreven situatie te geraken.
+	%\\[12pt]
+	\item Als tweede hebben we de triggers. Dit zijn de acties die het scenario in gang zetten. Deze acties zijn niet noodzakelijk altijd door de gebruiker gegenereerd maar kunnen ook vanuit het systeem onstaan. 
+	%\\[12pt]
+	\item Hierna hebben we het Main Succes Scenario. Dit is een korte beschrijving van wat alle stappen die een persoon doorloopt om het scenario succesvol te be\"eindigen en zo het gewenste resultaat te bereiken. 
+	%\\[12pt]
+	\item De volgende twee punten zijn Exception flow en Alternative flow, die respectievelijk een pad tonen die de gebruiker kan volgen om het scenario niet succesvol te be\"eindigen en om het op een andere manier succesvol te be\"eindigen. Deze zijn optioneel en worden enkel beschreven als er bestaan.
+	%\\[12pt]
+	\item Als laatste hebben we de postcondities. Deze condities beschrijven wat er geldt nadat het scenario succesvol werd afgerond. Dit gaat van alles wat er dan in het systeem van de server verandert tot wat er op de grafische interface verschijnt bij de gebruiker van de applicatie. 
+\end{itemize}
+
+\paragraph{}Verder wordt er in de use-cases vaak over gegevens, (informatie)velden, gedetailleerde gegevens, types, voorkeuren, enz. gesproken. Alle details(betekenis, verplichtheid, voorkomen, ...) over die gegevens, velden, enz. dat de gebruiker te zien krijgt, moet kiezen en/of moet ingeven staan gespecificeerd in het specificatiedocument dat bij dit document hoort\footnote{Het specificatiedocument \href{./specificaties.pdf}{specificaties.pdf} is beschikbaar in de \textit{Bestanden} op onze website(\url{https://vopro7.ugent.be/bestanden.html}).}. In dat document staat ook vermeld in welke context en wanneer ze te zien zijn, wanneer de gebruiker iets moet ingeven en in welke formaat hij/zij de informatie precies moet ingeven.
+
+\paragraph{}Tenslotte als een use-case een actie beschrijft dat een bepaalde autorisatie vereist, dan wordt er expliciet in de preconditie vermeldt dat de gebruiker die inlogt speciale permissies moet bezitten. In ons systeem zijn er drie niveaus van permissies(van laagste naar hoogste niveau): gebruiker, operator en administrator. Meer informatie over deze drie niveaus en wat voor permissies ze precies hebben kan men in het permissiedocument vinden.\footnote{Het permissiedocument \href{./gebruikers\_permissies.pdf}{gebruikers\_permissies.pdf} is beschikbaar in de \textit{Bestanden} op onze website(\url{https://vopro7.ugent.be/bestanden.html}).}
+
+
+%-------------------------------------------------------------------
+
+
+%------------------------ INHOUDSOPGAVE ----------------------------
+
+\newpage
+
+	\tableofcontents
+	
+	
+\newpage
+
+
+%-------------------------------------------------------------------
+
+
+%------------------------ BEGIN USE-CASES --------------------------
+	
+	%use case 1---------------------------------------
+	\subsection{Profiel aanmaken}\label{new_user}
+	
+	\begin{precond}
+		\item De gebruiker bevindt zich op de website van de applicatie.
+	\end{precond}	
+	 
+	\begin{trigger}
+		\item De gebruiker beslist om een profiel aan te maken.
+	\end{trigger}	
+	
+	\begin{mainss}
+		%\item Een webpagina verschijnt waar de gebruiker wordt gevraagd een gebruikersnaam en een wachtwoord te kiezen. De wachtwoord wordt twee keer gevraagd voor de veiligheid.
+		%\item De gebruiker kiest een gebruikersnaam en een wachtwoord en gaat door.\label{pro_usern}
+		\item Een webpagina verschijnt waar er informatie over de gebruiker wordt gevraagd en waar de gebruiker een wachtwoord moet kiezen.\label{pro_usernok}
+		\item De gebruiker vult zijn gegevens in en gaat door naar de volgende stap van de inschrijving.\label{pro_inv}
+		\item Een webpagina waar er naar de voorkeuren van de gebruiker wordt gevraagd verschijnt.\label{pro_invok}
+		\item De gebruiker geeft zijn voorkeuren in en vraagt aan het systeem om de gegevens op te slaan.\label{pro_last}
+		\item De gebruiker wordt doorverwezen naar een pagina waar hij zijn profiel te zien krijgt.\label{pro_final}
+	\end{mainss}
+	
+	\begin{except}	
+		
+		\begin{flow}{1-\ref{pro_last}}{De gebruiker verlaat de webpagina en/of gaat naar een andere webpagina.} 
+			\flowstap De inschrijvingsprocedure wordt stopgezet en geannuleerd zonder enig gegeven dat de gebruiker had ingevoerd op te slaan. De profiel gaat dan niet bestaan.
+			\flowstap Het scenario wordt be\"eindigd.
+		\end{flow}
+		
+		\begin{flow}{1-\ref{pro_last}}{De gebruiker annuleert zijn inschrijving.} 
+			\flowstap De inschrijvingsprocedure wordt stopgezet en geannuleerd zonder enig gegeven dat de gebruiker had ingevoerd op te slaan.
+			\flowstap De homepagina verschijnt in de browser.
+			\flowstap Het scenario wordt be\"eindigd.
+		\end{flow}
+		
+	\end{except}
+	
+	\begin{altern}
+%			\begin{flow}{\ref{pro_invok}}{De gebruiker laat een veld leeg.}
+%				\flowstap Er wordt teruggekeerd naar bovenaan de webpagina.
+%				\flowstap Een foutboodschap waarin er wordt gevraagd om alles in te vullen verschijnt.
+%				\flowstap Keer terug naar stap \ref{pro_usernok} van het Main succes scenario.
+%			\end{flow}
+		
+%			\begin{flow}{\ref{pro_usernok}}{De gebruiker geeft 2 verschillende wachtwoorden.}
+%				\flowstap Er wordt teruggekeerd naar bovenaan de webpagina.
+%				\flowstap Een foutboodschap vertelt de gebruiker dat de wachtwoorden niet dezelfde zijn.
+%				\flowstap Keer terug naar stap \ref{pro_usern} van het Main succes scenario.
+%			\end{flow}
+		
+			\begin{flow}{\ref{pro_invok}}{Niet alle verplichte velden zijn ingevuld.} 
+				\flowstap Er wordt teruggekeerd naar bovenaan de webpagina.
+				\flowstap Een foutboodschap waarin er wordt gevraagd om de verplichte velden in te vullen verschijnt.
+				\flowstap Keer terug naar stap \ref{pro_inv} van het Main succes scenario.
+			\end{flow}
+			
+			\begin{flow}{\ref{pro_invok}}{De gebruiker beslist om zijn voorkeuren later in te geven en de procedure vroegtijdig te finaliseren}
+				\flowstap Er wordt direct overgegaan naar stap \ref{pro_final} van de Main succes scenario
+			\end{flow}
+		
+		\begin{flow}{\ref{pro_final}}{Niet alle verplichte velden zijn ingevuld.}
+			\flowstap Er wordt teruggekeerd naar bovenaan de webpagina.
+			\flowstap Een foutboodschap waarin er wordt gevraagd om de verplichte velden in te vullen verschijnt.
+			\flowstap Keer terug naar punt \ref{pro_last} van het Main succes scenario.
+		\end{flow}
+		
+	\end{altern}
+	
+	\begin{postcond}
+		\item Een nieuw profiel is aangemaakt en geregistreerd in het systeem.
+		\item De nieuwe gebruiker is geabonneerd voor de types gebeurtenissen dat hij heeft aangegeven in zijn voorkeuren.
+		\item Een bevestigingsmail werd verstuurd naar het meegegeven e-mailadres van de gebruiker met een link erin om dat e-mailadres en het nieuwe profiel te bevestigen.
+	\end{postcond}
+	
+	
+	%use case 2---------------------------------------
+	\subsection{Inloggen}
+	
+	\begin{precond}
+		\item De gebruiker bevindt zich op home-pagina.
+		\item De gebruiker is nog niet ingelogd.
+		\item De gebruiker heeft een profiel.
+	\end{precond}
+	
+	\begin{trigger}
+		\item De gebruiker geeft aan dat hij wilt inloggen.
+	\end{trigger}
+	
+	\begin{mainss}
+		\item Er wordt gevraagd naar de gebruikersnaam en het wachtwoord van de gebruiker.\label{log_in_start}
+		\item De gebruiker vult deze in en bevestigt.\label{log_in_inv}
+		\item De profielpagina van de gebruiker verschijnt.\label{log_in_end}
+	\end{mainss}
+	
+	\begin{altern}
+		
+		\begin{flow}{\ref{log_in_end}}{De gebruikersnaam en/of het wachtwoord is verkeerd.}
+			\flowstap De gebruiker wordt genotificeerd met een foutboodschap dat het wachtwoord of de gebruikersnaam fout is.
+			\flowstap Er wordt teruggekeerd naar stap \ref{log_in_inv} van het Main succes scenario.
+		\end{flow}
+	\end{altern}
+	
+	\begin{postcond}
+		\item De gebruiker is ingelogd.
+		\item De gebruiker kan nu acties uitvoeren waarvoor hij de nodige permissies bezit.
+		\item De gebruiker bevindt zich op zijn profielpagina.
+	\end{postcond}
+	
+	%use case 3---------------------------------------
+	\subsection{Uitloggen}
+	
+	\begin{precond}
+		\item De gebruiker is ingelogd.
+	\end{precond}
+	
+	\begin{trigger}
+		\item De gebruiker geeft aan dat hij wilt uitloggen.
+	\end{trigger}
+	
+	\begin{mainss}
+		%\item De webpagina vraagt naar bevestiging.
+		%\item De gebruiker bevestigt dat hij werkelijk wilt uitloggen.\label{logout_bev}
+		\item De homepagina wordt ingeladen.\label{logout_end}
+	\end{mainss}
+	
+%	\begin{except}
+%		\begin{flow}{\ref{logout_end}}{De gebruiker ontkent dat hij wilt uitloggen.}
+%			\flowstap Het uitloggen wordt geannuleerd waardoor de vraag naar bevestiging verdwijnt.
+%			\flowstap Het scenario wordt be\"eindigd.
+%		\end{flow}
+%	\end{except}
+	
+	\begin{postcond}
+		\item De gebruiker is uitgelogd.
+	\end{postcond}
+	
+	%use case 8---------------------------------------
+	\subsection{Eigen profiel bekijken}\label{own_profile}
+	
+	\begin{precond}
+		\item De gebruiker is ingelogd.
+	\end{precond}
+	
+	\begin{trigger}
+		\item De gebruiker wenst zijn profiel te bekijken en kiest daarvoor om naar zijn profielpagina te gaan.
+	\end{trigger}
+	
+	\begin{mainss}
+		\item De profielpagina wordt getoond.
+	\end{mainss}
+	
+	\begin{postcond}
+		\item De gebruiker bevindt zich nu op zijn profielpagina met zijn profielgegevens.
+	\end{postcond}
+	
+	%use case 4---------------------------------------
+	\subsection{Profielgegevens wijzigen}
+	
+	\begin{precond}
+		\item De gebruiker bevindt zich op zijn profielpagina(zie use-case \ref{own_profile}).
+	\end{precond}
+	
+	\begin{trigger}
+		\item De gebruiker wenst zijn informatie aan te passen en kiest om zijn profiel te wijzigen.
+	\end{trigger}
+	
+	\begin{mainss}
+		\item De webpagina met zijn huidige profielgegevens wordt ingeladen.\label{chg_pro_start}
+		\item De gebruiker selecteert de gegevens dat hij wilt wijzigen, wijzigt ze en vraagt om zijn wijzigingen op te slaan.\label{chg_pro_inv}
+		\item De profielpagina met de nieuwe gegevens verschijnt op het scherm.\label{chg_pro_end}
+	\end{mainss}
+	
+	\begin{except}
+		
+		\begin{flow}{\ref{chg_pro_start}-\ref{chg_pro_end}}{De gebruiker verlaat de webpagina en/of gaat naar een andere webpagina.}
+			\flowstap De webpagina voor het wijzigen van de profielgegevens gaat weg en de wijziging worden geannuleerd zonder enige wijziging op te slaan.
+			\flowstap Het scenario wordt be\"eindigd.
+		\end{flow}
+		
+		\begin{flow}{\ref{chg_pro_end}}{De gebruiker annuleert zijn wijzigingen.}
+			\flowstap De procedure om de gegevens te wijzigen wordt stopgezet en geannuleerd zonder enige wijziging op te slaan.
+			\flowstap De gebruiker krijgt terug zijn profiel te zien met zijn oude gegevens.
+			\flowstap Het scenario wordt be\"eindigd.
+		\end{flow}
+		
+	\end{except}
+	
+	\begin{postcond}
+		\item De wijzigingen werden ook uitgevoerd in het systeem waar de gegevens van de gebruiker zijn opgeslagen.
+	\end{postcond}
+	
+	%use case 6---------------------------------------
+	\subsection{Profiel verwijderen}
+	
+	\begin{precond}
+		\item De gebruiker bevindt zich op zijn profielpagina(zie use-case \ref{own_profile}).
+	\end{precond}
+	
+	\begin{trigger}
+		\item De gebruiker kiest om zijn profiel te verwijderen.
+	\end{trigger}
+	
+	\begin{mainss}
+		\item De webpagina vraagt naar bevestiging.\label{delpro_start}
+		\item De gebruiker bevestigt en wilt verdergaan met het verwijderen van zijn profiel.\label{delpro_bev}
+		\item De gebruiker wordt uitgelogd en de homepagina wordt ingeladen.\label{delpro_end}
+	\end{mainss}
+	
+	\begin{except}
+		
+		\begin{flow}{\ref{delpro_bev}-\ref{delpro_end}}{De gebruiker verlaat de webpagina en/of gaat naar een andere webpagina.}
+			\flowstap Het verwijderen van de profiel wordt geannuleerd.
+			\flowstap Het scenario wordt be\"eindigd.
+		\end{flow}
+		
+		\begin{flow}{\ref{delpro_end}}{De gebruiker ontkent dat hij zijn profiel wilt verwijderen.}
+			\flowstap De profielpagina verschijnt terug in de browser.
+			\flowstap Het scenario wordt be\"eindigd.
+		\end{flow}
+	\end{except}
+	
+	\begin{postcond}
+		\item Het profiel samen met alle profielgegevens en zijn voorkeuren worden verwijderd. Er kan niet meer ingelogd worden met het net verwijderde profiel.
+	\end{postcond}
+	
+	
+	%use case 7---------------------------------------
+	\subsection{De lijst van alle gebruikers weergeven}
+	
+	\begin{precond}
+		\item De gebruiker is ingelogd als operator.
+	\end{precond}
+	
+	\begin{trigger}
+		\item De operator kiest om alle gebruikers te kunnen bekijken.
+	\end{trigger}
+	
+	\begin{mainss}
+		\item De pagina met alle profielen komt tevoorschijn.
+	\end{mainss}
+	
+	\begin{postcond}
+		\item De operator is op een webpagina met een lijst van alle profielen.
+	\end{postcond}
+	
+	
+	
+	%use case----------------------------------------
+	\subsection{Eigen trajecten bekijken}\label{own_trav}
+	
+	\begin{precond}
+		\item De gebruiker bevindt zich op zijn profielpagina(zie use-case \ref{own_profile}).
+	\end{precond}
+	
+	\begin{trigger}
+		\item De gebruiker geeft aan dat hij/zij zijn/haar trajecten wilt bekijken.
+	\end{trigger}
+	
+	\begin{mainss}
+		\item Een webpagina met alle trajecten van de gebruiker verschijnt.
+	\end{mainss}
+	
+	\begin{postcond}
+		\item De gebruiker kan al zijn/haar opgeslagen trajecten zien.
+	\end{postcond}	
+	
+	
+	%use-case 15-----------------------------------------
+	\subsection{Alle gegevens van een traject en zijn routes bekijken}\label{trav_detail}
+	
+	\begin{precond}
+		\item De gebruiker bevindt zich op de pagina met al zijn trajecten(zie use-case \ref{own_trav}).
+	\end{precond}
+	
+	\begin{trigger}
+		\item De gebruiker wilt \'e\'en van zijn trajecten in detail bekijken en kiest dat traject.
+	\end{trigger}
+	
+	\begin{mainss}
+		\item Een webpagina met alle gegevens en de routes die de gebruiker had ingegeven en opgeslagen over het traject verschijnt.
+	\end{mainss}
+	
+	\begin{postcond}
+		\item De gebruiker kan alle gegevens over het geselecteerde traject zien samen met alle routes dat hij/zij heeft opgeslagen bij dat traject.
+	\end{postcond}
+	
+	
+	%use case 16----------------------------------------
+	\subsection{Een traject toevoegen aan eigen profiel}
+	
+	\begin{precond}
+		\item De gebruiker bevindt zich op de pagina met zijn trajecten(zie use-case \ref{own_trav}).
+	\end{precond}
+	
+	\begin{trigger}
+		\item De gebruiker geeft aan dat hij/zij een traject wilt toevoegen.
+	\end{trigger}
+	
+	\begin{mainss}
+		\item Een webpagina waar er naar gegevens over het traject wordt gevraagd verschijnt.\label{newtrav_beg}
+		\item De gebruiker geeft de informatie over zijn traject in.\label{newtrav_inv}
+		\item Vertrekpunt en bestemming van het traject worden op een kaart getoond.\label{newtrav_krt}
+		\item De gebruiker vraagt aan het systeem om het traject op te slaan.\label{newtrav_save}
+		\item De gebruiker wordt doorverwezen naar een webpagina met details over zijn nieuw traject.\label{newtrav_end}
+	\end{mainss}	
+	
+	\begin{except}
+	
+		\begin{flow}{\ref{newtrav_inv}-\ref{newtrav_end}}{De gebruiker verlaat de webpagina en/of gaat naar een andere webpagina.}
+			\flowstap De webpagina voor het toevoegen van het traject gaat weg en er wordt geen gegevens opgeslagen of traject toegevoegd aan het profiel van de gebruiker.
+			\flowstap Het scenario wordt be\"eindigd.
+		\end{flow}
+	 
+		\begin{flow}{\ref{newtrav_inv}-\ref{newtrav_end}}{De gebruiker verlaat de webpagina en/of gaat naar een andere webpagina.}
+			\flowstap De webpagina voor het toevoegen van het traject gaat weg en er worden geen gegevens opgeslagen of traject toegevoegd aan het profiel van de gebruiker.
+			\flowstap Het scenario wordt be\"eindigd.
+		\end{flow}
+		
+		\begin{flow}{\ref{newtrav_end}}{De gebruiker annuleert de operatie.}
+			\flowstap De procedure om het traject aan te maken wordt stopgezet en geannuleerd zonder iets op te slaan.
+			\flowstap De pagina met alle trajecten van de gebruiker verschijnt weer in het venster.
+			\flowstap Het scenario wordt be\"eindigd.
+		\end{flow}
+		
+	\end{except}
+	
+	\begin{altern}
+	
+		\begin{flow}{0}{De gebruiker heeft net een nieuw profiel aangemaakt(zie use-case \ref{new_user})}
+				\flowstap Ga naar stap \ref{newtrav_beg} van het main succes scenario
+		\end{flow}
+		
+		\begin{flow}{\ref{newtrav_save}}{De gebruiker wenst om alvast een route aan te duiden die bij dit traject moet opgeslagen worden.}
+				\flowstap De gebruiker geeft de nodige tussenpunten van zijn route aan.
+				\flowstap De tussenpunten worden op de map samen met het vertrekpunt en de bestemming van het traject getoond.
+				\flowstap De gebruiker kiest om de route toe te voegen.
+				\flowstap De gebruiker wordt gevraagd andere gegevens over het traject in te geven.
+				\flowstap De gebruiker geeft alle nodige informatie over zijn route en kiest om zijn route op te slaan.
+				\flowstap Keer terug naar stap \ref{newtrav_krt}
+		\end{flow}
+		
+		\begin{flow}{\ref{newtrav_end}}{Niet alle verplichte velden zijn ingevuld.}
+			\flowstap Er wordt teruggekeerd naar bovenaan de webpagina
+			\flowstap De gebruiker krijgt een foutboodschap waarin wordt gevraagd alle verplichte velden in te vullen.
+			\flowstap Keer terug naar stap \ref{newtrav_inv} van het main succes scenario.
+		\end{flow}
+		
+	\end{altern}
+	
+	\begin{postcond}
+		\item Het nieuwe traject met alle informatie dat erbij hoort(route ook indien meegegeven) werd toegevoegd aan de trajecten van de gebruiker.
+	\end{postcond}
+	
+	
+	
+	%use case---------------------------------------
+	\subsection{\'E\'en van zijn eigen trajecten wijzigen}
+	
+	\begin{precond}
+		\item De gebruiker bevindt zich op de pagina van het traject dat hij wilt wijzigen(zie use-case \ref{trav_detail}).
+	\end{precond}
+	
+	\begin{trigger}
+		\item De gebruiker kiest om het traject te wijzigen.
+	\end{trigger}
+	
+	\begin{mainss}
+		\item De webpagina met enkel de aanpasbare gegevens van het traject verschijnt\footnote{Zie het specificatiedocument voor meer details over welke gegevens aanpasbaar zijn.}.
+		\item De gebruiker selecteert de gegevens die hij wilt aanpassen, past deze aan en slaat deze op.\label{chge_trav_save}
+		\item De pagina van het traject met de aangepaste gegevens verschijnt op het scherm.\label{chge_trav_end}
+	\end{mainss}
+	
+	\begin{except}
+		\begin{flow}{\ref{chge_trav_save} - \ref{chge_trav_end}}{De gebruiker verlaat de webpagina en/of gaat naar een andere webpagina.}
+			\flowstap De webpagina voor het wijzigen van het traject gaat weg en de wijziging wordt geannuleerd zonder enige wijziging op te slaan.
+			\flowstap Het scenario wordt be\"eindigd.
+		\end{flow}
+		
+		\begin{flow}{\ref{chge_trav_save} - \ref{chge_trav_end}}{De gebruiker annuleert zijn wijzigingen.} 
+			\flowstap De procedure om het traject te wijzigen wordt stopgezet en geannuleerd zonder enige wijziging op te slaan.
+			\flowstap De gebruiker krijgt terug de pagina van het traject met de oude gegevens te zien.
+			\flowstap Het scenario wordt be\"eindigd.
+		\end{flow}
+	\end{except}
+	
+	\begin{postcond}
+	\item Het traject van de gebruiker is aangepast. Als de aanpassingen in het traject ervoor zorgen dat de gebeurtenissen waarvoor de gebruiker meldingen moet krijgen voor dit traject van een andere aard zijn of een andere locatie hebben dan de gebeurtenissen waarvoor de gebruiker meldingen kreeg v\'o\'or de aanpassingen, dan zal de gebruiker enkel meldingen krijgen volgens de nieuwe gegevens in het traject.
+	\end{postcond}
+	
+	
+	%use case---------------------------------------
+	\subsection{\'E\'en van zijn eigen trajecten verwijderen}
+	
+	\begin{precond}
+		\item De gebruiker bevindt zich op de pagina van het traject dat hij/zij wilt verwijderen(zie use-case \ref{trav_detail}).
+	\end{precond}
+	
+	\begin{trigger}
+		\item De gebruiker kiest om het traject te verwijderen.
+	\end{trigger}
+	
+	\begin{mainss}
+		\item Er wordt naar bevestiging gevraagd.
+		\item De gebruiker bevestigt dat hij/zij het wilt verwijderen.\label{del_trav_bev}
+		\item De pagina met de oplijsting van de resterende trajecten wordt ingeladen.\label{del_trav_end}
+	\end{mainss}
+	
+	\begin{except}
+		
+		\begin{flow}{\ref{del_trav_bev} - \ref{del_trav_end}}{De gebruiker verlaat de webpagina en/of gaat naar een andere webpagina.}
+			\flowstap Het verwijderen van het traject wordt geannuleerd.
+			\flowstap Het scenario wordt be\"eindigd.
+		\end{flow}
+		 
+		\begin{flow}{\ref{del_trav_end}}{De gebruiker ontkent dat hij/zij het traject wilt verwijderen.}
+			\flowstap Het verwijderen van het traject wordt geannuleerd.
+			\flowstap De pagina van het traject met zijn gegevens wordt terug ingeladen.
+			\flowstap Het scenario wordt be\"eindigd.
+		\end{flow}
+	\end{except}
+	
+	\begin{postcond}
+	\item Het traject en alle samenhangende gegevens(exclusief aan dat traject) werden verwijderd uit de trajecten van de gebruiker en uit het systeem. De gebruiker krijgt geen meldingen meer voor het net verwijderde traject. %behalve als deze meldingen ook relevant zijn voor \'e\'en van zijn andere voorkeuren.
+	\end{postcond}
+	
+	%use-case-------------------------------------------
+%NIET MEER NODIG!!! DE ROUTES WORDEN OP DE WEBPAGINA VAN HET TRAJECT GEZET
+	%\subsection{Alle routes in een traject bekijken}\label{own_rout}
+	%
+	%\begin{precond}
+		%\item De gebruiker bevindt zich op de pagina van het traject waarvan hij de routes wilt bekijken(zie use-case \ref{trav_detail}).
+	%\end{precond}
+	%
+	%\begin{trigger}
+		%\item De gebruiker geeft aan dat hij/zij alle routes wilt bekijken.
+	%\end{trigger}
+	%
+	%\begin{mainss}
+		%\item Een webpagina met alle routes van het traject van de gebruiker verschijnt.
+	%\end{mainss}
+	%
+	%\begin{postcond}
+		%\item De gebruiker kan alle opgeslagen routes van het geselecteerde traject zien.
+	%\end{postcond}	
+	
+	
+	%use-case-----------------------------------------
+	\subsection{De tussenpunten van een route bekijken}\label{rout_detail}
+	
+	\begin{precond}
+		\item De gebruiker bevindt zich op de pagina van het traject waarvan de route is(zie use-case \ref{trav_detail}).
+	\end{precond}
+	
+	\begin{trigger}
+		\item De gebruiker wilt \'e\'en van zijn routes in details bekijken en kiest die route.
+	\end{trigger}
+	
+	\begin{mainss}
+		\item De tussenpunten worden samen met het vertrekpunt en de bestemming van het traject getoond.
+	\end{mainss}
+	
+	\begin{postcond}
+		\item De gebruiker kan alle gegevens van de geselecteerde route zien.
+	\end{postcond}
+	
+	
+	%use case----------------------------------------
+	\subsection{Een route toevoegen aan een traject}
+	
+	\begin{precond}
+		\item De gebruiker bevindt zich op de pagina van het traject waar hij/zij een route wenst toe te voegen(zie use-case \ref{trav_detail}).
+	\end{precond}
+	
+	\begin{trigger}
+		\item De gebruiker geeft aan dat hij/zij een route wilt toevoegen.
+	\end{trigger}
+	
+	\begin{mainss}
+		\item Een webpagina waar informatie wordt gevraagd over de nieuwe route verschijnt.
+		\item De gebruiker geeft de informatie voor zijn route in en slaat deze op.\label{newrout_inv}
+		\item De gebruiker wordt doorverwezen naar de webpagina van het traject waaraan de route werd toegevoegd.\label{newrout_end}
+	\end{mainss}	
+	
+	\begin{except}
+		\begin{flow}{\ref{newrout_inv}-\ref{newrout_end}}{De gebruiker verlaat de webpagina en/of gaat naar een andere webpagina.}
+			\flowstap De webpagina voor het toevoegen van de route gaat weg en er wordt geen gegevens opgeslagen of route toegevoegd aan het traject van de gebruiker.
+			\flowstap Het scenario wordt be\"eindigd.
+		\end{flow}
+		
+		\begin{flow}{\ref{newrout_end}}{De gebruiker annuleert de operatie.}
+			\flowstap De procedure om de route aan te maken wordt stopgezet en geannuleerd zonder iets op te slaan.
+			\flowstap De gebruiker krijgt terug de pagina met de routes van het traject te zien.
+			\flowstap Het scenario wordt be\"eindigd.
+		\end{flow}
+		
+	\end{except}
+	
+	\begin{altern}
+			\begin{flow}{\ref{newrout_end}}{Niet alle verplichte gegevens werden ingegeven.}
+				\flowstap Er wordt teruggekeerd naar bovenaan de webpagina
+				\flowstap De gebruiker krijgt een foutboodschap waarin wordt gevraagd de verplichte gegevens in te geven.
+				\flowstap Keer terug naar stap \ref{newrout_inv} van het main succes scenario.
+			\end{flow}
+	\end{altern}
+	
+	\begin{postcond}
+		\item De nieuwe route werd toegevoegd aan het geselecteerde traject van de gebruiker.
+		\item De gebruiker kan op de hoogte gesteld worden van gebeurtenissen op de nieuwe route die hij heeft toegevoegd.
+	\end{postcond}
+	
+	
+	
+	%use case---------------------------------------
+	\subsection{\'E\'en van de routes in een traject wijzigen}
+	
+	\begin{precond}
+		\item De gebruiker bevindt zich op de pagina van het traject waar hij/zij een route wilt wijzigen(zie use-case \ref{trav_detail}).
+	\end{precond}
+	
+	\begin{trigger}
+		\item De gebruiker gaat naar de route die hij wilt wijzigen en kiest om die te wijzigen.
+	\end{trigger}
+	
+	\begin{mainss}
+		\item De webpagina met de aanpasbare gegevens over de route verschijnt.
+		\item De gebruiker selecteert de gegevens die hij wilt aanpassen, past deze aan en slaat deze op.\label{chge_rout_save}
+		\item De gebruiker wordt doorverwezen naar de webpagina van het traject waar hij de route net heeft gewijzigd.\label{chge_rout_end}
+	\end{mainss}
+	
+	\begin{except}
+		\begin{flow}{\ref{chge_rout_save} - \ref{chge_rout_end}}{De gebruiker verlaat de webpagina en/of gaat naar een andere webpagina.}
+			\flowstap De webpagina voor het wijzigen van de route gaat weg en de wijziging wordt geannuleerd zonder enige wijziging op te slaan.
+			\flowstap Het scenario wordt be\"eindigd.
+		\end{flow}
+		
+		\begin{flow}{\ref{chge_rout_save} - \ref{chge_rout_end}}{De gebruiker annuleert zijn wijzigingen.} 
+			\flowstap De procedure om de route te wijzigen wordt stopgezet en geannuleerd zonder enige wijziging op te slaan.
+			\flowstap De gebruiker krijgt terug de pagina van de route met de oude gegevens te zien.
+			\flowstap Het scenario wordt be\"eindigd.
+		\end{flow}
+	\end{except}
+	
+	\begin{postcond}
+	\item De route van de gebruiker is aangepast. Als de aanpassingen in de route er voor zorgen dat de gebeurtenissen waarvoor de gebruiker meldingen moet krijgen voor deze route van een andere aard zijn of een andere locatie hebben dan de gebeurtenissen waarvoor de gebruiker meldingen kreeg v\'o\'or de aanpassingen, dan zal de gebruiker enkel meldingen krijgen volgens de nieuwe gegevens in de route.
+	\end{postcond}
+	
+	
+	%use case---------------------------------------
+	\subsection{\'E\'en van de routes in een traject verwijderen}
+	
+	\begin{precond}
+		\item De gebruiker bevindt zich op de pagina van de route dat hij/zij wilt verwijderen(zie use-case \ref{rout_detail}).
+	\end{precond}
+	
+	\begin{trigger}
+		\item De gebruiker kiest om de route te verwijderen.
+	\end{trigger}
+	
+	\begin{mainss}
+		\item Er wordt naar bevestiging gevraagd.
+		\item De gebruiker bevestigt dat hij/zij het wilt verwijderen.\label{del_rout_bev}
+		\item De pagina met de oplijsting van de resterende routes van hetzelfde traject wordt ingeladen.\label{del_rout_end}
+	\end{mainss}
+	
+	\begin{except}
+		\begin{flow}{\ref{del_rout_bev} - \ref{del_rout_end}}{De gebruiker verlaat de webpagina en/of gaat naar een andere webpagina.}
+			\flowstap Het verwijderen van de route wordt geannuleerd.
+			\flowstap Het scenario wordt be\"eindigd.
+		\end{flow}
+		
+		\begin{flow}{\ref{del_rout_end}}{De gebruiker ontkent dat hij/zij de route wilt verwijderen.} 
+			\flowstap Het verwijderen van de route wordt geannuleerd.
+			\flowstap De pagina van de route met zijn gegevens wordt terug ingeladen.
+			\flowstap Het scenario wordt be\"eindigd.
+		\end{flow}
+	\end{except}
+	
+	\begin{postcond}
+	\item De route wordt verwijderd uit het traject van de gebruiker en uit het systeem. De gebruiker krijgt geen meldingen meer voor de net verwijderde route.
+	\end{postcond}
+	
+	
+	%use case 14----------------------------------------
+	\subsection{Eigen interessante punten bekijken}\label{own_poi}		%%Interessante punten = points of interest
+	
+	\begin{precond}
+		\item De gebruiker bevindt zich op zijn profielpagina(zie use-case \ref{own_profile}).
+	\end{precond}
+	
+	\begin{trigger}
+		\item De gebruiker geeft aan dat hij/zij zijn/haar interessante punten wilt bekijken.
+	\end{trigger}
+	
+	\begin{mainss}
+		\item Een webpagina met alle interessante punten van de gebruiker verschijnt.
+	\end{mainss}
+	
+	\begin{postcond}
+		\item De gebruiker kan al zijn/haar opgeslagen interessante punten zien.
+	\end{postcond}	
+	
+	
+	%use-case 15-----------------------------------------
+	\subsection{Alle gegevens van een interessant punt bekijken}\label{poi_detail}
+	
+	\begin{precond}
+		\item De gebruiker bevindt zich op de pagina met al zijn interessante punten(zie use-case \ref{own_poi}).
+	\end{precond}
+	
+	\begin{trigger}
+		\item De gebruiker wilt \'e\'en van zijn interessante punten in details bekijken en kiest deze.
+	\end{trigger}
+	
+	\begin{mainss}
+		\item Een webpagina met alle gegevens die de gebruiker heeft ingegeven over het interessant punt verschijnt.
+	\end{mainss}
+	
+	\begin{postcond}
+		\item De gebruiker kan alle gegevens over het geselecteerde interessant punt zien.
+	\end{postcond}
+	
+	
+	%use case 16----------------------------------------
+	\subsection{Een interessant punt toevoegen aan eigen profiel}
+	
+	\begin{precond}
+		\item De gebruiker bevindt zich op de pagina met zijn interessante punten(zie use-case \ref{own_poi}).
+	\end{precond}
+	
+	\begin{trigger}
+		\item De gebruiker geeft aan dat hij/zij een interessant punt wilt toevoegen.
+	\end{trigger}
+	
+	\begin{mainss}
+		\item Een webpagina met de in te vullen velden voor een interessant punt verschijnt.
+		\item De gebruiker vult de informatie voor zijn interessant punt in en vraagt aan het systeem om deze op te slaan.\label{newpoi_inv}
+		\item De gebruiker wordt doorverwezen naar een webpagina met details over zijn nieuw interessant punt.\label{newpoi_end}
+	\end{mainss}	
+	
+	\begin{except}
+	 
+		\begin{flow}{\ref{newpoi_inv}-\ref{newpoi_end}}{De gebruiker verlaat de webpagina en/of gaat naar een andere webpagina.}
+			\flowstap De webpagina voor het toevoegen van het interessant punt gaat weg en er wordt geen gegevens opgeslagen of interessant punt toegevoegd aan het profiel van de gebruiker.
+			\flowstap Het scenario wordt be\"eindigd.
+		\end{flow}
+		
+		\begin{flow}{\ref{newpoi_end}}{De gebruiker annuleert de operatie.}
+			\flowstap De procedure om het interessant punt aan te maken wordt stopgezet en geannuleerd zonder iets op te slaan.
+			\flowstap De gebruiker krijgt terug de pagina met al zijn interessante punten te zien.
+			\flowstap Het scenario wordt be\"eindigd.
+		\end{flow}
+		
+	\end{except}
+	
+	\begin{altern}
+			\begin{flow}{\ref{newpoi_end}}{Niet alle verplichte velden zijn ingevuld.}
+				\flowstap Er wordt teruggekeerd naar bovenaan de webpagina
+				\flowstap De gebruiker krijgt een foutboodschap waarin wordt gevraagd alle verplichte velden in te vullen.
+				\flowstap Keer terug naar stap \ref{newpoi_inv} van het main succes scenario.
+			\end{flow}
+	\end{altern}
+	
+	\begin{postcond}
+		\item Het nieuwe interessant punt werd toegevoegd aan de interessante punten van de gebruiker.
+		\item De gebruiker kan op de hoogte gesteld worden van gebeurtenissen in de zone gespecifieerd door zijn interessant punt.
+	\end{postcond}
+	
+	
+	
+	%use case---------------------------------------
+	\subsection{\'E\'en van zijn eigen interessante punten wijzigen}
+	
+	\begin{precond}
+		\item De gebruiker bevindt zich op de pagina van het interessant punt dat hij wilt wijzigen(zie use-case \ref{poi_detail}).
+	\end{precond}
+	
+	\begin{trigger}
+		\item De gebruiker kiest om het interessant punt te wijzigen.
+	\end{trigger}
+	
+	\begin{mainss}
+		\item De webpagina met alle gegevens van het interessant punt verschijnt.
+		\item De gebruiker selecteert de gegevens die hij wilt aanpassen, past deze aan en slaat deze op.\label{chge_poi_save}
+		\item De pagina van het interessant punt met de aangepaste gegevens verschijnt op het scherm.\label{chge_poi_end}
+	\end{mainss}
+	
+	\begin{except}
+		\begin{flow}{\ref{chge_poi_save} - \ref{chge_poi_end}}{De gebruiker verlaat de webpagina en/of gaat naar een andere webpagina.}
+			\flowstap De webpagina voor het wijzigen van het interessant punt gaat weg en de wijziging wordt geannuleerd zonder enige wijziging op te slaan.
+			\flowstap Het scenario wordt be\"eindigd.
+		\end{flow}
+		
+		\begin{flow}{\ref{chge_poi_save} - \ref{chge_poi_end}}{De gebruiker annuleert zijn wijzigingen.} 
+			\flowstap De procedure om het interessant punt te wijzigen wordt stopgezet en geannuleerd zonder enige wijziging op te slaan.
+			\flowstap De gebruiker krijgt de pagina van het interessant punt met de oude gegevens terug te zien.
+			\flowstap Het scenario wordt be\"eindigd.
+		\end{flow}
+	\end{except}
+	
+	\begin{postcond}
+		\item Het interessant punt van de gebruiker is aangepast. Als de aanpassingen in het interessant punt ervoor zorgen dat de gebeurtenissen waarvoor de gebruiker meldingen moet krijgen voor dit interessant punt van een andere aard zijn of een andere locatie hebben dan de gebeurtenissen waarvoor de gebruiker meldingen kreeg v\'o\'or de aanpassingen, dan zal de gebruiker enkel meldingen krijgen volgens de nieuwe gegevens in het interessant punt.
+	\end{postcond}
+	
+	
+	%use case---------------------------------------
+	\subsection{\'E\'en van zijn eigen interessante punten verwijderen}
+	
+	\begin{precond}
+		\item De gebruiker bevindt zich op de pagina van het interessant punt dat hij/zij wilt verwijderen(zie use-case \ref{poi_detail}).
+	\end{precond}
+	
+	\begin{trigger}
+		\item De gebruiker kiest om het interessant punt te verwijderen.
+	\end{trigger}
+	
+	\begin{mainss}
+		\item Er wordt naar bevestiging gevraagd.
+		\item De gebruiker bevestigt dat hij/zij het wilt verwijderen.\label{del_poi_bev}
+		\item De pagina met de oplijsting van de resterende interessante punten wordt ingeladen.\label{del_poi_end}
+	\end{mainss}
+	
+	\begin{except}
+		\begin{flow}{\ref{del_poi_bev} - \ref{del_poi_end}}{De gebruiker verlaat de webpagina en/of gaat naar een andere webpagina.} 
+			\flowstap Het verwijderen van het interessant punt wordt geannuleerd.
+			\flowstap Het scenario wordt be\"eindigd.
+		\end{flow}
+		
+		\begin{flow}{\ref{del_poi_end}}{De gebruiker ontkent dat hij/zij het traject wilt verwijderen.} 
+			\flowstap Het verwijderen van het interessant punt wordt geannuleerd.
+			\flowstap De pagina van het interessant punt met zijn gegevens wordt terug ingeladen.
+			\flowstap Het scenario wordt be\"eindigd.
+		\end{flow}
+	\end{except}
+	
+	\begin{postcond}
+	\item Het interessant punt is verwijderd uit het profiel van de gebruiker en uit het systeem. De gebruiker krijgt geen meldingen meer voor het net verwijderde interessant punt.
+	\end{postcond}
+	
+	
+	%use case 10---------------------------------------
+	\subsection{Huidige actieve gebeurtenissen bekijken}\label{all_events}
+	
+	\begin{precond}
+		\item De gebruiker is ingelogd als operator.
+	\end{precond}
+	
+	\begin{trigger}
+		\item De operator kiest om alle actieve gebeurtenissen te bekijken.
+	\end{trigger}
+	
+	\begin{mainss}
+		%\item De pagina met de eerste 20 actieve gebeurtenissen komt tevoorschijn. Indien mogelijk en indien de gebruiker het wenst kan hij de vorige 20 of de volgende 20 actieve gebeurtenissen bekijken.
+		\item De pagina met alle actieve gebeurtenissen komt tevoorschijn.
+	\end{mainss}
+	
+	\begin{postcond}
+		\item De gebruiker is op een webpagina met een lijst van actieve gebeurtenissen.
+	\end{postcond}
+	
+	
+	%use case 11---------------------------------------
+	\subsection{Geabboneerde gebeurtenissen bekijken}
+	
+	\begin{precond}
+		\item De gebruiker is ingelogd.
+		\item De gebruiker bevindt zich op zijn profielpagina.
+	\end{precond}
+	
+	\begin{trigger}
+		\item De gebruiker kiest om zijn gebeurtenissen te bekijken.
+	\end{trigger}
+	
+	\begin{mainss}
+		%\item De pagina met de eerste 20 relevante gebeurtenissen voor hem komt tevoorschijn. Indien mogelijk en indien de gebruiker het wenst kan hij de vorige 20 of de volgende 20 actieve gebeurtenissen bekijken.
+		\item Een pagina met de relevante gebeurtenissen voor de gebruiker(volgens zijn/haar voorkeuren) komt tevoorschijn.
+	\end{mainss}
+	
+	\begin{postcond}
+		\item De gebruiker is op een webpagina met enkel gebeurtenissen die voor hem/haar relevant zijn.
+	\end{postcond}
+	
+	
+	%use case 12---------------------------------------
+	\subsection{Historie van eigen gebeurtenissen bekijken}
+	
+	\begin{precond}
+		\item De gebruiker is ingelogd.
+		\item De gebruiker bevindt zich op zijn profielpagina.
+	\end{precond}
+	
+	\begin{trigger}
+		\item De gebruiker kiest om een geschiedenis van zijn gebeurtenissen te bekijken.
+	\end{trigger}
+	
+	\begin{mainss}
+		\item Een pagina met voorbije gebeurtenissen wordt ingeladen.
+	\end{mainss}
+	
+	\begin{postcond}
+		\item De gebruiker is op een webpagina met een lijst van voorbije gebeurtenissen.
+	\end{postcond}
+	
+	
+	%use case 13---------------------------------------
+	\subsection{Informatiepagina van een gebeurtenis bekijken}\label{info_event}
+	
+	\begin{precond}
+		\item De gebruiker bevindt zich op een pagina waar die gebeurtenis is opgelijst of krijgt een melding over die gebeurtenis.
+	\end{precond}
+	
+	\begin{trigger}
+		\item De gebruiker kiest de gebeurtenis waar hij meer informatie over wenst te weten.
+	\end{trigger}
+	
+	\begin{mainss}
+		\item De informatiepagina van de gebeurtenis verschijnt.
+	\end{mainss}
+	
+	\begin{postcond}
+		\item De gebruiker is op de informatiepagina van de gebeurtenis.
+	\end{postcond}
+	
+	
+	%use-case--------------------------------------------
+	\subsection{Gebeurtenis aanmaken}
+	
+	\begin{precond}
+	\item De gebruiker is ingelogd als een operator.
+	\item De operator bevindt zich op de pagina met de lijst van alle events(zie use-case \ref{all_events}).
+	\end{precond}
+	
+	\begin{trigger}
+	\item De operator geeft aan dat hij/zij een nieuwe gebeurtenis wilt aanmaken.
+	\end{trigger}
+	
+	\begin{mainss}
+		\item Een pagina met de lege informatievelden nodig voor een gebeurtenis wordt ingeladen.
+		\item De operator vult de velden in met informatie over de gebeurtenissen en vraagt om de gebeurtenis op te slaan.\label{new_event_save}
+		\item De informatiepagina van de nieuw aangemaakte gebeurtenis verschijnt.\label{new_event_end}
+	\end{mainss}
+	
+	\begin{except}
+		\begin{flow}{\ref{new_event_save}-\ref{new_event_end}}{De operator verlaat de pagina.}
+			\flowstap De procedure voor het aanmaken van een gebeurtenis wordt stopgezet zonder iets op te slaan. Er wordt geen gebeurtenis aangemaakt.
+			\flowstap Het scenario wordt be\"eindigd.
+		\end{flow}
+		
+		\begin{flow}{\ref{new_event_end}}{De operator annuleert de hele procedure.}
+			\flowstap De procedure voor het aanmaken van een gebeurtenis wordt stopgezet zonder iets op te slaan. Er wordt geen gebeurtenis aangemaakt.
+			\flowstap De pagina met de lijst van alle events wordt ingeladen.
+			\flowstap Het scenario wordt be\"eindigd.
+		\end{flow}
+	\end{except}
+	
+	\begin{altern}
+		\begin{flow}{\ref{new_event_end}}{Niet alle verplichte velden zijn ingevuld.}
+			\flowstap Er wordt teruggekeerd naar bovenaan de pagina.
+			\flowstap Een foutboodschap waarin de operator wordt gevraagd alle verplichte velden in te vullen verschijnt.
+			\flowstap Keer terug naar stap \ref{new_event_save} van het Main succes scenario.
+		\end{flow}
+	\end{altern}
+	
+	\begin{postcond}
+	\item De gebeurtenis wordt opgeslagen in het systeem en de gebruikers die hiervoor een melding moeten krijgen worden genotificeerd.
+	\end{postcond}
+
+
+	%use-case -----------------------------------------------
+	\subsection{Gebeurtenis wijzigen}
+	
+	\begin{precond}
+	\item De gebruiker is ingelogd als een operator.
+	\item De operator bevindt zich op de informatiepagina van de gebeurtenis(zie use-case \ref{info_event})
+	\end{precond}
+	
+	\begin{trigger}
+	\item De operator geeft aan dat hij/zij de gebeurtenis wilt wijzigen.
+	\end{trigger}
+	
+	\begin{mainss}
+		\item Een pagina met de informatievelden van de gebeurtenis zoals ze werden ingevuld wordt ingeladen.
+		\item De operator kiest de velden die hij/zij wilt wijzigen, verandert ze en slaat het op.\label{chg_event_save}
+		\item De informatiepagina van de gebeurtenis verschijnt met de nieuwe gegevens.\label{chg_event_end}
+	\end{mainss}
+	
+	\begin{except}
+		\begin{flow}{\ref{chg_event_save} - \ref{chg_event_end}}{De operator verlaat de pagina.}
+			\flowstap De procedure voor het wijzigen van de gebeurtenis wordt stopgezet zonder iets op te slaan. De gebeurtenis wordt niet gewijzigd.
+			\flowstap Het scenario wordt be\"eindigd.
+		\end{flow}
+		
+		\begin{flow}{\ref{chg_event_end}}{De operator annuleert de procedure.}
+			\flowstap De procedure voor het wijzigen van een gebeurtenis wordt stopgezet zonder iets op te slaan. De gebeurtenis wordt niet gewijzigd.
+			\flowstap De pagina met de lijst van alle gebeurtenissen wordt ingeladen.
+			\flowstap Het scenario wordt be\"eindigd.
+		\end{flow}
+	\end{except}
+	
+	\begin{altern}
+		\begin{flow}{\ref{chg_event_end}}{Niet alle verplichte velden zijn ingevuld.}
+			\flowstap Er wordt teruggekeerd naar bovenaan de pagina.
+			\flowstap Een foutboodschap foutboodschap waarin de operator wordt gevraagd alle verplichte velden in te vullen verschijnt.
+			\flowstap Keer terug naar stap \ref{chg_event_save} van het Main succes scenario.
+		\end{flow}
+	\end{altern}
+	
+	\begin{postcond}
+	\item De gebruikers die hiervoor een melding hebben gekregen worden genotificeerd.
+	\end{postcond}
+	
+	%use-case--------------------------------------------------
+	\subsection{Een gebeurtenis verwijderen}
+	
+	\begin{precond}
+		\item De gebruiker is ingelogd als een operator.
+		\item De operator bevindt zich op de informatiepagina van de gebeurtenis(zie use-case \ref{info_event})
+	\end{precond}
+	
+	\begin{trigger}
+		\item De operator kiest om de gebeurtenis te verwijderen.
+	\end{trigger}
+	
+	\begin{mainss}
+		\item Er wordt naar bevestiging gevraagd.
+		\item De operator bevestigt dat hij/zij het wilt verwijderen.\label{del_event_bev}
+		\item De pagina met de oplijsting van de resterende gebeurtenissen wordt ingeladen.\label{del_event_end}
+	\end{mainss}
+	
+	\begin{except}
+		
+		\begin{flow}{\ref{del_event_bev}-\ref{del_event_end}}{De gebruiker verlaat de webpagina en/of gaat naar een andere webpagina.}
+			\flowstap Het verwijderen van de gebeurtenis wordt geannuleerd. De gebeurtenis blijft onveranderd bestaan.
+			\flowstap Het scenario wordt be\"eindigd.
+		\end{flow}
+		
+		\begin{flow}{\ref{del_event_end}}{De gebruiker ontkent dat hij/zijn zijn gebeurtenis wilt verwijderen.}
+			\flowstap Het verwijderen van de voorkeur wordt geannuleerd. De gebeurtenis blijft overanderd bestaan.
+			\flowstap De pagina van de voorkeur met zijn gegevens wordt terug ingeladen.
+			\flowstap Het scenario wordt be\"eindigd.
+		\end{flow}
+	\end{except}
+	
+	\begin{postcond}
+		\item De gebeurtenis wordt enkel in het systeem als niet-actief opgeslagen en is daarom niet meer zichtbaar bij de gebruikers maar wordt niet helemaal verwijderd.
+		\item Als de gebeurtenis nog actief was dan moeten de gebruikers die hiervoor een melding hebben gekregen genotificeerd worden.
+	\end{postcond}
+\end{document}

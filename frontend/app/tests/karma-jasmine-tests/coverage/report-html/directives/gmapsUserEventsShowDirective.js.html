@@ -1,0 +1,329 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for directives\gmapsUserEventsShowDirective.js</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../prettify.css" />
+    <link rel="stylesheet" href="../base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="../index.html">all files</a> / <a href="index.html">directives/</a> gmapsUserEventsShowDirective.js
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">69.7% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>23/33</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">37.5% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>3/8</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">57.14% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>4/7</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">69.7% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>23/33</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line medium'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89</td><td class="line-coverage quiet"><span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">angular.module('vopEvent').directive("gmapsUserEventsShow", function () {
+    return {
+        restrict: "A",
+        scope: false,
+        link: function (scope, element, attrs, ngModel) {
+            var directionsService;
+            /**
+             * @constant SPECIALMARKERICON
+             * @description The icon for the marker
+             * @type {string}
+             */
+            var MARKERICON = 'assets/images/map-marker.svg';
+            /**
+             * @constant SPECIALMARKERICON
+             * @description The icon for the marker
+             * @type {string}
+             */
+            var SPECIALMARKERICON = 'assets/images/map-pin-special.svg';
+&nbsp;
+            scope.geocoder = new google.maps.Geocoder();
+            directionsService = new google.maps.DirectionsService();
+&nbsp;
+            scope.mapOptions = {
+                // Center on Ghent!
+                center: {lat: 51.0533593, lng: 3.723252},
+                zoom: 10
+            };
+&nbsp;
+            // Make new map with mapoptions
+            scope.map = new google.maps.Map(element[0].querySelector('#map'), scope.mapOptions);
+            var trafficLayer = new google.maps.TrafficLayer();
+            trafficLayer.setMap(scope.map);
+            scope.promise.then(function () {
+                var infoWindow = new google.maps.InfoWindow({
+                    content: "&lt;p&gt;" + scope.clickedEvent.description + "&lt;/p&gt;"
+                });
+                var bounds = new google.maps.LatLngBounds();
+                angular.forEach(scope.userEvents, function (value) {
+                    var image_url = null;
+                    <span class="missing-if-branch" title="else path not taken" >E</span>if (value.source.icon_url != null) {
+                        image_url = value.source.icon_url;
+                    } else {
+<span class="cstat-no" title="statement not covered" >                        image_url = 'assets/images/gent_slim op weg_lijn_donkergrijs.png';</span>
+                    }
+                    // Check if the event is still active
+                    if (value.active) {
+                        var m = new google.maps.Marker({
+                            position: {
+                                lat: value.coordinates.lat,
+                                lng: value.coordinates.lon
+                            },
+                            icon: SPECIALMARKERICON,
+                            draggable: false,
+                            animation: google.maps.Animation.DROP,
+                            map: scope.map
+                        });
+                        bounds.extend(m.getPosition());
+                        m.addListener('click', <span class="fstat-no" title="function not covered" >function () {</span>
+<span class="cstat-no" title="statement not covered" >                            scope.geocoder.geocode({</span>
+                                'location': {
+                                    lat: value.coordinates.lat,
+                                    lng: value.coordinates.lon
+                                }
+                            }, <span class="fstat-no" title="function not covered" >function (results, status) {</span>
+<span class="cstat-no" title="statement not covered" >                                if (status === google.maps.GeocoderStatus.OK) {</span>
+<span class="cstat-no" title="statement not covered" >                                    if (results[0]) {</span>
+<span class="cstat-no" title="statement not covered" >                                        scope.$apply(<span class="fstat-no" title="function not covered" >function () {</span></span>
+<span class="cstat-no" title="statement not covered" >                                            scope.clickedEvent = value;</span>
+<span class="cstat-no" title="statement not covered" >                                            var content = "&lt;div id='infoWindow' style='text-align: left'&gt;&lt;div class='row'&gt;&lt;div class='col-sm-4'&gt;&lt;img src='" + image_url + "' height='50' width='50'/&gt;&lt;/div&gt;&lt;div class='col-sm-8'&gt;&lt;p&gt;&lt;strong&gt;" +</span>
+                                                value.type.type + "&lt;/strong&gt;&lt;/p&gt;&lt;/div&gt;&lt;/div&gt;&lt;strong&gt;Beschrijving&lt;/strong&gt;&lt;p&gt;" +
+                                                value.description + "&lt;/p&gt;&lt;strong&gt;Adres&lt;/strong&gt;&lt;p&gt;" + results[0].formatted_address + "&lt;/p&gt;&lt;strong&gt;Publicatie datum&lt;/strong&gt;&lt;p&gt;" + value.publication_time + "&lt;/p&gt;&lt;/div&gt;";
+<span class="cstat-no" title="statement not covered" >                                            infoWindow.setContent(content);</span>
+<span class="cstat-no" title="statement not covered" >                                            infoWindow.open(scope.map, m);</span>
+                                        });
+                                    } else {
+<span class="cstat-no" title="statement not covered" >                                        alert('Google vond geen resultaten');</span>
+                                    }
+                                }
+                            });
+&nbsp;
+                        });
+                        scope.map.fitBounds(bounds);
+                    }
+                })
+            });
+        }
+    }
+});
+&nbsp;</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Mon May 16 2016 16:33:31 GMT+0200 (Romance (zomertijd))
+</div>
+</div>
+<script src="../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../sorter.js"></script>
+</body>
+</html>

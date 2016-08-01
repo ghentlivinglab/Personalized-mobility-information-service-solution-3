@@ -1,0 +1,74 @@
+<form name 		= "addTravelForm" role 		= "form" data-ng-submit	= "addTravelForm.$valid && addNewTravel()" class		= "form-horizontal">
+  <h2>Wijzig traject</h2>
+  <br/>
+  <div class = "form-group row">
+    <div class ="col-md-10 col-md-offset-1 col-sm-12 col-xs-12">
+      <label>Naam: <span class = "glyphicon glyphicon-asterisk"></span></label>
+      <input data-ng-model	= "travel.name" class="form-control input-md " required/>
+    </div>
+  </div>
+  <div class="form-group row">
+    <div class ="col-md-3 col-md-offset-1 col-sm-3 col-xs-3" >
+      <label>Tijdsinterval: <span class = "glyphicon glyphicon-asterisk"></span></label>
+    </div>
+    <div class="col-md-3 col-sm-4 col-xs-4">
+      <input type="time"
+      data-ng-model	= "travel.time[0]"
+      class="form-control input-md "
+      required/>
+    </div>
+    <div class="col-md-1 col-sm-1 col-xs-1">
+      -
+    </div>
+    <div class ="col-md-3 col-sm-4 col-xs-4">
+      <input type="time"
+      data-ng-model	= "travel.time[1]"
+      class="form-control input-md "
+      required/>
+    </div>
+  </div>
+  <div class="form-group row">
+    <!-- ALTIJD ZICHTBAAR!!!!! -->
+    <div class ="col-md-10 col-md-offset-1 col-sm-12 col-xs-12">
+      <div >
+
+        <input type="checkbox" data-ng-model	= "selectedAllDays" data-ng-click="selectAllDays()"/>
+        <label>Alle dagen</label>
+
+        <input type="checkbox" data-ng-model	= "travel.recurring[0]" data-ng-click="checkingDays()"/>
+        <label>Maandag</label>
+
+        <input type="checkbox" data-ng-model	= "travel.recurring[1]" data-ng-click="checkingDays()"/>
+        <label>Dinsdag</label>
+
+        <input type="checkbox" data-ng-model	= "travel.recurring[2]" data-ng-click="checkingDays()"/>
+        <label>Woensdag</label>
+
+        <input type="checkbox" data-ng-model	= "travel.recurring[3]" data-ng-click="checkingDays()"/>
+        <label>Donderdag</label>
+
+        <input type="checkbox" data-ng-model	= "travel.recurring[4]" data-ng-click="checkingDays()"/>
+        <label>Vrijdag</label>
+
+        <input type="checkbox" data-ng-model	= "travel.recurring[5]" data-ng-click="checkingDays()"/>
+        <label>Zaterdag</label>
+
+        <input type="checkbox" data-ng-model	= "travel.recurring[6]" data-ng-click="checkingDays()"/>
+        <label>Zondag</label>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-10 col-md-offset-1 col-sm-12 col-xs-12">
+
+      <button class="btn icon-btn btn-danger btn-vop btn-155px" data-ng-click = "cancel()" style="margin-bottom: 1em;" title="Annuleren">
+        <span class="glyphicon btn-glyphicon glyphicon-remove img-circle text-danger pull-left"></span>
+        <span class="btn-vop-center-text"> Annuleren</span>
+        <button class="btn icon-btn btn-success btn-vop btn-155px" data-ng-click = "editTravel()" style="margin-bottom: 1em;" title="Travel wijzigen">
+          <span class="glyphicon btn-glyphicon glyphicon-floppy-disk img-circle text-success pull-left"></span>
+          <span class="btn-vop-center-text">Opslaan</span>
+        </button>
+      </button>
+    </div>
+  </div>
+</form>

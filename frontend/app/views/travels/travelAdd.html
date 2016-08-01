@@ -1,0 +1,184 @@
+<div class="addTravel container-fluid" id="travelRouteWrapper" data-gmaps-travel-add>
+    <div id="overlappingForm" data-ng-controller="routeAddController" class="col-sm-10">
+        <form name="addRoute" role="form" class="form-horizontal col-sm-10 col-sm-offset-1">
+            <div class="form-group">
+                <label>Meldingen via:</label>
+                <input type="checkbox" data-ng-value="true" data-ng-model="$parent.email"/> E-mail
+                <!--<input type="checkbox" data-ng-value="true" data-ng-model="$parent.cellphone"/> Gsm-->
+            </div>
+            <div class="form-group">
+                <label>Informeer me bij:</label>
+                <div>
+                    <input type="checkbox" data-ng-model="$parent.selectedAll" data-ng-click="$parent.selectAll()"/>
+                    Selecteer alles
+                </div>
+                <div data-ng-repeat="type in entries">
+                    <input type="checkbox" data-ng-true-value="'{{type.type}}'"
+                           data-ng-model="$parent.selectedEventTypesTemp[$index]"
+                           data-ng-click="$parent.checking()"/> {{ "EventTypes." + type.type | translate }}
+                </div>
+            </div>
+            <button class="btn icon-btn btn-danger btn-vop btn-155px" data-ng-click="$parent.cancelRoute()"
+                    style="margin-bottom: 1em;" title="Annuleren">
+                <span class="glyphicon btn-glyphicon glyphicon-remove img-circle text-danger pull-left"></span>
+                <span class="btn-vop-center-text">Annuleren</span>
+            </button>
+            <button class="btn icon-btn btn-success btn-vop btn-155px" data-ng-click="$parent.saveRoute()">
+                <span class="glyphicon btn-glyphicon glyphicon-floppy-disk img-circle text-success pull-left"></span>
+                <span class="btn-vop-center-text">Opslaan</span>
+            </button>
+        </form>
+    </div>
+    <div id="travels">
+        <h2 class="col-md-offset-1">Maak uw traject aan</h2>
+        <form name="addTravelForm" role="form" class="form-horizontal" data-ng-submit="createTravel()">
+            <div class="form-group row">
+                <div class="col-md-10 col-md-offset-1 col-sm-12 col-xs-12">
+                    <label>Trajectnaam: <span class="glyphicon glyphicon-asterisk"></span></label>
+                    <input data-ng-model="travel.name" class="form-control input-md " required/>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-md-3 col-md-offset-1 col-sm-3 col-xs-3">
+                    <label>Tijdsinterval: <span class="glyphicon glyphicon-asterisk"></span></label>
+                </div>
+                <div class="col-md-3 col-sm-4 col-xs-4">
+                    <input type="time"
+                           data-ng-model="time[0]"
+                           class="form-control input-md "
+                           required/>
+                </div>
+                <div class="col-md-1 col-sm-1 col-xs-1">
+                    -
+                </div>
+                <div class="col-md-3 col-sm-4 col-xs-4">
+                    <input type="time"
+                           data-ng-model="time[1]"
+                           class="form-control input-md "
+                           required/>
+                </div>
+            </div>
+            <div class="form-group row">
+                <!-- ALTIJD ZICHTBAAR!!!!! -->
+                <div class="col-md-10 col-md-offset-1 col-sm-12 col-xs-12">
+                    <div>
+                        <input type="checkbox" data-ng-model="selectedAllDays" data-ng-click="selectAllDays()"/>
+                        <label>Alle dagen</label>
+                        <input type="checkbox" data-ng-model="travel.recurring[0]" data-ng-click="checkingDays()"/>
+                        <label>Maandag</label>
+                        <input type="checkbox" data-ng-model="travel.recurring[1]" data-ng-click="checkingDays()"/>
+                        <label>Dinsdag</label>
+                        <input type="checkbox" data-ng-model="travel.recurring[2]" data-ng-click="checkingDays()"/>
+                        <label>Woensdag</label>
+                        <input type="checkbox" data-ng-model="travel.recurring[3]" data-ng-click="checkingDays()"/>
+                        <label>Donderdag</label>
+                        <input type="checkbox" data-ng-model="travel.recurring[4]" data-ng-click="checkingDays()"/>
+                        <label>Vrijdag</label>
+                        <input type="checkbox" data-ng-model="travel.recurring[5]" data-ng-click="checkingDays()"/>
+                        <label>Zaterdag</label>
+                        <input type="checkbox" data-ng-model="travel.recurring[6]" data-ng-click="checkingDays()"/>
+                        <label>Zondag</label>
+                    </div>
+                </div>
+            </div>
+            <input type="submit" id="travelAddForm" class="hidden"/>
+        </form>
+        <div class="row">
+            <div class="col-md-8 col-md-offset-1">
+                <h3>Instructies</h3>
+                <p>
+                    Onderstaande kaart helpt u bij het aanmaken van uw traject en zijn bijhorende routes.
+                    Hier kunt u het vertrekpunt en de bestemming van uw traject aanduiden.<br/>
+                    Een route geeft een manier op waarop u van het vertrekpunt naar de bestemming van het traject gaat.
+                    Daarvoor moet u een
+                    vervoersmiddel selecteren en kunt u tussenpunten aanduiden met behulp van de zwarte pin om aan te
+                    geven langs welke plaatsen u wilt gaan.<br/>
+                    Voor hetzelfde traject kunnen meerdere routes worden aangemaakt (bijvoorbeeld een traject van uw
+                    thuis adres naar uw werk
+                    en 2 routes horend bij dit traject: 1 voor de fiets met een tussenpunt in een park en 1 voor de auto
+                    zonder tussenpunten).
+                </p>
+            </div>
+            <!-- </div> -->
+            <form class="navbar-form" id="startpointAutocompleteForm">
+                <div class="input-group">
+                    <input type="text" class="form-control autocomplete" placeholder=" Kies een vertrekpunt"
+                           id="startpointAutocomplete" data-ng-disabled="autocompleteDisabled">
+                </div>
+            </form>
+
+            <form class="navbar-form" id="endpointAutocompleteForm">
+                <div class="input-group">
+                    <input type="text" class="form-control autocomplete" placeholder=" Kies een bestemming"
+                           id="endpointAutocomplete" data-ng-disabled="autocompleteDisabled">
+                </div>
+            </form>
+
+            <!--<select id="mode" class="form-control" data-ng-options="type as ('TransportationTypes.'+type | translate) for type in transportationTypes" data-ng-model="transportationModel" data-ng-change="renderRoute()" />-->
+            <select id="mode" class="form-control" data-ng-change="renderRoute()" ng-model="transportationModel">
+                <option data-ng-repeat="type in transportationTypes" value="{{type}}">{{"TransportationTypes." + type | translate}}</option>
+            </select>
+            <div id="mapWrapper" class="row">
+                <div id="map" class="col-md-offset-1 col-md-10" style="height: 575px;">
+                    <center>Waiting for the map...</center>
+                </div>
+                <div id="addWaypoint" class="divMessages">
+                    <h3 class="text-center">Waypoint toevoegen met adres</h3>
+                    <br/>
+                    <input id="waypointAutocomplete" placeholder=" Voeg uw waypoint toe" type="text"
+                           class="form-control"/>
+                    <input data-ng-click="addMarkerWaypoint()" type="submit"
+                           class="btn btn-primary pull-right specialButton" value="Voeg toe" id="addWaypointButton"/>
+                </div>
+                <div id="errorMessage" class="row form-group divMessages">
+                    <h3 class="text-center">Opgelet</h3>
+                    <br/>
+                    <p class="text-center"></p>
+                    <input type="submit" class="btn btn-primary pull-right specialButton" value="Sluiten"
+                           data-ng-click="close()"/>
+                    <!-- Here comes the error message as specified in javascript -->
+                </div>
+            </div>
+            <div id="routes">
+                <div class="row">
+                    <div class="col-md-offset-1 col-md-10">
+                        <div class="alert alert-success" data-ng-show="routeAddSuccess" style="margin-top: 50px;">
+                            <a class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                            <strong>Gelukt!</strong> De route werd correct opgeslagen. U kan vanaf nu het vertrekpunt en
+                            de bestemming niet meer aanpassen.
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-offset-1 col-md-10">
+                        <button class="btn icon-btn btn-success pull-right" data-ng-click="showRouteForm()"
+                                title="Toevoegen route">
+                            <span class="glyphicon btn-glyphicon glyphicon-plus img-circle text-success"></span>
+                            Voeg deze route toe
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="alert alert-danger col-md-offset-1 col-md-10" data-ng-show="startEndPointValidation" style="margin-top: 10px;">
+                <a class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                <strong>Opgelet!</strong> Gelieve een vertrekpunt en/of bestemming op te geven.
+            </div>
+            <div class="row">
+                <div class="col-md-10 col-md-offset-1 col-sm-12 col-xs-12">
+                    <button class="btn icon-btn btn-danger btn-vop btn-155px" data-ng-click="cancel()"
+                            style="margin-bottom: 1em;" title="Annuleren">
+                        <span class="glyphicon btn-glyphicon glyphicon-remove img-circle text-danger pull-left"></span>
+                        <span class="btn-vop-center-text">Annuleren</span>
+                    </button>
+                    <button type="submit" class="btn icon-btn btn-success btn-vop btn-155px"
+                            data-ng-click="submit()" style="margin-bottom: 1em;" title="Travel aanmaken">
+                        <span class="glyphicon btn-glyphicon glyphicon-plus img-circle text-success pull-left"></span>
+                        <span class="btn-vop-center-text">Opslaan</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id='markerDropper'></div>
+    <div id='waypointAdder'></div>
+</div>

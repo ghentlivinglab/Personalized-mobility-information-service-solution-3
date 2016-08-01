@@ -1,0 +1,1118 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for directives\gmapsTravelAddDirective.js</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../prettify.css" />
+    <link rel="stylesheet" href="../base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="../index.html">all files</a> / <a href="index.html">directives/</a> gmapsTravelAddDirective.js
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">45.06% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>73/162</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">12.9% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>8/62</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">19.51% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>8/41</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">45.06% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>73/162</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line low'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154
+155
+156
+157
+158
+159
+160
+161
+162
+163
+164
+165
+166
+167
+168
+169
+170
+171
+172
+173
+174
+175
+176
+177
+178
+179
+180
+181
+182
+183
+184
+185
+186
+187
+188
+189
+190
+191
+192
+193
+194
+195
+196
+197
+198
+199
+200
+201
+202
+203
+204
+205
+206
+207
+208
+209
+210
+211
+212
+213
+214
+215
+216
+217
+218
+219
+220
+221
+222
+223
+224
+225
+226
+227
+228
+229
+230
+231
+232
+233
+234
+235
+236
+237
+238
+239
+240
+241
+242
+243
+244
+245
+246
+247
+248
+249
+250
+251
+252
+253
+254
+255
+256
+257
+258
+259
+260
+261
+262
+263
+264
+265
+266
+267
+268
+269
+270
+271
+272
+273
+274
+275
+276
+277
+278
+279
+280
+281
+282
+283
+284
+285
+286
+287
+288
+289
+290
+291
+292
+293
+294
+295
+296
+297
+298
+299
+300
+301
+302
+303
+304
+305
+306
+307
+308
+309
+310
+311
+312
+313
+314
+315
+316
+317
+318
+319
+320
+321
+322
+323
+324
+325
+326
+327
+328
+329
+330
+331
+332
+333
+334
+335
+336
+337
+338
+339
+340
+341
+342
+343
+344
+345
+346
+347
+348
+349
+350
+351
+352</td><td class="line-coverage quiet"><span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">4×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4×</span>
+<span class="cline-any cline-yes">4×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4×</span>
+<span class="cline-any cline-yes">4×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4×</span>
+<span class="cline-any cline-yes">4×</span>
+<span class="cline-any cline-yes">4×</span>
+<span class="cline-any cline-yes">4×</span>
+<span class="cline-any cline-yes">4×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4×</span>
+<span class="cline-any cline-yes">4×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4×</span>
+<span class="cline-any cline-yes">4×</span>
+<span class="cline-any cline-yes">4×</span>
+<span class="cline-any cline-yes">4×</span>
+<span class="cline-any cline-yes">4×</span>
+<span class="cline-any cline-yes">4×</span>
+<span class="cline-any cline-yes">4×</span>
+<span class="cline-any cline-yes">4×</span>
+<span class="cline-any cline-yes">4×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4×</span>
+<span class="cline-any cline-yes">4×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4×</span>
+<span class="cline-any cline-yes">4×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4×</span>
+<span class="cline-any cline-yes">4×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4×</span>
+<span class="cline-any cline-yes">8×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8×</span>
+<span class="cline-any cline-yes">8×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4×</span>
+<span class="cline-any cline-yes">4×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4×</span>
+<span class="cline-any cline-yes">4×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4×</span>
+<span class="cline-any cline-yes">8×</span>
+<span class="cline-any cline-yes">8×</span>
+<span class="cline-any cline-yes">8×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8×</span>
+<span class="cline-any cline-yes">4×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8×</span>
+<span class="cline-any cline-yes">12×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4×</span>
+<span class="cline-any cline-yes">4×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4×</span>
+<span class="cline-any cline-yes">4×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">angular.module('vopTravel').directive("gmapsTravelAdd", function ($timeout) {
+  return {
+	restrict: "A",
+	scope: false,
+	link: function (scope, element, attrs, ngModel) {
+		/**
+		 * @constant SPECIALMARKERICON
+		 * @description The icon for the marker
+		 * @type {string}
+		 */
+		var MARKERICON = 'assets/images/map-marker.svg';
+		/**
+		 * @constant SPECIALMARKERICON
+		 * @description The icon for the marker
+		 * @type {string}
+		 */
+		var SPECIALMARKERICON = 'assets/images/map-pin-special.svg';
+		scope.markers=[];
+		
+		scope.overview_path=[];
+		scope.routeMarkers=[];
+		/**
+		 @function cancelRoute
+		 @description cancel the routeAdd and remove the overlay
+		 @memberof angular_module.vopApp.vopTravel.travelAddController
+		 */
+		scope.cancelRoute = <span class="fstat-no" title="function not covered" >function () {</span>
+<span class="cstat-no" title="statement not covered" >			$(element[0]).ready(<span class="fstat-no" title="function not covered" >function () {</span></span>
+<span class="cstat-no" title="statement not covered" >				$("#overlappingForm").fadeOut();</span>
+<span class="cstat-no" title="statement not covered" >				$("#travels").css('transition', '1s');</span>
+<span class="cstat-no" title="statement not covered" >				$("#travels").css('-webkit-filter', 'blur(0px)');</span>
+			});
+		};
+		
+		/**
+		 @function showRouteForm
+		 @description show the div where you can add a route to the travel
+		 @memberof angular_module.vopApp.vopTravel.travelAddController
+		 */
+		scope.showRouteForm = <span class="fstat-no" title="function not covered" >function () {</span>
+<span class="cstat-no" title="statement not covered" >			if (scope.originMarker == null || scope.destinationMarker == null) {</span>
+<span class="cstat-no" title="statement not covered" >				scope.showErrorMessage("Gelieve eerst een vertrekpunt en een bestemming op te geven.");</span>
+			} else {
+<span class="cstat-no" title="statement not covered" >				$(element[0]).ready(<span class="fstat-no" title="function not covered" >function () {</span></span>
+<span class="cstat-no" title="statement not covered" >					$("#overlappingForm").fadeIn();</span>
+<span class="cstat-no" title="statement not covered" >					$("#travels").css('transition', '1s');</span>
+<span class="cstat-no" title="statement not covered" >					$("#travels").css('-webkit-filter', 'blur(5px)');</span>
+				});
+			}
+		};
+		scope.bounds = new google.maps.LatLngBounds();
+		scope.geocoder = new google.maps.Geocoder();
+		scope.directionsService = new google.maps.DirectionsService();
+		scope.directionsDisplay = new google.maps.DirectionsRenderer();
+		scope.mapOptions = {
+			// Center on Ghent
+			center: {lat: 51.0533593, lng: 3.723252},
+			zoom: 14
+		};
+		// Make new map with mapoptions
+		scope.map = new google.maps.Map(element[0].querySelector('#map'), scope.mapOptions);
+		scope.directionsDisplay.setMap(scope.map);
+		// Add the textfields for origin and destination
+		var startInput = element[0].querySelector("#startpointAutocomplete");
+		var endInput = element[0].querySelector("#endpointAutocomplete");
+		var addWaypointInput = element[0].querySelector('#waypointAutocomplete');
+		scope.map.controls[google.maps.ControlPosition.TOP_LEFT].push(element[0].querySelector("#startpointAutocompleteForm"));
+		scope.map.controls[google.maps.ControlPosition.TOP_LEFT].push(element[0].querySelector("#endpointAutocompleteForm"));
+		scope.startpointAutocomplete = new google.maps.places.Autocomplete(startInput, {types: ['geocode']});
+		scope.endpointAutocomplete = new google.maps.places.Autocomplete(endInput, {types: ['geocode']});
+		scope.addWaypointAutocomplete = new google.maps.places.Autocomplete(addWaypointInput, {types: ['geocode']});
+		scope.startpointAutocomplete.addListener('place_changed', <span class="fstat-no" title="function not covered" >function () {</span>
+<span class="cstat-no" title="statement not covered" >			if (scope.startpointAutocomplete.getPlace() != null) {</span>
+<span class="cstat-no" title="statement not covered" >				scope.addOrigin();</span>
+			}
+<span class="cstat-no" title="statement not covered" >			if (scope.originMarker != null &amp;&amp; scope.destinationMarker != null) {</span>
+<span class="cstat-no" title="statement not covered" >				scope.renderRoute();</span>
+			}
+		});
+		scope.endpointAutocomplete.addListener('place_changed', <span class="fstat-no" title="function not covered" >function () {</span>
+<span class="cstat-no" title="statement not covered" >			if (scope.endpointAutocomplete.getPlace() != null) {</span>
+<span class="cstat-no" title="statement not covered" >				scope.addDestination();</span>
+			}
+<span class="cstat-no" title="statement not covered" >			if (scope.originMarker != null &amp;&amp; scope.destinationMarker != null) {</span>
+<span class="cstat-no" title="statement not covered" >				scope.renderRoute();</span>
+			}
+		});
+	
+		// Init MarkerDropper and waypointAdder
+		var markerDropperDiv = element[0].querySelector('#markerDropper');
+		var waypointAdderDiv = element[0].querySelector('#waypointAdder');
+		
+		new MarkerDropper(markerDropperDiv, scope, scope.map, MARKERICON);
+		scope.map.controls[google.maps.ControlPosition.TOP_RIGHT].push(markerDropperDiv);
+		
+		new WaypointAdder(waypointAdderDiv, "map");
+		scope.map.controls[google.maps.ControlPosition.RIGHT_TOP].push(waypointAdderDiv);
+		
+		scope.map.controls[google.maps.ControlPosition.TOP_RIGHT].push(element[0].querySelector("#mode"));
+		// Add listener to map
+		scope.map.addListener('click', <span class="fstat-no" title="function not covered" >function () {</span>
+			// Hide the div + clear the input field when you click outside the form
+<span class="cstat-no" title="statement not covered" >			$(element[0]).ready(<span class="fstat-no" title="function not covered" >function () {</span></span>
+<span class="cstat-no" title="statement not covered" >				$("#addWaypoint").fadeOut();</span>
+<span class="cstat-no" title="statement not covered" >				$("#map").css('transition', '1s');</span>
+<span class="cstat-no" title="statement not covered" >				$("#map").css('-webkit-filter', 'blur(0px)');</span>
+<span class="cstat-no" title="statement not covered" >				$("#waypointAutocomplete").val('');</span>
+			});
+		});
+		$(element[0]).ready(function () {
+			// Stop the default submit on enter
+			$("#startpointAutocompleteForm").submit(<span class="fstat-no" title="function not covered" >function (event) {</span>
+<span class="cstat-no" title="statement not covered" >				return false;</span>
+			});
+			$("#endpointAutocompleteForm").submit(<span class="fstat-no" title="function not covered" >function (event) {</span>
+<span class="cstat-no" title="statement not covered" >				return false;</span>
+			});
+		});
+		
+		
+		/**
+		 @function addMarkerWaypoint
+		 @description Add the marker from the waypointAutocomplete
+		 @memberof angular_module.vopApp.vopTravel.travelAddController
+		 */
+		scope.addMarkerWaypoint = <span class="fstat-no" title="function not covered" >function () {</span>
+<span class="cstat-no" title="statement not covered" >			scope.addNewMarker({</span>
+				lat: scope.addWaypointAutocomplete.getPlace().geometry.location.lat(),
+				lng: scope.addWaypointAutocomplete.getPlace().geometry.location.lng()
+			}, MARKERICON);
+			// Hide the add waypoint div + clear the input field
+<span class="cstat-no" title="statement not covered" >			$(element[0]).ready(<span class="fstat-no" title="function not covered" >function () {</span></span>
+<span class="cstat-no" title="statement not covered" >				$("#addWaypoint").fadeOut();</span>
+<span class="cstat-no" title="statement not covered" >				$("#map").css('transition', '1s');</span>
+<span class="cstat-no" title="statement not covered" >				$("#map").css('-webkit-filter', 'blur(0px)');</span>
+<span class="cstat-no" title="statement not covered" >				$("#waypointAutocomplete").val('');</span>
+			});
+		};
+		/**
+		 @function addMarker
+		 @description Add a marker on the map
+		 @memberof angular_module.vopApp.vopTravel.travelAddController
+		 @param position - the position of the new added marker
+		 @param icon - the icon of the marker
+		 */
+		scope.addNewMarker = function (position, icon) {
+			var marker = new google.maps.Marker({
+				draggable: true,
+				icon: icon,
+				position: position,
+				map: scope.map,
+				animation: google.maps.Animation.DROP
+			});
+			marker.addListener('click', <span class="fstat-no" title="function not covered" >function () {</span>
+<span class="cstat-no" title="statement not covered" >				if (marker.getAnimation() !== null) {</span>
+<span class="cstat-no" title="statement not covered" >					marker.setAnimation(null);</span>
+				} else {
+<span class="cstat-no" title="statement not covered" >					marker.setAnimation(google.maps.Animation.BOUNCE);</span>
+				}
+			});
+			// Delete marker by rightclick
+			marker.addListener('rightclick', <span class="fstat-no" title="function not covered" >function () {</span>
+<span class="cstat-no" title="statement not covered" >				marker.setMap(null);</span>
+<span class="cstat-no" title="statement not covered" >				if (marker != scope.originMarker &amp;&amp; marker != scope.destinationMarker) {</span>
+<span class="cstat-no" title="statement not covered" >					scope.renderRoute();</span>
+				}
+			});
+			marker.addListener('dragend', <span class="fstat-no" title="function not covered" >function () {</span>
+<span class="cstat-no" title="statement not covered" >				if (scope.originMarker != null &amp;&amp; scope.destinationMarker != null) {</span>
+<span class="cstat-no" title="statement not covered" >					scope.renderRoute();</span>
+				}
+			});
+			scope.markers.push(marker);
+			<span class="missing-if-branch" title="if path not taken" >I</span>if (scope.originMarker != null &amp;&amp; scope.destinationMarker != null) {
+<span class="cstat-no" title="statement not covered" >				scope.renderRoute();</span>
+			}
+			return marker;
+		};
+		/**
+		 @function renderRoute
+		 @description Render the route on the map
+		 @memberof angular_module.vopApp.vopTravel.travelAddController
+		 */
+		scope.renderRoute = <span class="fstat-no" title="function not covered" >function () {</span>
+<span class="cstat-no" title="statement not covered" >			var waypoints = [];</span>
+<span class="cstat-no" title="statement not covered" >			if (scope.originMarker == null) {</span>
+<span class="cstat-no" title="statement not covered" >				scope.showErrorMessage("Gelieve eerst een vertrekpunt in te geven.");</span>
+			} else {
+<span class="cstat-no" title="statement not covered" >				if (scope.destinationMarker == null) {</span>
+<span class="cstat-no" title="statement not covered" >					scope.showErrorMessage("Gelieve eerst een bestemming in te geven");</span>
+				} else {
+<span class="cstat-no" title="statement not covered" >					scope.markers.forEach(<span class="fstat-no" title="function not covered" >function (entry) {</span></span>
+<span class="cstat-no" title="statement not covered" >						if (entry.getMap() != null) {</span>
+<span class="cstat-no" title="statement not covered" >							if (!(entry == scope.originMarker || entry == scope.destinationMarker)) {</span>
+<span class="cstat-no" title="statement not covered" >								waypoints.push({</span>
+									location: entry.position,
+									stopover: true
+								});
+							}
+						}
+					});
+	
+<span class="cstat-no" title="statement not covered" >					var mappingDictionary = {</span>
+						"car": "DRIVING",
+						"bus": "TRANSIT",
+						"streetcar": "TRANSIT",
+						"train": "TRANSIT",
+						"bike": "BICYCLING"
+					};
+<span class="cstat-no" title="statement not covered" >					var selectedMode = mappingDictionary[element[0].querySelector("#mode").value];</span>
+<span class="cstat-no" title="statement not covered" >					var request = {</span>
+						origin: scope.originMarker.getPosition(),
+						destination: scope.destinationMarker.getPosition(),
+						waypoints: waypoints,
+						optimizeWaypoints: true,
+						travelMode: google.maps.TravelMode[selectedMode]
+					};
+<span class="cstat-no" title="statement not covered" >					scope.directionsDisplay.setOptions({suppressMarkers: true});</span>
+<span class="cstat-no" title="statement not covered" >					scope.directionsService.route(request, <span class="fstat-no" title="function not covered" >function (result, status) {</span></span>
+<span class="cstat-no" title="statement not covered" >						if (status == google.maps.DirectionsStatus.OK) {</span>
+<span class="cstat-no" title="statement not covered" >							scope.overview_path = [];</span>
+<span class="cstat-no" title="statement not covered" >							result.routes[0].overview_path.forEach(<span class="fstat-no" title="function not covered" >function(entry){</span></span>
+<span class="cstat-no" title="statement not covered" >								scope.overview_path.push({lat:entry.lat(), lon:entry.lng()});</span>
+							});
+	
+<span class="cstat-no" title="statement not covered" >							scope.directionsDisplay.setDirections(result);</span>
+						} else {
+							// Any kind of error
+<span class="cstat-no" title="statement not covered" >							scope.showErrorMessage("Er ging iets fout bij het berekenen van de route. Controleer of uw internetverbinding goed werkt en probeer daarna opnieuw.");</span>
+						}
+					});
+				}
+			}
+		};
+		/**
+		 @function addOrigin
+		 @description Add the marker of the origin
+		 @memberof angular_module.vopApp.vopTravel.travelAddController
+		 */
+		scope.addOrigin = function () {
+			var m = scope.addNewMarker({
+				lat: scope.startpointAutocomplete.getPlace().geometry.location.lat(),
+				lng: scope.startpointAutocomplete.getPlace().geometry.location.lng()
+			}, SPECIALMARKERICON);
+			<span class="missing-if-branch" title="if path not taken" >I</span>if (scope.originMarker != null) {
+<span class="cstat-no" title="statement not covered" >				scope.markers.forEach(<span class="fstat-no" title="function not covered" >function (entry) {</span></span>
+<span class="cstat-no" title="statement not covered" >					if (entry == scope.originMarker) {</span>
+<span class="cstat-no" title="statement not covered" >						entry.setMap(null);</span>
+					}
+				});
+			}
+			scope.originMarker = m;
+			scope.originMarker.addListener('dragend', <span class="fstat-no" title="function not covered" >function () {</span>
+<span class="cstat-no" title="statement not covered" >				scope.geocoder.geocode({'location': scope.originMarker.position}, <span class="fstat-no" title="function not covered" >function (results, status) {</span></span>
+<span class="cstat-no" title="statement not covered" >					if (status === google.maps.GeocoderStatus.OK) {</span>
+<span class="cstat-no" title="statement not covered" >						if (results[0]) {</span>
+<span class="cstat-no" title="statement not covered" >							element[0].querySelector("#startpointAutocomplete").value = results[0].formatted_address;</span>
+						}
+					}
+				})
+			});
+			scope.originMarker.addListener('rightclick', <span class="fstat-no" title="function not covered" >function () {</span>
+<span class="cstat-no" title="statement not covered" >				element[0].querySelector("#startpointAutocomplete").value = '';</span>
+<span class="cstat-no" title="statement not covered" >				scope.originMarker = null;</span>
+			});
+			extendBounds();
+		};
+	
+		var extendBounds = function () {
+			scope.bounds = new google.maps.LatLngBounds();
+			<span class="missing-if-branch" title="else path not taken" >E</span>if(scope.originMarker!=null){
+				scope.bounds.extend(scope.originMarker.getPosition());
+			}
+			if(scope.destinationMarker!=null){
+				scope.bounds.extend(scope.destinationMarker.getPosition());
+			}
+			scope.markers.forEach(function(entry){
+				scope.bounds.extend(entry.getPosition());
+			});
+			scope.map.fitBounds(scope.bounds);
+		};
+		/**
+		 @function addMarkerWaypoint
+		 @description Add the marker of the destination
+		 @memberof angular_module.vopApp.vopTravel.travelAddController
+		 */
+		scope.addDestination = function () {
+			m = scope.addNewMarker({
+				lat: scope.endpointAutocomplete.getPlace().geometry.location.lat(),
+				lng: scope.endpointAutocomplete.getPlace().geometry.location.lng()
+			}, SPECIALMARKERICON);
+			<span class="missing-if-branch" title="if path not taken" >I</span>if (scope.destinationMarker != null) {
+<span class="cstat-no" title="statement not covered" >				scope.markers.forEach(<span class="fstat-no" title="function not covered" >function (entry) {</span></span>
+<span class="cstat-no" title="statement not covered" >					if (entry == scope.destinationMarker) {</span>
+<span class="cstat-no" title="statement not covered" >						entry.setMap(null);</span>
+					}
+				});
+			}
+			scope.destinationMarker = m;
+			scope.destinationMarker.addListener('dragend', <span class="fstat-no" title="function not covered" >function () {</span>
+<span class="cstat-no" title="statement not covered" >				scope.geocoder.geocode({'location': scope.destinationMarker.position}, <span class="fstat-no" title="function not covered" >function (results, status) {</span></span>
+<span class="cstat-no" title="statement not covered" >					if (status === google.maps.GeocoderStatus.OK) {</span>
+<span class="cstat-no" title="statement not covered" >						if (results[0]) {</span>
+<span class="cstat-no" title="statement not covered" >							element[0].querySelector("#endpointAutocomplete").value = results[0].formatted_address;</span>
+						}
+					}
+				})
+			});
+			scope.destinationMarker.addListener('rightclick', <span class="fstat-no" title="function not covered" >function () {</span>
+<span class="cstat-no" title="statement not covered" >				element[0].querySelector("#endpointAutocomplete").value = '';</span>
+<span class="cstat-no" title="statement not covered" >				scope.destinationMarker = null;</span>
+			});
+			extendBounds();
+		};
+		/**
+		 @function showErrorMessage
+		 @description show the error message
+		 @memberof angular_module.vopApp.vopTravel.travelAddController
+		 @param msg - the error message which will be shown
+		 */
+		scope.showErrorMessage = <span class="fstat-no" title="function not covered" >function (msg) {</span>
+<span class="cstat-no" title="statement not covered" >			$(element[0]).ready(<span class="fstat-no" title="function not covered" >function () {</span></span>
+<span class="cstat-no" title="statement not covered" >				$("#errorMessage").find("p").text(msg);</span>
+<span class="cstat-no" title="statement not covered" >				$("#errorMessage").fadeTo(1000, 1);</span>
+<span class="cstat-no" title="statement not covered" >				$("#map").css('transition', '1s');</span>
+<span class="cstat-no" title="statement not covered" >				$("#map").css('-webkit-filter', 'blur(5px)');</span>
+			});
+		};
+		/**
+		 @function showErrorMessage
+		 @description close the error message div
+		 @memberof angular_module.vopApp.vopTravel.travelAddController
+		 */
+		scope.close = <span class="fstat-no" title="function not covered" >function () {</span>
+<span class="cstat-no" title="statement not covered" >			$(element[0]).ready(<span class="fstat-no" title="function not covered" >function () {</span></span>
+<span class="cstat-no" title="statement not covered" >				$("#errorMessage").fadeOut();</span>
+<span class="cstat-no" title="statement not covered" >				$("#map").css('transition', '1s');</span>
+<span class="cstat-no" title="statement not covered" >				$("#map").css('-webkit-filter', 'blur(0px)');</span>
+			});
+		};
+		
+		
+		scope.submit = <span class="fstat-no" title="function not covered" >function () {</span>
+			//simulate the clicking of the submit button
+<span class="cstat-no" title="statement not covered" >			$timeout(<span class="fstat-no" title="function not covered" >function () {</span></span>
+<span class="cstat-no" title="statement not covered" >				$("#travelAddForm").click();</span>
+			}, 0);
+		}
+	}
+  }	
+});
+&nbsp;</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Mon May 16 2016 16:33:31 GMT+0200 (Romance (zomertijd))
+</div>
+</div>
+<script src="../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../sorter.js"></script>
+</body>
+</html>

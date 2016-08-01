@@ -1,0 +1,98 @@
+<div class="container-fluid" gmaps-event-edit>
+  <div id="pageWrap">
+    <div class ="row">
+      <div class="col-md-6  col-md-offset-1 alert alert-dismissable alert-info fade in">
+        <p>
+          De velden met een <span class = "glyphicon glyphicon-asterisk" style="font-size: xx-small; color:red;"></span> zijn verplicht in te vullen.
+          <a class ="close" data-dismiss="alert" aria-label="close">&times;</a>
+        </p>
+      </div>
+    </div>
+    <h2 class="col-md-offset-1">Wijzig event</h2>
+    <br/>
+    <form data-ng-submit="createEvent()" role="form" name="eventAddForm" class="form-horizontal" id="eventAddForm">
+      <div class="form-group row">
+        <div class="col-md-6 col-md-offset-1">
+          <label class="control-label"> Adres <span class = "glyphicon glyphicon-asterisk" ></span></label>
+          <input type="text" id="addressAutocomplete" class="form-control input-md" data-ng-model="event.addr" required/>
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <div class="col-md-6 col-md-offset-1">
+          <label class="control-label">Beschrijving <span class = "glyphicon glyphicon-asterisk"></span></label>
+          <textarea data-ng-model="event.description" rows="5" cols="35" class="form-control input-md" required></textarea>
+        </div>
+      </div>
+      <div class="form-group row">
+        <div class="col-md-6 col-md-offset-1">
+          <label class="control-label ">Bron <span class = "glyphicon glyphicon-asterisk"></span></label>
+          <input type="text" data-ng-model="event.source.name" class="form-control input-md "/>
+        </div>
+      </div>
+      <div class="form-group row">
+        <div class="col-md-6 col-md-offset-1">
+          <label class="control-label"> Type <span class = "glyphicon glyphicon-asterisk"></span></label>
+          <select data-ng-model="event.type.type" class="form-control input-md">
+            <option value="{{type.type}}" data-ng-repeat="type in eventTypes">{{ "EventTypes." + type.type | translate}}</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group row">
+        <div class="col-md-6 col-md-offset-1">
+          <label class="control-label"> Relevant voor: </label>
+          <div data-ng-repeat="type in transportationTypes">
+            <input type="checkbox" data-ng-true-value="'{{type}}'" data-ng-model="selectedEventTypesTemp[$index]"/> {{ "TransportationTypes." + type | translate }}
+          </div>
+        </div>
+      </div>
+      <div class="form-group row">
+        <div class="col-md-6 col-md-offset-1">
+          <label>Actief:</label>
+          <input type="checkbox" data-ng-model="event.active" data-ng-value="true"/>
+        </div>
+      </div>
+
+
+      <div class="jam" data-ng-show="event.jams">
+        <h4>Files</h4>
+        <table class="table">
+          <thead>
+          <tr>
+            <th></th>
+            <th>Gemiddelde snelheid (km/u)</th>
+            <th>Gemiddelde vertraging (sec)</th>
+          </tr>
+          </thead>
+          <tbody>
+            <tr class="hoverTableRow" data-ng-repeat="jam in event.jams" data-ng-show="jam.show">
+              <td><span class="glyphicon glyphicon-warning-sign"></span></td>
+              <td>{{jam.speed}}</td>
+              <td>{{jam.delay}}</td>
+              <td>
+                <div class="pull-right">
+                  <button data-ng-click = "deleteJam(jam)" class="btn badge" title="Verwijderen">
+                    <span class="glyphicon glyphicon-trash"></span>
+                  </button>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="row">
+        <div class="col-sm-12">
+          <button type="button" class="btn icon-btn btn-danger col-md-offset-1 btn-vop btn-200px" data-ng-click = "goBack()" style="margin-bottom: 1em;" title="Annuleren">
+            <span class="glyphicon btn-glyphicon glyphicon-remove img-circle text-danger pull-left"></span>
+            <span class="btn-vop-center-text"> Annuleren</span>
+          </button>
+          <button type="submit" class="btn icon-btn btn-success btn-vop btn-200px" data-ng-click = "editEvent()" style="margin-bottom: 1em;" title="Event toevoegen">
+            <span class="glyphicon btn-glyphicon glyphicon-floppy-disk img-circle text-success pull-left"></span>
+            <span class="btn-vop-center-text">Opslaan</span>
+          </button>
+
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

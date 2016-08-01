@@ -1,0 +1,121 @@
+<div class="addUser  container-fluid">
+    <div class="row">
+        <div class="col-md-10 col-md-offset-1">
+            <div class="alert alert-danger" data-ng-show="notValid" id="alertBox">
+                <a class="close" data-ng-click="alert()" aria-label="close">&times;</a>
+                <p>{{notCompleteMessage}}</p>
+            </div>
+        </div>
+    </div>
+    <form name="userAddForm"
+          role="form"
+          data-ng-submit="addUserFunction()"
+          class="form-horizontal">
+
+        <!-- first name -->
+        <div class="form-group row">
+            <div class="col-md-6 col-md-offset-1">
+                <label for="firstName">Voornaam <span class="glyphicon glyphicon-asterisk"></span></label>
+                <input type="text"
+                       class="form-control"
+                       data-ng-model="user.first_name"
+                       id="firstName"
+                       name="first_name"
+                       placeholder="Geef uw voornaam" required/>
+            </div>
+        </div>
+
+        <!-- last name -->
+        <div class="form-group row">
+            <div class="col-md-6 col-md-offset-1">
+                <label for="lastName">Achternaam <span class="glyphicon glyphicon-asterisk"></span></label>
+                <input type="text"
+                       class="form-control"
+                       data-ng-model="user.last_name"
+                       id="lastName"
+                       name="last_name"
+                       placeholder="Geef uw achternaam" required/>
+            </div>
+        </div>
+
+        <!-- cellphone -->
+        <div class="form-group row">
+            <div class="col-md-6 col-md-offset-1">
+                <label for="cellphone">Gsm nummer</label>
+                <input type="text"
+                       class="form-control"
+                       data-ng-model="user.cell_number"
+                       id="cellphone"
+                       name="cellphone"
+                       placeholder="Geef uw gsm nummer"/>
+            </div>
+        </div>
+
+        <!-- email -->
+        <div class="form-group row">
+            <div class="col-md-6 col-md-offset-1">
+                <label for="email">Email <span class="glyphicon glyphicon-asterisk"></span></label>
+                <input type="text"
+                       class="form-control"
+                       data-ng-model="user.email"
+                       id="email"
+                       name="email"
+                       placeholder="Geef uw mail adres"
+                       required/>
+            </div>
+        </div>
+
+        <!-- password -->
+        <div class="form-group row">
+            <div class="col-md-6 col-md-offset-1">
+                <label for="password">Wachtwoord <span class="glyphicon glyphicon-asterisk"></span></label>
+                <input type="password"
+                       class="form-control"
+                       data-ng-model="user.password"
+                       id="password"
+                       name="password"
+                       placeholder="Geef uw wachtwoord"
+                       required/>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <div class="col-md-6 col-md-offset-1">
+                <label for="confirmPassword">Bevestig wachtwoord <span
+                        class="glyphicon glyphicon-asterisk"></span></label>
+                <input data-ng-model="confirmPassword"
+                       type="password"
+                       class="form-control"
+                       id="confirmPassword"
+                       name="confirmPassword"
+                       placeholder="Hetzelfde wachtwoord als hierboven"
+                       required/>
+            </div>
+            <div data-ng-messages="confirmPassword.$error">
+
+            </div>
+        </div>
+
+        <!-- Persoonlijke gegevensbescherming -->
+        <div class="form-group row ">
+            <div class="col-md-6 col-md-offset-1">
+                <input type="checkbox"
+                       data-ng-model="notChecked"/>
+                <label>
+                    Ik stem ermee in dat mijn persoonlijke gegevens gebruikt kunnen worden door de verschillende
+                    stadsdiensten, het OCMW Gent en de met de Stad Gent verbonden maar verzelfstandigde agentschappen
+                    en autonome gemeentebedrijven om een betere, gepersonaliseerde dienstverlening te kunnen bieden.
+                </label>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6 col-md-offset-1">
+                <button class="btn icon-btn btn-primary" type="submit" title="Volgende stap">
+                    <span class="glyphicon btn-glyphicon glyphicon-circle-arrow-right img-circle text-primary"></span>
+                    Volgende stap
+                </button>
+            </div>
+        </div>
+    </form>
+</div>

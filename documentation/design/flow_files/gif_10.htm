@@ -1,0 +1,145 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<link rel="stylesheet" type="text/css" href="visio.css"/>
+<title>
+flow
+</title>
+<script type="text/javascript" language="javascript">
+function UpdateTooltip(){};
+function OnShapeClick(){};
+</script>
+
+<script src="gif_1.js" type="text/jscript" language="jscript"></script>
+
+<script type="text/jscript" language="jscript">
+	if(parent.isUpLevel)
+	{
+		location.replace(parent.g_FileList[parent.g_CurPageIndex].PriImage);
+	}
+</script>
+
+
+
+<script type="text/jscript" language="jscript">
+
+var pageID = 11;
+
+var isUpLevel = parent.isUpLevel;
+var OnShapeClick = null;
+if (!parent.isMac)
+{
+	OnShapeClick = parent.OnShapeClick;
+}
+
+var OnShapeKey = parent.OnShapeKey;
+var UpdateTooltip = parent.UpdateTooltip;
+var clickMenu = parent.clickMenu;
+var toggleMenuDiv = parent.toggleMenuDiv;
+var toggleMenuLink = parent.toggleMenuLink;
+var GoToPage = parent.GoToPage;
+
+
+if (parent.isUpLevel)
+{
+
+	if (parent.g_FirstPageToLoad != null && parent.g_FirstPageToLoad.length > 0)
+	{
+		if (parent.g_FileList[parent.g_CurPageIndex].PageID != pageID)
+		{
+			var fileEntry = parent.g_FileList[parent.g_CurPageIndex];
+			var fileToLoad = fileToLoad = fileEntry.PriImage;
+			if (fileEntry.SecImage.length > 0)
+			{
+				fileToLoad = fileEntry.SecImage;
+			}
+
+			location.replace(fileToLoad);
+		}
+
+		parent.g_FirstPageToLoad = null;
+	}
+
+
+	var viewMgr = new parent.CViewMgr();
+	parent.viewMgr = viewMgr;
+
+	viewMgr.SupportsDetails = true;
+	viewMgr.SupportsSearch = true;
+
+	viewMgr.put_Location = ViewMgrSetRasterLocation;
+	viewMgr.visBBoxLeft = 0.392034;
+	viewMgr.visBBoxRight = 7.678832;
+	viewMgr.visBBoxBottom = 3.935341;
+	viewMgr.visBBoxTop = 7.875682;
+	viewMgr.highlightDiv = null;
+}
+
+function load ()
+{
+	if(isUpLevel)
+	{
+		arrowdiv.innerHTML = '<img id="arrowgif" alt="Shows the location of the selected shape" src="arrow.gif"/>';
+
+		var pageIndex = parent.PageIndexFromID (pageID);
+		parent.CurPageUpdate (pageIndex);
+	}
+}
+
+function unload()
+{
+	if(isUpLevel)
+	{
+		viewMgr = null;
+		parent.viewMgr = null;
+	}
+}
+
+window.onload = load;
+window.onunload = unload;
+document.onclick = clickMenu;
+
+</script>
+</head>
+
+<body class="pageView" bgcolor="#FFFFFF">
+
+<div id=arrowdiv style="position:absolute;top:0;left:0;visibility:hidden;z-index:5">
+</div>
+
+<div id="menu1" onclick="clickMenu()" class="hlMenu">
+</div>
+
+<DIV id=RasterDiv>
+
+
+<center>
+  <IMG id="ConvertedImage" SRC="gif_10.gif" ALT="Security" name=RasterImage BORDER="0" USEMAP="#visImageMap">
+</center>
+
+<MAP NAME="visImageMap">
+  <AREA shape="POLYGON" tabindex="1" ALT="Logged in requests  Check Token Validity" origTitle="Logged in requests  Check Token Validity" TITLE="Logged in requests  Check Token Validity"  target="_top" COORDS="476,333,800,333,800,332,476,332" onmouseover="UpdateTooltip(this,11,4)" onfocus="UpdateTooltip(this,11,4)" onclick="return OnShapeClick(11,4);" onkeyup="OnShapeKey(11,4);">
+  <AREA shape="POLYGON" tabindex="1" ALT="Logged in requests  Check Token Validity" origTitle="Logged in requests  Check Token Validity" TITLE="Logged in requests  Check Token Validity"  target="_top" COORDS="476,229,800,229,800,228,476,228" onmouseover="UpdateTooltip(this,11,4)" onfocus="UpdateTooltip(this,11,4)" onclick="return OnShapeClick(11,4);" onkeyup="OnShapeKey(11,4);">
+  <AREA shape="POLYGON" tabindex="1" ALT="Logged in requests  Check Token Validity" origTitle="Logged in requests  Check Token Validity" TITLE="Logged in requests  Check Token Validity"  target="_top" COORDS="539,239,539,268,736,268,736,239,539,239" onmouseover="UpdateTooltip(this,11,4)" onfocus="UpdateTooltip(this,11,4)" onclick="return OnShapeClick(11,4);" onkeyup="OnShapeKey(11,4);">
+  <AREA shape="POLYGON" tabindex="1" ALT="Logged in requests  Check Token Validity" origTitle="Logged in requests  Check Token Validity" TITLE="Logged in requests  Check Token Validity"  target="_top" COORDS="537,290,537,319,738,319,738,290,537,290" onmouseover="UpdateTooltip(this,11,4)" onfocus="UpdateTooltip(this,11,4)" onclick="return OnShapeClick(11,4);" onkeyup="OnShapeKey(11,4);">
+  <AREA shape="POLYGON" tabindex="1" ALT="Login  Create Token" origTitle="Login  Create Token" TITLE="Login  Create Token"  target="_top" COORDS="476,117,800,117,800,116,476,116" onmouseover="UpdateTooltip(this,11,3)" onfocus="UpdateTooltip(this,11,3)" onclick="return OnShapeClick(11,3);" onkeyup="OnShapeKey(11,3);">
+  <AREA shape="POLYGON" tabindex="1" ALT="Login  Create Token" origTitle="Login  Create Token" TITLE="Login  Create Token"  target="_top" COORDS="476,13,800,13,800,12,476,12" onmouseover="UpdateTooltip(this,11,3)" onfocus="UpdateTooltip(this,11,3)" onclick="return OnShapeClick(11,3);" onkeyup="OnShapeKey(11,3);">
+  <AREA shape="POLYGON" tabindex="1" ALT="Login  Create Token" origTitle="Login  Create Token" TITLE="Login  Create Token"  target="_top" COORDS="609,23,609,52,667,52,667,23,609,23" onmouseover="UpdateTooltip(this,11,3)" onfocus="UpdateTooltip(this,11,3)" onclick="return OnShapeClick(11,3);" onkeyup="OnShapeKey(11,3);">
+  <AREA shape="POLYGON" tabindex="1" ALT="Login  Create Token" origTitle="Login  Create Token" TITLE="Login  Create Token"  target="_top" COORDS="573,75,573,103,702,103,702,75,573,75" onmouseover="UpdateTooltip(this,11,3)" onfocus="UpdateTooltip(this,11,3)" onclick="return OnShapeClick(11,3);" onkeyup="OnShapeKey(11,3);">
+  <AREA shape="POLYGON" tabindex="1" ALT="SECRET KEY  Encrypted value of - User Email - Rand gen number -..." origTitle="SECRET KEY  Encrypted value of - User Email - Rand gen number -..." TITLE="SECRET KEY  Encrypted value of - User Email - Rand gen number -..."  target="_top" COORDS="0,419,324,419,324,418,0,418" onmouseover="UpdateTooltip(this,11,2)" onfocus="UpdateTooltip(this,11,2)" onclick="return OnShapeClick(11,2);" onkeyup="OnShapeKey(11,2);">
+  <AREA shape="POLYGON" tabindex="1" ALT="SECRET KEY  Encrypted value of - User Email - Rand gen number -..." origTitle="SECRET KEY  Encrypted value of - User Email - Rand gen number -..." TITLE="SECRET KEY  Encrypted value of - User Email - Rand gen number -..."  target="_top" COORDS="0,229,324,229,324,228,0,228" onmouseover="UpdateTooltip(this,11,2)" onfocus="UpdateTooltip(this,11,2)" onclick="return OnShapeClick(11,2);" onkeyup="OnShapeKey(11,2);">
+  <AREA shape="POLYGON" tabindex="1" ALT="SECRET KEY  Encrypted value of - User Email - Rand gen number -..." origTitle="SECRET KEY  Encrypted value of - User Email - Rand gen number -..." TITLE="SECRET KEY  Encrypted value of - User Email - Rand gen number -..."  target="_top" COORDS="94,244,94,273,230,273,230,244,94,244" onmouseover="UpdateTooltip(this,11,2)" onfocus="UpdateTooltip(this,11,2)" onclick="return OnShapeClick(11,2);" onkeyup="OnShapeKey(11,2);">
+  <AREA shape="POLYGON" tabindex="1" ALT="SECRET KEY  Encrypted value of - User Email - Rand gen number -..." origTitle="SECRET KEY  Encrypted value of - User Email - Rand gen number -..." TITLE="SECRET KEY  Encrypted value of - User Email - Rand gen number -..."  target="_top" COORDS="61,375,187,375,187,346,121,346,121,324,251,324,251,295,74,295,74,321,16,321,10,321,3,321,3,346,3,349,3,372,3,375,3,401,10,401,16,401,61,401,61,375" onmouseover="UpdateTooltip(this,11,2)" onfocus="UpdateTooltip(this,11,2)" onclick="return OnShapeClick(11,2);" onkeyup="OnShapeKey(11,2);">
+  <AREA shape="POLYGON" tabindex="1" ALT="TOKEN  token:userId:secretKey" origTitle="TOKEN  token:userId:secretKey" TITLE="TOKEN  token:userId:secretKey"  target="_top" COORDS="0,117,324,117,324,116,0,116" onmouseover="UpdateTooltip(this,11,1)" onfocus="UpdateTooltip(this,11,1)" onclick="return OnShapeClick(11,1);" onkeyup="OnShapeKey(11,1);">
+  <AREA shape="POLYGON" tabindex="1" ALT="TOKEN  token:userId:secretKey" origTitle="TOKEN  token:userId:secretKey" TITLE="TOKEN  token:userId:secretKey"  target="_top" COORDS="0,13,324,13,324,12,0,12" onmouseover="UpdateTooltip(this,11,1)" onfocus="UpdateTooltip(this,11,1)" onclick="return OnShapeClick(11,1);" onkeyup="OnShapeKey(11,1);">
+  <AREA shape="POLYGON" tabindex="1" ALT="TOKEN  token:userId:secretKey" origTitle="TOKEN  token:userId:secretKey" TITLE="TOKEN  token:userId:secretKey"  target="_top" COORDS="125,23,125,52,200,52,200,23,125,23" onmouseover="UpdateTooltip(this,11,1)" onfocus="UpdateTooltip(this,11,1)" onclick="return OnShapeClick(11,1);" onkeyup="OnShapeKey(11,1);">
+  <AREA shape="POLYGON" tabindex="1" ALT="TOKEN  token:userId:secretKey" origTitle="TOKEN  token:userId:secretKey" TITLE="TOKEN  token:userId:secretKey"  target="_top" COORDS="177,75,171,75,111,75,105,75,53,75,53,103,105,103,111,103,171,103,177,103,271,103,271,75,177,75" onmouseover="UpdateTooltip(this,11,1)" onfocus="UpdateTooltip(this,11,1)" onclick="return OnShapeClick(11,1);" onkeyup="OnShapeKey(11,1);">
+</MAP>
+
+
+
+</DIV>
+
+</body>
+</html>
+

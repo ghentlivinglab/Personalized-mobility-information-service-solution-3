@@ -1,0 +1,106 @@
+<div class="container-fluid" gmaps-event-show>
+  <div class="col-sm-6">
+    <button class="btn icon-btn " data-ng-click = "back()">
+      <span class="glyphicon btn-glyphicon glyphicon-circle-arrow-left img-circle"></span>
+      Ga terug
+    </button>
+    <h1>Verkeersevent</h1>
+    <br/>
+    <div class="row">
+      <div class="col-sm-3">
+        <label>Type:</label>
+      </div>
+      <div class="col-sm-4">
+        <p>{{ "EventTypes." + event.type.type | translate }}</p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-3">
+        <label>Adres:</label>
+      </div>
+      <div class="col-sm-4">
+        <p id="adId">{{ event.addr }}</p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-3">
+        <label>Actief:</label>
+      </div>
+      <div class="col-sm-4">
+        <p>{{ event.active }}</p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-3">
+        <label>Gepubliceerd op:</label>
+      </div>
+      <div class="col-sm-4">
+        <p>{{ pubDate | date : 'dd/MM/yyyy HH:mm'}}</p>
+      </div>
+    </div>  <div class="row">
+    <div class="col-sm-3">
+      <label>Laatst gewijzigd op:</label>
+    </div>
+    <div class="col-sm-4">
+      <p>{{ lastEditDate | date : 'dd/MM/yyyy HH:mm'}}</p>
+    </div>
+  </div>
+    <div class="row">
+      <div class="col-sm-3">
+        <label>Beschrijving:</label>
+      </div>
+      <div class="col-sm-4">
+        <p>{{ event.description }}</p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-3">
+        <label>Bron:</label>
+      </div>
+      <div class="col-sm-4">
+        <p>{{ event.source.name }}</p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-3">
+        <label>Relevant voor:</label>
+      </div>
+      <div class="col-sm-4">
+        <ul>
+          <li data-ng-repeat="trans in event.relevant_for_transportation_types">{{ "TransportationTypes." + trans | translate }}</li>
+        </ul>
+      </div>
+    </div>
+    <br/>
+    <div class="jam" data-ng-show="event.jams">
+      <h4>Files</h4>
+      <table class="table">
+        <thead>
+        <tr>
+          <th></th>
+          <th>Gemiddelde snelheid (km/u)</th>
+          <th>Gemiddelde vertraging (sec)</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr class="hoverTableRow" data-ng-repeat="jam in event.jams" data-ng-click="jamRender(jam.start_node, jam.end_node)">
+          <td><span class="glyphicon glyphicon-warning-sign"></span></td>
+          <td>{{jam.speed}}</td>
+          <td>{{jam.delay}}</td>
+        </tr>
+        </tbody>
+      </table>
+
+    </div>
+    <button type="button" class="btn icon-btn btn-primary" data-ng-click = "editEvent()" style="margin-bottom: 1em;" title="Event wijzigen">
+      <span class="glyphicon btn-glyphicon glyphicon-edit img-circle text-primary"></span>
+      Wijzig event
+    </button>
+  </div>
+  <div id="mapWrapper">
+    <div id="map" class="col-md-6" style="height: 575px;">
+      <center>Waiting for the map...</center>
+    </div>
+
+  </div>
+</div>

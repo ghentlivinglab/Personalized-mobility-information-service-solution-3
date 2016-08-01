@@ -1,0 +1,1452 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Class: poiEditController</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Class: poiEditController</h1>
+
+    
+
+
+
+
+<section>
+
+<header>
+    
+        <h2>poiEditController</h2>
+        
+    
+</header>
+
+<article>
+    <div class="container-overview">
+    
+        
+
+    
+
+    <h4 class="name" id="poiEditController"><span class="type-signature"></span>new poiEditController<span class="signature">()</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-author">Author:</dt>
+    <dd class="tag-author">
+        <ul>
+            <li>Frontend team</li>
+        </ul>
+    </dd>
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="controllers_pois_poiEditController.js.html">controllers/pois/poiEditController.js</a>, <a href="controllers_pois_poiEditController.js.html#line4">line 4</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+    </div>
+
+    
+
+    
+
+    
+
+     
+
+    
+
+    
+        <h3 class="subsection-title">Members</h3>
+
+        
+            
+<h4 class="name" id=".eventTypes"><span class="type-signature">(static) </span>eventTypes<span class="type-signature"> :*|Object</span></h4>
+
+
+
+
+<div class="description">
+    model to hold all the event types that can possibly selected
+</div>
+
+
+
+    <h5>Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type">*</span>
+|
+
+<span class="param-type">Object</span>
+
+
+        </li>
+    </ul>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="controllers_pois_poiEditController.js.html">controllers/pois/poiEditController.js</a>, <a href="controllers_pois_poiEditController.js.html#line33">line 33</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+            
+<h4 class="name" id=".poi"><span class="type-signature">(static) </span>poi<span class="type-signature"></span></h4>
+
+
+
+
+<div class="description">
+    point of interest to be edited
+</div>
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="controllers_pois_poiEditController.js.html">controllers/pois/poiEditController.js</a>, <a href="controllers_pois_poiEditController.js.html#line26">line 26</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+            
+<h4 class="name" id=".selectedAll"><span class="type-signature">(static) </span>selectedAll<span class="type-signature"> :Boolean</span></h4>
+
+
+
+
+<div class="description">
+    Boolean that checks if the user wishes to select all options
+</div>
+
+
+
+    <h5>Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type">Boolean</span>
+
+
+        </li>
+    </ul>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="controllers_pois_poiEditController.js.html">controllers/pois/poiEditController.js</a>, <a href="controllers_pois_poiEditController.js.html#line72">line 72</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+            
+<h4 class="name" id=".selectedEventTypes"><span class="type-signature">(static) </span>selectedEventTypes<span class="type-signature"> :Array</span></h4>
+
+
+
+
+<div class="description">
+    array of the selected event types, ready to be send to the API
+</div>
+
+
+
+    <h5>Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type">Array</span>
+
+
+        </li>
+    </ul>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="controllers_pois_poiEditController.js.html">controllers/pois/poiEditController.js</a>, <a href="controllers_pois_poiEditController.js.html#line64">line 64</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+            
+<h4 class="name" id=".tempHolder"><span class="type-signature">(static) </span>tempHolder<span class="type-signature"> :Array</span></h4>
+
+
+
+
+<div class="description">
+    array to temporarily hold the answers of the selected events
+</div>
+
+
+
+    <h5>Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type">Array</span>
+
+
+        </li>
+    </ul>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="controllers_pois_poiEditController.js.html">controllers/pois/poiEditController.js</a>, <a href="controllers_pois_poiEditController.js.html#line41">line 41</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+    
+
+    
+        <h3 class="subsection-title">Methods</h3>
+
+        
+            
+
+    
+
+    <h4 class="name" id=".addNewCircle"><span class="type-signature">(static) </span>addNewCircle<span class="signature">()</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+<div class="description">
+    Creates the circle and adds it to the pointMarker if this marker exists
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="directives_gmapsPoiEditDirective.js.html">directives/gmapsPoiEditDirective.js</a>, <a href="directives_gmapsPoiEditDirective.js.html#line120">line 120</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id=".addNewMarker"><span class="type-signature">(static) </span>addNewMarker<span class="signature">(icon)</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+<div class="description">
+    Add the marker from the pointAutocomplete
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code></code></td>
+            
+
+            <td class="type">
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>icon</code></td>
+            
+
+            <td class="type">
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">contains the data of the marker that will be placed upon the map</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="directives_gmapsPoiEditDirective.js.html">directives/gmapsPoiEditDirective.js</a>, <a href="directives_gmapsPoiEditDirective.js.html#line146">line 146</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id=".addPoint"><span class="type-signature">(static) </span>addPoint<span class="signature">()</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+<div class="description">
+    Attempts to display the created point on the map
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="directives_gmapsPoiEditDirective.js.html">directives/gmapsPoiEditDirective.js</a>, <a href="directives_gmapsPoiEditDirective.js.html#line176">line 176</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id=".cancel"><span class="type-signature">(static) </span>cancel<span class="signature">()</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+<div class="description">
+    The function will redirect to the show page of the point of interest
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="controllers_pois_poiEditController.js.html">controllers/pois/poiEditController.js</a>, <a href="controllers_pois_poiEditController.js.html#line114">line 114</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id=".checking"><span class="type-signature">(static) </span>checking<span class="signature">()</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+<div class="description">
+    functions that unchecks or checks the selected all option when necessary
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="controllers_pois_poiEditController.js.html">controllers/pois/poiEditController.js</a>, <a href="controllers_pois_poiEditController.js.html#line152">line 152</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id=".close"><span class="type-signature">(static) </span>close<span class="signature">()</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+<div class="description">
+    closes the alert div and returns the css back to normal so the user can correct his/her mistake
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="directives_gmapsPoiEditDirective.js.html">directives/gmapsPoiEditDirective.js</a>, <a href="directives_gmapsPoiEditDirective.js.html#line224">line 224</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id=".save"><span class="type-signature">(static) </span>save<span class="signature">()</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+<div class="description">
+    The function will save the changes made to the point of interest and redirect to the show-page of this point of interest
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="controllers_pois_poiEditController.js.html">controllers/pois/poiEditController.js</a>, <a href="controllers_pois_poiEditController.js.html#line79">line 79</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id=".selectAll"><span class="type-signature">(static) </span>selectAll<span class="signature">()</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+<div class="description">
+    functions that unchecks or checks all the boxes when necessary
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="controllers_pois_poiEditController.js.html">controllers/pois/poiEditController.js</a>, <a href="controllers_pois_poiEditController.js.html#line133">line 133</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id=".showErrorMessage"><span class="type-signature">(static) </span>showErrorMessage<span class="signature">(msg)</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+<div class="description">
+    show the error message
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>msg</code></td>
+            
+
+            <td class="type">
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">the error message which will be shown</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="directives_gmapsPoiEditDirective.js.html">directives/gmapsPoiEditDirective.js</a>, <a href="directives_gmapsPoiEditDirective.js.html#line207">line 207</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id=".submit"><span class="type-signature">(static) </span>submit<span class="signature">()</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+<div class="description">
+    round about way of making the submit button work in multiple browsers as it is not inside the form
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="controllers_pois_poiEditController.js.html">controllers/pois/poiEditController.js</a>, <a href="controllers_pois_poiEditController.js.html#line123">line 123</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+    
+
+    
+
+    
+</article>
+
+</section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="angular_module.vopApp.vopTravel.module_routeEditController.html">routeEditController</a></li><li><a href="angular_module.vopApp.vopTravel.module_travelAddController.html">travelAddController</a></li><li><a href="angular_module.vopApp.vopTravel.module_travelListController.html">travelListController</a></li></ul><h3>Classes</h3><ul><li><a href="angular_module.myApp.html">myApp</a></li><li><a href="angular_module.vopApp.contactController.html">contactController</a></li><li><a href="angular_module.vopApp.404Controller.html">404Controller</a></li><li><a href="angular_module.vopApp.indexController.html">indexController</a></li><li><a href="angular_module.vopApp.notImpController.html">notImpController</a></li><li><a href="angular_module.vopApp.vopAuth.Authentication.html">Authentication</a></li><li><a href="angular_module.vopApp.vopAuth.authenticationController.html">authenticationController</a></li><li><a href="angular_module.vopApp.vopAuth.authInterceptor.html">authInterceptor</a></li><li><a href="angular_module.vopApp.vopAuth.Authorization.html">Authorization</a></li><li><a href="angular_module.vopApp.vopAuth.403Controller.html">403Controller</a></li><li><a href="angular_module.vopApp.vopAuth.Roles.html">Roles</a></li><li><a href="angular_module.vopApp.vopAuth.Session.html">Session</a></li><li><a href="angular_module.vopApp.vopEvent.eventAddController.html">eventAddController</a></li><li><a href="angular_module.vopApp.vopEvent.eventEditController.html">eventEditController</a></li><li><a href="angular_module.vopApp.vopEvent.eventListController.html">eventListController</a></li><li><a href="angular_module.vopApp.vopEvent.eventShowController.html">eventShowController</a></li><li><a href="angular_module.vopApp.vopPOI.poiAddController.html">poiAddController</a></li><li><a href="angular_module.vopApp.vopPOI.poiEditController.html">poiEditController</a></li><li><a href="angular_module.vopApp.vopPOI.poiListController.html">poiListController</a></li><li><a href="angular_module.vopApp.vopPOI.poiShowController.html">poiShowController</a></li><li><a href="angular_module.vopApp.vopRoute.routeAddController.html">routeAddController</a></li><li><a href="angular_module.vopApp.vopRoute.routeEditController.html">routeEditController</a></li><li><a href="angular_module.vopApp.vopUser.userAddController.html">userAddController</a></li><li><a href="angular_module.vopApp.vopUser.userChangePassController.html">userChangePassController</a></li><li><a href="angular_module.vopApp.vopUser.userEditController.html">userEditController</a></li><li><a href="angular_module.vopApp.vopUser.userEventsShowController.html">userEventsShowController</a></li><li><a href="angular_module.vopApp.vopUser.userForgotPasswordController.html">userForgotPasswordController</a></li><li><a href="angular_module.vopApp.vopUser.userForgotPasswordRecoverController.html">userForgotPasswordRecoverController</a></li><li><a href="angular_module.vopApp.vopUser.userListAdminController.html">userListAdminController</a></li><li><a href="angular_module.vopApp.vopUser.userListController.html">userListController</a></li><li><a href="angular_module.vopApp.vopUser.userMailValidationController.html">userMailValidationController</a></li><li><a href="angular_module.vopApp.vopUser.userShowController.html">userShowController</a></li></ul><h3>Global</h3><ul><li><a href="global.html#config">config</a></li><li><a href="global.html#configmoduleEvent">config module Event</a></li><li><a href="global.html#configmodulePOI">config module POI</a></li><li><a href="global.html#configmoduleRoute">config module Route</a></li><li><a href="global.html#configmoduleTravel">config module Travel</a></li><li><a href="global.html#configmoduleuser">config module user</a></li><li><a href="global.html#formatTime">formatTime</a></li><li><a href="global.html#icon">icon</a></li><li><a href="global.html#MARKERICON">MARKERICON</a></li><li><a href="global.html#ROLE_ADMIN">ROLE_ADMIN</a></li><li><a href="global.html#ROLE_OPERATOR">ROLE_OPERATOR</a></li><li><a href="global.html#ROLE_USER">ROLE_USER</a></li><li><a href="global.html#SPECIALMARKERICON">SPECIALMARKERICON</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.0</a> on Mon May 16 2016 22:07:46 GMT+0200 (Romance (zomertijd))
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

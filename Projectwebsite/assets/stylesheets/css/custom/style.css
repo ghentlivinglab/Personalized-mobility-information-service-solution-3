@@ -1,0 +1,58 @@
+.body {
+  padding-bottom: 150px;
+}
+
+.header {
+  padding-top: 25%;
+  background-image: url("../../../images/GENT_8_folder_0.jpg");
+  background-size: cover;
+  background-position: center 60%;
+  margin: auto;
+}
+
+.fixedmenu.fixed {
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+}
+
+.container {
+  padding-top: 0px;
+}
+
+footer {
+  background: #333;
+  color: #eee;
+  font-size: 11px;
+  padding: 20px;
+  bottom: 0;
+  width: 100%;
+}
+
+.current {
+  pointer-events: none;
+  cursor: default;
+}
+
+.jumbotron {
+  margin: 0px 0px 100px 0px;
+  width: inherit;
+  margin-left: -15px;
+}
+
+#jumbo_content {
+  padding-bottom: 10px;
+  height: 150px;
+}
+
+#jumbo_txt {
+  float: left;
+  max-width: 75%;
+}
+
+#jumbo_img {
+  float: right;
+  max-width: 20%;
+  max-height: 150px;
+}

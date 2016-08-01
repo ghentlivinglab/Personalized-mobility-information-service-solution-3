@@ -1,0 +1,37 @@
+{
+  "name": "appWebsite",
+  "version": "0.0.7",
+  "-1":[
+    {"linksTo" : "./index.html#/index", "nameLink" : "Hoofdpagina", "icon" : "glyphicon glyphicon-home"},
+    {"linksTo" : "./index.html#/contact", "nameLink" : "Contact", "icon" : "glyphicon glyphicon-info-sign"},
+    {"linksTo" : "./index.html#/login/", "nameLink": "Log in", "icon" : "glyphicon glyphicon-log-in"}
+  ],
+  "0":[
+    {"linksTo" : "./index.html#/profile", "nameLink" : "Gebruikersprofiel", "icon" : "glyphicon glyphicon-user"},
+    {"linksTo" : "./index.html#/myEvents", "nameLink" : "Meldingen", "icon" : "glyphicon glyphicon-flag"},
+    {"linksTo" : "./index.html#/myTravels", "nameLink": "Trajecten", "icon" : "glyphicon glyphicon-road"},
+    {"linksTo" : "./index.html#/myPOIs/", "nameLink": "Interessante punten", "icon" : "glyphicon glyphicon-map-marker"},
+    {"linksTo" : "./index.html#/contact", "nameLink" : "Contact", "icon" : "glyphicon glyphicon-info-sign"},
+    {"linksTo" : "./index.html#/logout", "nameLink": "Log out", "icon" : "glyphicon glyphicon-log-out"}
+  ],
+  "1":[
+    {"linksTo" : "./index.html#/profile", "nameLink" : "Gebruikersprofiel", "icon" : "glyphicon glyphicon-user"},
+    {"linksTo" : "./index.html#/myEvents", "nameLink" : "Mijn meldingen", "icon" : "glyphicon glyphicon-flag"},
+    {"linksTo" : "./index.html#/myTravels", "nameLink": "Trajecten", "icon" : "glyphicon glyphicon-road"},
+    {"linksTo" : "./index.html#/myPOIs/", "nameLink": "Interessante punten", "icon" : "glyphicon glyphicon-map-marker"},
+    {"linksTo" : "./index.html#/event/", "nameLink": "Meldingen", "icon" : "glyphicon glyphicon-globe"},
+    {"linksTo" : "./index.html#/user/", "nameLink": "Gebruikers", "icon" : "glyphicon glyphicon-list-alt"},
+    {"linksTo" : "./index.html#/contact", "nameLink" : "Contact", "icon" : "glyphicon glyphicon-info-sign"},
+    {"linksTo" : "./index.html#/logout", "nameLink": "Log out", "icon" : "glyphicon glyphicon-log-out"}
+  ],
+  "2":[
+    {"linksTo" : "./index.html#/profile", "nameLink" : "Gebruikersprofiel", "icon" : "glyphicon glyphicon-user"},
+    {"linksTo" : "./index.html#/myEvents", "nameLink" : "Mijn meldingen", "icon" : "glyphicon glyphicon-flag"},
+    {"linksTo" : "./index.html#/myTravels", "nameLink": "Trajecten", "icon" : "glyphicon glyphicon-road"},
+    {"linksTo" : "./index.html#/myPOIs/", "nameLink": "Interessante punten", "icon" : "glyphicon glyphicon-map-marker"},
+    {"linksTo" : "./index.html#/event/", "nameLink": "Meldingen", "icon" : "glyphicon glyphicon-globe"},
+    {"linksTo" : "./index.html#/userAdmin/", "nameLink": "Gebruikers", "icon" : "glyphicon glyphicon-list-alt"},
+    {"linksTo" : "./index.html#/contact", "nameLink" : "Contact", "icon" : "glyphicon glyphicon-info-sign"},
+    {"linksTo" : "./index.html#/logout", "nameLink": "Log out", "icon" : "glyphicon glyphicon-log-out"}
+  ]
+}

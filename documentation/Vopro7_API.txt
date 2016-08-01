@@ -1,0 +1,81 @@
+Vopro 7 Pubieke API
+
+Iedereen toegelaten:
+	POST /refresh_token/regular/: 
+		Body Parameter: APICredentials
+			Verplicht email en password
+	POST /refresh_token/facebook/:
+		Body Parameter: APICode
+	POST /access_token/:
+		Body Parameter: APIRefreshToken
+			Verplicht token
+	POST /user/: 
+		Body Parameter: APIUser
+			Verplicht password, email, mute_notifications
+	POST /user/forgot_password_request/
+		Body Parameter: APICredentials
+			Verplicht email (enige veld dat nodig is)
+	POST /user/forgot_password?password_token=:
+		Path Parameter: password_token received in a mail
+		Body Parameter: APICredentials
+			Verplicht password
+
+Gewone gebruikers:
+	GET /transportationtype/
+	GET /role/
+	POST /eventtype/
+	* /user/{user_id}/*:
+		Alle methodes voor een specifieke gebruiker en zijn data: POI, Travel, Route
+	PUT /user/{user_id}/verify:
+		Body Parameter: APIVerification
+			Verplicht email_verification_pin
+	GET /event/?user_id=:
+		Events voor een specifieke user
+	POST /refresh_token/logout/:
+		Body Parameter: APIRefreshToken
+			Verplicht token
+	POST /user/{user_id}/modify_password/:
+		Body Parameter: APIChangePassword
+			Verplicht old_password, new_password
+
+Operators:
+	GET /transportationtype/
+	GET /role/
+	POST /eventtype/
+	* /user/{user_id}/*:
+		Alle methodes voor een specifieke gebruiker en zijn data: POI, Travel, Route
+	GET /user/
+	PUT /user/{user_id}/verify:
+		Body Parameter: APIVerification
+			Verplicht email_verification_pin
+	GET /event/?=user_id:
+		Events voor een specifieke user
+	GET /event/
+	POST /refresh_token/logout/:
+		Body Parameter: APIRefreshToken
+			Verplicht token
+
+Admins:
+	GET /transportationtype/
+	GET /role/
+	POST /eventtype/
+	* /user/{user_id}/*:
+		Alle methodes voor een specifieke gebruiker en zijn data: POI, Travel, Route
+	GET /user/
+	PUT /user/{user_id}/verify:
+		Body Parameter: APIVerification
+			Verplicht email_verification_pin
+	GET /event/?=user_id:
+		Events voor een specifieke user
+	GET /event/
+	POST /refresh_token/logout/:
+		Body Parameter: APIRefreshToken
+			Verplicht token
+	DELETE /user/*
+	POST/admin/data_dump
+	POST /admin/permission/{user_id}:
+		Body Parameter: APIRole
+			Verplicht role (vb. “ROLE_ADMIN -> zonder { of [)
+
+
+

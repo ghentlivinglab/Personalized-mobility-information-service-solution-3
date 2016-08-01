@@ -1,0 +1,12 @@
+Lokaal uitvoeren
+----------------
+
+Vooraleer de frontend tests lokaal uitgevoerd kunnen worden moeten eerst Node.js en dan het testframework (Karma) geïnstalleerd te worden. Om Node.js te installeren, zie https://nodejs.org/en/download/.
+Wanneer Node.js geïnstalleerd is, navigeer in de console naar de map /frontend/app/karma-jasmine-tests en voer het commando "npm install" uit om de benodigde packages te installeren.
+
+Om dan een Karma-server op te starten, voer "npm test" uit. Deze testserver zal onmiddelijk de tests draaien, en dan opnieuw telkens wanneer de bestanden geïncludeerd in 
+conf.js (in de array "files") aangepast worden. De tests genereren output in de console waar de de testserver opgestart is, en coverage in de map /frontend/app/karma-jasmine-tests/coverage.
+Merk op dat een groot deel (bijna alle) controllers geen unit tests hebben. Dit is omdat de google map-gerelateerde code ze ontestbaar maakt. Daarom voeren we in de plaats
+daarvan protractor-tests uit.
+
+Om Protractor-tests te draaien, voer "npm protractor" uit.

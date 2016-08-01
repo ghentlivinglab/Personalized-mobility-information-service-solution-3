@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: directives/gmapsRouteEditDirective.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: directives/gmapsRouteEditDirective.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>angular.module('vopRoute').directive("gmapsRouteEdit", function ($timeout) {
+  return {
+	restrict: "A",
+	scope: false,
+	link: function (scope, element, attrs, ngModel) {
+		/**
+		 * @constant SPECIALMARKERICON
+		 * @description The icon for the marker
+		 * @type {string}
+		 */
+		var MARKERICON = 'assets/images/map-marker.svg';
+
+		/**
+		 * @constant SPECIALMARKERICON
+		 * @description The icon for the marker
+		 * @type {string}
+		 */
+		var SPECIALMARKERICON = 'assets/images/map-pin-special.svg';
+
+		var bounds, originMarker, destinationMarker, addWaypointAutocomplete, directionsDisplay, directionsService;
+		scope.overview_path=[];
+		
+		scope.travel.$promise.then(function() {
+			bounds = new google.maps.LatLngBounds();
+			directionsService = new google.maps.DirectionsService();
+			directionsDisplay = new google.maps.DirectionsRenderer();
+			scope.mapOptions = {
+				// Center on Ghent
+				center: {lat: 51.0533593, lng: 3.723252},
+				zoom: 14
+			};
+			// Make new map with mapoptions
+			scope.map = new google.maps.Map(element[0].querySelector('#map'), scope.mapOptions);
+			directionsDisplay.setMap(scope.map);
+			
+			
+			// Init MarkerDropper and waypointAdder
+			var markerDropperDiv = element[0].querySelector('#markerDropper');
+			var waypointAdderDiv = element[0].querySelector('#waypointAdder');
+
+			new MarkerDropper(markerDropperDiv, scope, scope.map, MARKERICON);
+			scope.map.controls[google.maps.ControlPosition.TOP_RIGHT].push(markerDropperDiv);
+			var addWaypointInput = element[0].querySelector('#waypointAutocomplete');
+			scope.addWaypointAutocomplete = new google.maps.places.Autocomplete(addWaypointInput, {types: ['geocode']});
+
+			new WaypointAdder(waypointAdderDiv, "routeMap");
+			scope.map.controls[google.maps.ControlPosition.RIGHT_TOP].push(waypointAdderDiv);
+			
+			// Init showRouteButton
+			// var showRouteButtonDiv = document.createElement('div');
+			// new ShowRouteButton(showRouteButtonDiv, this);
+			// scope.map.controls[google.maps.ControlPosition.BOTTOM_CENTER].push(showRouteButtonDiv);
+			scope.map.controls[google.maps.ControlPosition.TOP_RIGHT].push(element[0].querySelector("#mode"));
+			originMarker = new google.maps.Marker({
+				icon: SPECIALMARKERICON,
+				draggable: false,
+				map: scope.map,
+				position: {
+					lat: scope.travel.startpoint.coordinates.lat,
+					lng: scope.travel.startpoint.coordinates.lon
+				},
+				animation: google.maps.Animation.DROP
+			});
+			destinationMarker = new google.maps.Marker({
+				icon: SPECIALMARKERICON,
+				draggable: false,
+				map: scope.map,
+				position: {
+					lat: scope.travel.endpoint.coordinates.lat,
+					lng: scope.travel.endpoint.coordinates.lon
+				},
+				animation: google.maps.Animation.DROP
+			});
+			scope.route.waypoints.forEach(function (w) {
+				bounds.extend(
+					scope.addNewMarker({
+						lat: w.lat,
+						lng: w.lon
+					}, MARKERICON).getPosition());
+			});
+	
+			bounds.extend(originMarker.getPosition());
+			bounds.extend(destinationMarker.getPosition());
+			scope.map.fitBounds(bounds);
+	
+			// Add listener to map
+			scope.map.addListener('click', function () {
+				// Hide the div + clear the input field when you click outside the form
+				$(element[0]).ready(function () {
+					$("#addWaypoint").fadeOut();
+					var tmp = $("#editRouteDiv");
+					tmp.css('transition', '1s');
+					tmp.css('-webkit-filter', 'blur(0px)');
+					$("#waypointAutocomplete").val('');
+				});
+			});
+		});
+	
+		/**
+		 * @function renderRoute
+		 * @description renders the route on the map
+		 * @memberof angular_module.vopApp.vopRoute.routeEditController
+		 */
+		scope.renderRoute = function () {
+			var waypoints = [];
+			if (originMarker == null) {
+				scope.showErrorMessage("Gelieve eerst een vertrekpunt in te geven.");
+			} else {
+				if (destinationMarker == null) {
+					scope.showErrorMessage("Gelieve eerst een bestemming in te geven");
+				} else {
+					scope.markers.forEach(function (entry) {
+						if (entry.getMap() != null) {
+							if (!(entry == originMarker || entry == destinationMarker)) {
+								waypoints.push({
+									location: entry.position,
+									stopover: true
+								});
+							}
+						}
+					});
+	
+					var mappingDictionary = {
+						"car": "DRIVING",
+						"bus": "TRANSIT",
+						"streetcar": "TRANSIT",
+						"train": "TRANSIT",
+						"bike": "BICYCLING"
+					};
+					var selectedMode = mappingDictionary[element[0].querySelector("#mode").value];
+					if(selectedMode!=null) {
+						var request = {
+							origin: originMarker.getPosition(),
+							destination: destinationMarker.getPosition(),
+							waypoints: waypoints,
+							optimizeWaypoints: true,
+							travelMode: google.maps.TravelMode[selectedMode]
+						};
+						directionsDisplay.setOptions({suppressMarkers: true});
+						directionsService.route(request, function (result, status) {
+							if (status == google.maps.DirectionsStatus.OK) {
+								scope.overview_path = [];
+								result.routes[0].overview_path.forEach(function(entry){
+									scope.overview_path.push({lat:entry.lat(), lon:entry.lng()});
+								});
+								directionsDisplay.setDirections(result);
+							} else {
+								// Any kind of error
+								scope.showErrorMessage("Er ging iets fout bij het berekenen van de route. Controleer of uw internetverbinding goed werkt en probeer daarna opnieuw.");
+							}
+						});
+					}
+				}
+			}
+		};
+		
+		/**
+		 @function addMarkerWaypoint
+		 @description Add the marker from the waypointAutocomplete
+		 @memberof angular_module.vopApp.vopRoute.routeEditController
+		 */
+		scope.addMarkerWaypoint = function () {
+			scope.addNewMarker({
+				lat: addWaypointAutocomplete.getPlace().geometry.location.lat(),
+				lng: addWaypointAutocomplete.getPlace().geometry.location.lng()
+			}, MARKERICON);
+			// Hide the add waypoint div + clear the input field
+			$(element[0]).ready(function () {
+				$("#addWaypoint").fadeOut();
+				var tmp = $("#editRouteDiv");
+				tmp.css('transition', '1s');
+				tmp.css('-webkit-filter', 'blur(0px)');
+				$("#waypointAutocomplete").val('');
+			});
+		};
+	
+		scope.markers = [];
+	
+		/**
+		 @function addMarker
+		 @description Add a marker on the map
+		 @memberof angular_module.vopApp.vopRoute.routeEditController
+		 @param position - the position of the new added marker
+		 @param icon - the icon of the marker
+		 */
+		scope.addNewMarker = function (position, icon) {
+			var marker = new google.maps.Marker({
+				draggable: true,
+				icon: icon,
+				position: position,
+				map: scope.map,
+				animation: google.maps.Animation.DROP
+			});
+			marker.addListener('click', function () {
+				if (marker.getAnimation() !== null) {
+					marker.setAnimation(null);
+				} else {
+					marker.setAnimation(google.maps.Animation.BOUNCE);
+				}
+			});
+			// Delete marker by rightclick
+			marker.addListener('rightclick', function () {
+				for (var i = 0; i &lt; scope.markers.length; i++) {
+					if (scope.markers[i] == marker) {
+						delete scope.markers[i];
+					}
+				}
+				marker.setMap(null);
+			});
+			marker.addListener('dragend', function () {
+				scope.renderRoute();
+			});
+	
+			scope.markers.push(marker);
+			scope.renderRoute();
+			return marker;
+		};
+	}
+  }	
+});
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="angular_module.vopApp.vopTravel.module_routeEditController.html">routeEditController</a></li><li><a href="angular_module.vopApp.vopTravel.module_travelAddController.html">travelAddController</a></li><li><a href="angular_module.vopApp.vopTravel.module_travelListController.html">travelListController</a></li></ul><h3>Classes</h3><ul><li><a href="angular_module.myApp.html">myApp</a></li><li><a href="angular_module.vopApp.contactController.html">contactController</a></li><li><a href="angular_module.vopApp.404Controller.html">404Controller</a></li><li><a href="angular_module.vopApp.indexController.html">indexController</a></li><li><a href="angular_module.vopApp.notImpController.html">notImpController</a></li><li><a href="angular_module.vopApp.vopAuth.Authentication.html">Authentication</a></li><li><a href="angular_module.vopApp.vopAuth.authenticationController.html">authenticationController</a></li><li><a href="angular_module.vopApp.vopAuth.authInterceptor.html">authInterceptor</a></li><li><a href="angular_module.vopApp.vopAuth.Authorization.html">Authorization</a></li><li><a href="angular_module.vopApp.vopAuth.403Controller.html">403Controller</a></li><li><a href="angular_module.vopApp.vopAuth.Roles.html">Roles</a></li><li><a href="angular_module.vopApp.vopAuth.Session.html">Session</a></li><li><a href="angular_module.vopApp.vopEvent.eventAddController.html">eventAddController</a></li><li><a href="angular_module.vopApp.vopEvent.eventEditController.html">eventEditController</a></li><li><a href="angular_module.vopApp.vopEvent.eventListController.html">eventListController</a></li><li><a href="angular_module.vopApp.vopEvent.eventShowController.html">eventShowController</a></li><li><a href="angular_module.vopApp.vopPOI.poiAddController.html">poiAddController</a></li><li><a href="angular_module.vopApp.vopPOI.poiEditController.html">poiEditController</a></li><li><a href="angular_module.vopApp.vopPOI.poiListController.html">poiListController</a></li><li><a href="angular_module.vopApp.vopPOI.poiShowController.html">poiShowController</a></li><li><a href="angular_module.vopApp.vopRoute.routeAddController.html">routeAddController</a></li><li><a href="angular_module.vopApp.vopRoute.routeEditController.html">routeEditController</a></li><li><a href="angular_module.vopApp.vopUser.userAddController.html">userAddController</a></li><li><a href="angular_module.vopApp.vopUser.userChangePassController.html">userChangePassController</a></li><li><a href="angular_module.vopApp.vopUser.userEditController.html">userEditController</a></li><li><a href="angular_module.vopApp.vopUser.userEventsShowController.html">userEventsShowController</a></li><li><a href="angular_module.vopApp.vopUser.userForgotPasswordController.html">userForgotPasswordController</a></li><li><a href="angular_module.vopApp.vopUser.userForgotPasswordRecoverController.html">userForgotPasswordRecoverController</a></li><li><a href="angular_module.vopApp.vopUser.userListAdminController.html">userListAdminController</a></li><li><a href="angular_module.vopApp.vopUser.userListController.html">userListController</a></li><li><a href="angular_module.vopApp.vopUser.userMailValidationController.html">userMailValidationController</a></li><li><a href="angular_module.vopApp.vopUser.userShowController.html">userShowController</a></li></ul><h3>Global</h3><ul><li><a href="global.html#config">config</a></li><li><a href="global.html#configmoduleEvent">config module Event</a></li><li><a href="global.html#configmodulePOI">config module POI</a></li><li><a href="global.html#configmoduleRoute">config module Route</a></li><li><a href="global.html#configmoduleTravel">config module Travel</a></li><li><a href="global.html#configmoduleuser">config module user</a></li><li><a href="global.html#formatTime">formatTime</a></li><li><a href="global.html#icon">icon</a></li><li><a href="global.html#MARKERICON">MARKERICON</a></li><li><a href="global.html#ROLE_ADMIN">ROLE_ADMIN</a></li><li><a href="global.html#ROLE_OPERATOR">ROLE_OPERATOR</a></li><li><a href="global.html#ROLE_USER">ROLE_USER</a></li><li><a href="global.html#SPECIALMARKERICON">SPECIALMARKERICON</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.0</a> on Mon May 16 2016 22:07:46 GMT+0200 (Romance (zomertijd))
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

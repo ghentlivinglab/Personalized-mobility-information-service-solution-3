@@ -1,0 +1,208 @@
+\documentclass[11pt,twoside,a4paper]{report}
+
+\usepackage[dutch]{babel}
+\usepackage{a4wide} % Bladgroote is A4
+\usepackage{enumitem}
+\usepackage{graphicx} % Om figuren te kunnen verwerken
+\usepackage{verbatim} 
+\usepackage{parskip} % witruimte tussen paragrafen introduceren.
+%\usepackage[nottoc]{tocbibind}
+\usepackage[normal]{caption}
+%\usepackage{type1ec}
+\usepackage{hyperref}
+
+
+\newcommand*{\copyimage}[4]{ 			%SYNTAX: \copyimage{<img_name>}{<label>}{<width>}{caption}
+	\begin{figure}
+	%\begin{center}
+	\includegraphics[width=#3]{../latex_extra/images/#1}
+	\caption{\textit{#4}}\label{#2}
+	%\end{center}
+	\end{figure}
+}
+
+\newcommand*{\copyimageH}[4]{ 			%SYNTAX: \copyimageH{<img_name>}{<label>}{<width>}{caption}
+	\begin{figure}[Ht]
+	%\begin{center}
+	\includegraphics[width=#3]{../latex_extra/images/#1}
+	\caption{\textit{#4}}\label{#2}
+	%\end{center}
+	\end{figure}
+}
+
+\newcommand*{\copyimageText}[2]{ 			%SYNTAX: \copyimageH{<img_name>}{<width>}
+	\includegraphics[width=#2]{../latex_extra/images/#1}
+}
+
+\renewcommand*{\familydefault}{\sfdefault}
+
+
+\title{Gebruikershandleiding}
+\newcommand{\logo}{../latex_extra/images/ugent.png}
+
+
+
+\begin{document}
+
+\input{../latex_extra/titlepage/titlepage}
+
+
+
+	\tableofcontents
+	
+	\newpage
+	
+	\section*{Inleiding}
+	\paragraph{}Dit is de handleiding voor de webapplicatie ``Verkeerscentrum van Gent"', een webapplicatie voor alle weggebruikers in Gent. Het doel van de applicatie is om het reizen in Gent makkelijker te maken. %en zo het verkeer in Gent te ordenen.
+	Het geeft up-to-date verkeersinformatie om de gebruiker te kunnen bijstaan in zijn dagelijks vervoer en zijn transportkeuzes. \\De webapplicatie zelf is beschikbaar via dit url-adres: \url{https://vopro7.ugent.be/app/index.html} of via een link op de homepagina van de ontwikkelingsteam: \url{https://vopro7.ugent.be}\footnote{De knop ``Ga naar de applicatie"' op de homepagina leidt u naar de webapplicatie.}.
+	\paragraph{}Deze handleiding beschrijft de acties dat de gebruiker kan ondernemen met deze applicatie. Het doel van dit document is om de gebruiker te begeleiden in het gebruik van deze applicatie en hem toelaten ten volle te kunnen genieten van de basisfunctionaliteiten en voordelen dat het te bieden heeft.
+
+
+
+%\section{Gebruikersprofiel}
+	
+	%use case 1---------------------------------------
+
+\chapter{Basisacties}
+
+\section{Profiel aanmaken}\label{create_acc}
+Om een profiel aan te maken als nieuwe gebruiker moet de gebruiker op de homepagina op de ``Registreer"'-knop klikken(zie figuur \ref{home_pge}). De gebruiker wordt dan doorverwezen naar een pagina waar hij zijn gegevens kan invullen\footnote{Zie het specificatiedocument voor een oplijsting van alle velden voor een profiel(verplicht en niet-verplichte) en hun betekenis.}(zie figuur \ref{reg_pge}). Na het invullen van minstens de verplichte velden\footnotemark[2] kan de gebruiker op de ``Volgende stap"'-knop klikken (zie figuur \ref{reg_pge}) om te bevestigen.
+\copyimageH{home.jpg}{home_pge}{\textwidth}{De homepagina, met  de ``Log-in"'-knop (links) en de``Registreer"'-knop (rechts) onder de welkomsttekst.}
+\copyimageH{reg_pge.jpg}{reg_pge}{\textwidth}{De in te vullen velden en de ``Volgende stap"'-knop onderaan.}
+\paragraph{}Na het ingeven en bevestigen van de profielgegevens wordt de gebruiker doorverwezen om een traject aan te maken (zie hiervoor sectie \ref{create_trav}).
+		
+	\section{Inloggen}\label{log_in}
+Om te kunnen inloggen met een bestaand gebruikersprofiel kunt u op de homepagina of in de menubalk links op de ``Log in"' - knop klikken(zie figuur \ref{home_pge}). U wordt dan doorverwezen naar de inlogpagina(zie figuur zie figuur \ref{login_pge}) waar naar uw e-mailadres en wachtwoord wordt gevraagd. Deze moeten ingevuld zijn met respectievelijk het e-mailadres en het wachtwoord dat u hebt ingegeven bij het registreren (zie sectie \ref{create_acc}) of het laatst hebt laten opslaan bij een wijziging.
+\copyimageH{login.jpg}{login_pge}{\textwidth}{De loginpagina waar u uw e-mailadres en wachtwoord moet ingeven.}
+	
+	\section{Uitloggen}\label{log_out}
+Uitloggen is enkel mogelijk als een gebruiker reeds is ingelogd. Om uit te loggen kunt u vanaf elke pagina op de ``Log out"'-knop klikken in de menubalk. U wordt dan doorverwezen naar de homepagina van de applicatie (zie figuur  \ref{home_pge}). 
+
+
+	
+	%use case 8---------------------------------------
+	\section{Eigen profiel en profielgegevens bekijken}\label{see_profile}
+	Uw profiel met uw profielgegevens krijgt u te zien als u naar uw profielpagina gaat. U kunt uw profielpagina inladen door in de menubalk op de ``Gebruikersprofiel"' te klikken.\\
+Op uw profielpagina krijgt u enkel uw profiel  met uw laatst opgeslagen profielgegevens \footnote{Een gebruiker kan enkel de profielgegevens bekijken van zijn eigen profiel.} te zien(zie figuur \ref{profile} voor een voorbeeld van een profielpagina).
+	\copyimageH{profile.jpg}{profile}{\textwidth}{Profielpagina van Jan De Gentenaar}
+	
+	
+	
+	%use case 4---------------------------------------
+	\section{Profielgegevens wijzigen}\label{change_acc}
+	Eenmaal u bent ingelogd, kunt u uw eigen profielgegevens\footnote{Een gebruiker kan enkel de profielgegevens wijzigen van zijn eigen profiel.} wijzigen door op uw profielpagina(zie sectie \ref{see_profile}) op ``Wijzig mijn gegevens"' te klikken, onder de profielgegevens.
+\copyimageH{profile_chge.jpg}{profile_chge}{\textwidth}{Profielpagina met de knop ``Wijzig mijn gegevens"' in het rood omcirkeld.}
+Op uitzondering van het wachtwoord, krijgt u dan dezelfde velden zoals de velden die u had gekregen bij het aanmaken van uw profiel(sectie \ref{create_acc}) te zien ingevuld met de gegevens die u als laatst had opgeslagen(zie figuur \ref{edit_pge} voor een voorbeeld). U kan dan een veld kiezen door op de invoerzone te klikken en de nieuwe waarde in te geven. Ook hier mogen de verplichte velden \footnotemark[2] niet leeg zijn. Na het veranderen van alle velden dat u wou wijzigen, kunt u onderaan op de ``Opslaan"'-knop klikken om te bevestigen en de nieuwe gegevens op te slaan. De oude gegevens worden dan verwijderd en de nieuwe gegevens komen in de plaats. Het gebruikersprofiel met de nieuwe gegevens wordt dan afgebeeld.
+\copyimageH{edit_pge.jpg}{edit_pge}{\textwidth}{Jan De Gentenaar die zijn gegevens probeert aan te passen.}
+
+
+\section{Wachtwoord vergeten}
+In het geval dat u uw wachtwoord vergeten bent, kunt u altijd op de loginpagina de knop ``Wachtwoord vergeten"' aanklikken \ref{login_pge}. U wordt dan naar een pagina herleid waar we u om uw email \ref{frgt_pass} vragen zodat wij u een resetlink kunnen sturen die tijdelijk actief zal zijn juist voor u zodat u uw wachtwoord kunt veranderen en terug kunt inloggen. Zie figuur \ref{frgt_pass_mail} voor een voorbeeld van de email en zie figuur \ref{rst_pass} voor de tijdelijke resetpagina van het wachtwoord.
+\copyimageH{forgot_password.jpg}{frgt_pass}{\textwidth}{Pagina waar de gebruiker zijn passwoord kan resetten.}
+\copyimageH{forgot_password_mail.jpg}{frgt_pass_mail}{\textwidth}{Voorbeeld van de mail dat de gebruiker ontvangt.}
+\copyimageH{reset_password.jpg}{rst_pass}{\textwidth}{Tijdelijke pagina voor het resetting een wachtwoord.}
+
+\section{Email valideren}
+Indien u mails wenst te ontvangen dient u uw emailaccount te bestevigen. Hiervoor wordt een mail \ref{mail_ver_mail} gestuurd naar het emailaccount dat u hebt opgegeven tijdens de aanmaak van uw registratie bij ons. Het enigste wat gedaan moet worden is in de ontvangen mail op de link te klikken en wij valideren dan automatisch uw emailaccount. U wordt tijdelijk herleid naar een pagina terwijl de server uw validatie aan het verwerken is. Achteraf krijgt u een kleine pop-up die meer informatie verschaft over of de validatie geslaagd is of niet. Zie figuur \ref{mail_ver} voor een voorbeeld van deze pagina. 
+\copyimageH{mail_verify.jpg}{mail_ver}{\textwidth}{Pagina waarop de gebruiker komt terwijl zijn mail wordt gevalideerd.}
+\copyimageH{mail_verify_mail.jpg}{mail_ver_mail}{\textwidth}{Voorbeeld van de mail dat de gebruiker ontvangt voor de verificatie van zijn emailaccount.}
+
+	
+	%use case 6---------------------------------------
+	%\section{Profiel verwijderen}
+	
+%NIET VOOR NORMALE GEBRUIKER	%use case 7---------------------------------------
+%	\section{De lijst van alle gebruikers weergeven} 
+	
+
+
+%\section{Voorkeuren}
+
+%\section{Traject}
+
+\chapter{Trajecten}
+	
+\section{Alle trajecten bekijken}\label{all_trav}
+U kan al uw opgeslagen trajecten raadplegen door in de menubalk links op ``Trajecten"' te klikken. U wordt dan doorverwezen naar een pagina met al uw trajecten zoals wordt getoond in figuur \ref{travel_list_pg}.
+\copyimageH{travel_list.jpg}{travel_list_pg}{\textwidth}{Pagina met alle trajecten van een profiel.}
+
+
+		\section{Een traject in detail bekijken met alle bijhorende routes}\label{one_trav}
+Wanneer u zich op de webpagina bevindt met al uw trajecten (sectie \ref{all_trav}) dan kunt u een traject kiezen door op een informatieveld van dat traject te klikken. U wordt dan doorverwezen naar een pagina met meer gedetailleerde informatie van uw ingegeven traject. Tevens krijgt u ook een kaart waar het vertrekpunt en de bestemming van uw traject op worden getoond.\\
+Onderaan de pagina wordt een lijst van de routes behorende bij dit traject opgesomd met wat bijhorende informatie.
+Figuren \ref{travel_show_pge} en \ref{travel_routes_pge} geven een voorbeeld van de presentatie van een traject
+\copyimageH{travel_show_1.jpg}{travel_show_pge}{\textwidth}{Bovenste deel van een pagina met informatie over een traject.}
+\copyimageH{travel_show_2.jpg}{travel_routes_pge}{\textwidth}{Onderste deel van een pagina over een traject: de bijhorende routes.}
+
+		\section{Een route weergeven op een kaart}\label{one_route}
+Als u op de pagina van een traject bent (zie sectie \ref{one_trav}) , kunt u een route op de kaart van het traject weergeven (inclusief het begin- en vertrekpunt van dit traject). Om een specifieke route op de kaart tevoorschijn te toveren hoeft u slechts te klikken op de route in de lijst.
+
+
+
+		\section{Een traject aanmaken}\label{create_trav}
+Om een nieuw traject aan te maken kunt u op de pagina met al uw trajecten op de ``Voeg een traject toe"' knop klikken(zie figuur \ref{travel_list_pg}). Deze bevindt zich bovenaan de pagina, net boven het eerste traject. U wordt dan doorverwezen naar een pagina met velden waar er meer informatie wordt gevraagd over het traject dat u wenst toe te voegen (zie figuur \ref{travel_add_pge}) . Op de kaart kunt u een vertrek- en eindpunt aangeven(zie figuur \ref{travel_add_map}).\\
+\copyimageH{travel_add.jpg}{travel_add_pge}{\textwidth}{De informatievelden die moeten worden ingevuld bij het aanmaken van een traject.}
+\copyimageH{travel_add_2.jpg}{travel_add_map}{\textwidth}{De kaart waar het vertrek- en eindpunt voor een nieuw traject worden opgegeven en getoond. Tussenpunten voor een route worden ook op deze kaart toegevoegd m.b.v. de zwarte pin.}
+Als u meteen al een route wenst toe te voegen aan uw traject kunt u eerst en vooral tussenpunten toevoegen op de kaart(indien nodig) met de zwarte pin of door een adres op te geven m.b.v. het plusje op de kaart. Vervolgens moet je een vervoersmiddel kiezen en daarna op ``Voeg mijn route toe"'-klikken om het aanmaken van de route te finaliseren. U wordt dan gevraagd op welke manier u meldingen wilt krijgen over deze route en welke types meldingen u graag zou willen ontvangen. Als u daarna op de ``Opslaan"'-knop klikt wordt u teruggebracht naar de pagina waarop u bezig was uw traject aan te maken. De route wordt dan toegevoegd aan het traject dat u aan het maken bent. U kan dan ook beslissen onmiddelijk een nieuwe route toe te voegen aan het traject dat aan het aanmaken bent maar het is zekers niet verplicht al meerdere routes te maken voor dit traject. Een route toevoegen kan altijd later nog. Dit wordt uitgelegd in sectie \ref{create_route}.\\
+Het traject samen met de routes worden pas opgeslagen wanneer u op de ``Opslaan"'-knop klikt.
+
+		\section{Een traject wijzigen}\label{edit_trav}
+Om een traject te wijzigen moet u eerst naar de trajectpagina met alle details over dat traject gaan (zie sectie \ref{one_trav} en figuur \ref{travel_add_pge}). Eenmaal op de pagina kunt u op de ``Wijzig"'-knop klikken en wordt u doorverwezen naar een pagina met enkele velden van het traject die al ingevuld zijn met de huidige informatie over het traject.\footnote{Het vertrekpunt en de bestemming zijn niet wijzigbaar.} U kan dan een veld kiezen door op de invoerzone te klikken en de nieuwe waarde in te geven. Ook hier mogen de verplichte velden \footnotemark[2] niet leeg zijn. Na het veranderen van alle velden die u wou wijzigen, kunt u onderaan op de ``Opslaan"'-knop klikken om te bevestigen en de nieuwe gegevens op te slaan. Figuur \ref{travel_edit_pge} toont een voorbeeld van een traject dat gewijzigd wordt.
+\copyimageH{travel_edit.jpg}{travel_edit_pge}{\textwidth}{Een traject dat gewijzigd wordt.}
+
+		\section{Een route toevoegen aan een traject}\label{create_route}
+Als u een route wenst toe te voegen aan een traject moet u op de trajectpagina van dat traject(zie sectie \ref{one_trav} en figuur \ref{travel_show_pge}) op de knop ``Voeg route toe"' klikken. U wordt dan doorverwezen naar een pagina zoals getoond op figuur \ref{route_add_pge}.
+\copyimageH{route_add.jpg}{route_add_pge}{\textwidth}{Pagina om een route toe te voegen.}
+Daar kunt u tussenpunten toevoegen op de kaart(indien nodig) met de zwarte pin of door een adres op te geven, een vervoersmiddel te kiezen en daarna op ``opslaan"' te drukken. U wordt dan ook gevraagd op welke manier u meldingen wilt krijgen over deze route en welke types meldingen u graag zou willen ontvangen. Als u daarna op de ``Opslaan"'-knop klikt wordt u route opgeslagen en wordt u teruggebracht naar de trajectpagina waar u uw nieuwe route kunt bezien.
+\paragraph{}Het is ook mogelijk om een route toe te voegen aan een traject tijdens het aanmaken van dat traject. De tussenpunten worden dan aangeduid op de kaart waar het vertrekpunt en de bestemming van het traject worden opgegeven (zie sectie \ref{create_trav} en figuur \ref{travel_add_map}).
+
+		\section{Een route van een traject wijzigen}\label{edit_route}
+Om een  route te wijzigen uit een traject moet u eerst naar de pagina met de details over dat traject gaan (zie sectie \ref{one_trav} en figuur \ref{travel_show_pge}). Eenmaal op de pagina moet u in de lijst van de routes van dit traject (zie figuur \ref{travel_routes_pge}) op de \copyimageText{edit_route_btn.jpg}{1em}-knop klikken bij de route dat u wenst te wijzigen. U wordt dan doorverwezen naar een pagina met de informatievelden van die route zoals wordt getoond in figuur \ref{route_edit_pge}.
+\copyimageH{route_edit.jpg}{route_edit_pge}{\textwidth}{Pagina om een route te wijzigen.}
+Na het wijzigen van de gegevens kan u die opslaan door op ``Opslaan"' te klikken.
+
+
+		\section{Een traject verwijderen}\label{delete_trav}
+Om een  traject te verwijderen moet u naar de pagina met de details over dat traject gaan (zie sectie \ref{one_trav} en figuur \ref{travel_show_pge}). Eenmaal op de pagina moet u op de ``Verwijder"-knop klikken en wordt uw traject verwijderd.\\
+
+		\section{Een route verwijderen}\label{delete_route}
+Om een  route te verwijderen uit een traject moet u eerst naar de pagina met de details over dat traject gaan (zie sectie \ref{one_trav} en figuur \ref{travel_show_pge}). Eenmaal op de pagina moet u in de lijst van de routes van dat traject (zie figuur \ref{travel_routes_pge}) op de  op de \copyimageText{delete_route_btn.jpg}{1em}-knop klikken bij de route dat u wenst te verwijderen.\\
+
+\chapter{Interessante punten}
+		\section{Alle interessante punten bekijken}\label{all_poi}
+U kan al uw opgeslagen interessante punten raadplegen door in de menubalk links op ``Interessante punten" te klikken. U wordt dan doorverwezen naar een pagina met al uw trajecten zoals wordt getoond in figuur \ref{poi_list_pge}.
+\copyimageH{poi_list.jpg}{poi_list_pge}{\textwidth}{Pagina met alle punten van interesse van een profiel.}
+
+
+		\section{Een interessant punt in detail bekijken}\label{one_poi}
+Wanneer u zich op de webpagina bevindt met al uw  interessante punten (sectie \ref{all_poi}) dan kan u een  interessant punt kiezen door op een informatieveld ervan te klikken. U wordt dan doorverwezen naar een pagina met meer gedetailleerde informatie zoals wordt getoond in figuur \ref{poi_show_pge}.
+\copyimageH{poi_show.jpg}{poi_show_pge}{\textwidth}{Pagina met informatie over een interessant punt.}
+
+
+		\section{Een interessant punt aanmaken}\label{create_poi}
+Om een nieuw interessant punt aan te maken kunt u op de pagina met al uw interessante punten op ``Voeg een interesse punt toe"' knop klikken(zie figuur \ref{poi_list_pge}). Deze bevindt zich bovenaan de pagina, net boven het eerste interessant punt. U wordt dan doorverwezen naar een pagina met velden waar informatie wordt gevraagd over het  interessante punt dat u wenst toe te voegen en in welke gebeurtenissen u ge\"nteresseerd bent in de buurt rondom uw punt (zie figuur \ref{poi_add_pge}) . Op de kaart kunt u het  interessante punt aanduiden en een straal defini\"eren(zie figuur \ref{poi_add_map}).\\
+\copyimageH{poi_add_1.jpg}{poi_add_pge}{\textwidth}{De informatievelden die moeten worden ingevuld bij het aanmaken van een  interessant punt.}
+\copyimageH{poi_add_2.jpg}{poi_add_map}{\textwidth}{De kaart waar het  interessante punt kan worden opgegeven samen met een straal.}.
+Als u klaar bent kunt u het  interessant punt opslaan door op ``Opslaan"' te klikken.
+
+		\section{Een interessant punt wijzigen}\label{edit_poi}
+Om een  interessant punt te wijzigen moet u eerst naar de pagina met de details over dat  interessant punt gaan (zie sectie \ref{one_poi} en figuur \ref{poi_show_pge}). Eenmaal op de pagina kunt u op de ``Wijzig"'-knop klikken en wordt u naar een pagina doorverwezen met de velden van het  interessant punt maar ingevuld met de laatst opgeslagen informatie over het  interessant punt. De pagina is ook verkrijgbaar door op de lijst van al uw interessante punten(zie sectie \ref{all_poi} en figuur \ref{poi_list_pge}) op de \copyimageText{edit_route_btn.jpg}{1em}-knop te klikken bij het interessant punt dat u wilt wijzigen.\\
+Eenmaal op de pagina kan u dan een veld kiezen door op de invoerzone te klikken en de nieuwe waarde in te geven. Het  interessant punt en de straal kunt u op een kaart wijzigen. Hier ook mogen de verplichte velden \footnotemark[2] niet leeg zijn. Na het veranderen van alle velden dat u wou wijzigen, kan u onderaan op de ``Opslaan"'-knop klikken om te bevestigen en de nieuwe gegevens op te slaan. Figuren \ref{poi_edit_1_pge} en \ref{poi_edit_2_pge} tonen een voorbeeld van een traject dat gewijzigd wordt.
+\copyimageH{poi_edit.jpg}{poi_edit_1_pge}{\textwidth}{Velden van een  interessant punt dat gewijzigd worden.}
+\copyimageH{poi_edit_2.jpg}{poi_edit_2_pge}{\textwidth}{Een  interessant punt dat gewijzigd wordt.}
+
+
+		\section{Een interessant punt verwijderen}\label{delete_poi}
+Om een  interessant punt te verwijderen moet u eerst naar de pagina met de details over dat  interessant punt gaan (zie sectie \ref{one_poi} en figuur \ref{poi_show_pge}). Eenmaal op de pagina kunt u op de ``Verwijder"'-knop klikken en wordt uw interessant punt verwijderd.\\
+ Het verwijderen van een interessant punt kan ook door op de lijst van al uw interessante punten(zie sectie \ref{all_poi} en figuur \ref{poi_list_pge}) op de \copyimageText{delete_poi_btn.jpg}{1em}-knop te klikken bij het interessant punt dat u wilt verwijderen.\\
+
+	%use case 10---------------------------------------
+%	\section{Huidige actieve gebeurtenissen bekijken}\label{all_events}
+%	Een gebruiker kan een lijst met alle gebeurtenissen te zien krijgen door in de menu links op ``Verkeersevents"' te klikken.
+	\chapter{Notificaties}
+	%use case 11---------------------------------------
+	\section{Eigen meldingen bekijken}\label{own_events}
+	U kunt de meldingen voor gebeurtenissen die voor u bestemd zijn te zien krijgen door in de menubalk op de knop ``Meldingen"' te klikken. U wordt dan doorverwezen naar een pagina waar de gebeurtenissen worden opgelijst. U kan informatie over een specifieke gebeurtenis opvragen en bekijken door er op te klikken in die lijst. Op een kaart wordt dan ook de locatie van de geselecteerde gebeurtenis weergegeven zoals aangetoond in figuur \ref{events_pge}.
+\copyimageH{my_events.jpg}{events_pge}{\textwidth}{Pagina met de gebeurtenissen die voor een specifieke gebruiker bestemd zijn met informatie over een reeds aangeklikte gebeurtenis.}
+
+\end{document}

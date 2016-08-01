@@ -1,0 +1,25 @@
+CREATE TRIGGER deleteAddress AFTER DELETE on pointsOfInterest
+REFERENCING OLD ROW as OLD 
+FOR EACH ROW
+    DELETE FROM address WHERE id = OLD.address_id;
+
+CREATE TRIGGER deleteAddress2 AFTER DELETE on travel
+REFERENCING OLD ROW as OLD 
+FOR EACH ROW
+    DELETE FROM address WHERE id = OLD.startpoint;
+
+CREATE TRIGGER deleteAddress3 AFTER DELETE on travel
+REFERENCING OLD ROW as OLD 
+FOR EACH ROW
+    DELETE FROM address WHERE id = OLD.endpoint;
+
+CREATE TRIGGER deleteRecurring AFTER DELETE on travel
+REFERENCING OLD ROW as OLD 
+FOR EACH ROW
+    DELETE FROM recurring WHERE id = OLD.recurring_id;
+
+/*CREATE TRIGGER deleteTravel AFTER DELETE ON route
+REFERENCING OLD ROW as OLD 
+FOR EACH ROW
+    DELETE FROM travel WHERE id = OLD.travel_id;
+*/

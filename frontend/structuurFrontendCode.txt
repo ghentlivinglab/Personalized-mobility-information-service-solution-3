@@ -1,0 +1,40 @@
+Structuur frontendCode:
+  - app
+      - controllers
+          - defaults
+          - events
+          - pois (Point of Interests)
+          - routes
+          - tests
+          - travels
+          - users
+          - ...
+      - services
+          - defaults
+          - events
+          - pois (Point of Interests)
+          - routes
+          - tests
+          - travels
+          - users
+          - ...
+      - tests (test files)
+      - views (html files)
+          - defaults
+          - events
+          - pois (Point of Interests)
+          - routes 
+          - tests
+          - travels
+          - users
+          - ...
+      - app.js
+      - config.js (frontend configuration file)
+      - modules_angularjs (library files angular etc.)
+  - assets
+      - json
+      - javascript (js specifiek voor website onafhankelijk van app)
+      - img (images)  
+      - css (stylesheets files)
+      - doc (documentation)
+  - index.html

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+   
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:task="http://www.springframework.org/schema/task"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+    http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+    http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd
+    http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task-3.0.xsd">
+    
+    <!-- data access provider -->
+    <bean id="dataAccessProvider" class="vop.groep7.vop7backend.database.DataAccessProvider" destroy-method="destroy">
+        <constructor-arg type="java.lang.String" value="/database.properties" />
+    </bean>
+    <!-- controllers -->
+    <bean id="userController" class="vop.groep7.vop7backend.Controllers.UserController"></bean>
+    <bean id="poiController" class="vop.groep7.vop7backend.Controllers.POIController"></bean>
+    <bean id="travelController" class="vop.groep7.vop7backend.Controllers.TravelController"></bean>
+    <bean id="routeController" class="vop.groep7.vop7backend.Controllers.RouteController"></bean>
+    <bean id="eventController" class="vop.groep7.vop7backend.Controllers.EventController"></bean>
+    <bean id="utilController" class="vop.groep7.vop7backend.Controllers.UtilController"></bean>
+   
+   
+    <!--  data sources -->
+    <util:properties id="applicationProperties" location="application.properties" />
+   
+    <bean id="wazeDataSource" class="vop.groep7.vop7backend.Datasources.WazeDataSource" />
+   
+    <task:scheduled-tasks>
+        <task:scheduled ref="wazeDataSource" method="checkDataSource" cron="#{applicationProperties['datasource.waze.cron_expression.check']}"/>
+        <task:scheduled ref="wazeDataSource" method="updateInactive" cron="#{applicationProperties['datasource.waze.cron_expression.inactive']}"/>
+        <task:scheduled ref="wazeDataSource" method="deleteInactive" cron="#{applicationProperties['datasource.waze.cron_expression.delete']}"/>
+    </task:scheduled-tasks>
+   
+    <!-- email settings -->
+    <bean id="mailSender" class ="org.springframework.mail.javamail.JavaMailSenderImpl" >
+        <property name="host" value="smtp.gmail.com" />
+        <property name="port" value="587" />
+        <property name="username" value="info.mobiliteit.gent.vopro7@gmail.com" />
+        <property name="password" value="AppMobiliteitGent@vopro7" />
+        <property name="javaMailProperties">
+            <props>
+                <prop key="mail.transport.protocol">smtp</prop>
+                <prop key="mail.smtp.auth">true</prop>
+                <prop key="mail.smtp.starttls.enable">true</prop>
+            </props>
+        </property>
+    </bean>	
+    
+    <bean id="mailService" class="vop.groep7.vop7backend.Controllers.MailService" />
+    
+    <bean id="validator" class="vop.groep7.vop7backend.Controllers.Validator" />
+    
+    <bean id="tokenManager" class="vop.groep7.vop7backend.Security.TokenManager" />
+    
+    <bean id="processor" class="vop.groep7.vop7backend.Controllers.Processor" />
+    
+   
+</beans>

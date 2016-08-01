@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Application</title>
+
+    <meta charset="utf-8">
+    <!-- Makes sure hat the website is consistent over all devices -->
+    <meta name="viewport"    content="width=device-width, initial-scale=1.0">
+
+    <!-- stylesheets-->
+    <link rel="stylesheet" href="./assets/stylesheets/css/bootstrap/bootstrap.css">
+    <link rel="stylesheet" href="./assets/stylesheets/css/custom/style.css">
+    <link rel="stylesheet" href="./assets/stylesheets/css/bootstrap/font-awesome.min.css">
+
+    <!-- Include angular, angular-route and angular-cookies-->
+    <script src="https://maps.googleapis.com/maps/api/js?libraries=places&sensor=true&key=AIzaSyA1ouRfRDPJsTHjpUd1IDzCJBCCjQxlu5M"></script>
+	<script src="./assets/javascript/jQuery/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular-route.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular-cookies.js"></script>
+</head>
+
+<body>
+
+<div class = "page-wrapper">
+    <!-- Main menu bar -->
+    <div id = "main-menu" class = "display">
+
+        <div id = "sidebar-wrapper">
+            <!-- gets filled in by the script sidebarMenuLoggedIn.js -->
+        </div>
+    </div>
+
+    <!-- Main content comes here -->
+    <div id = "main-content" class = "display">
+        <div id = "page-content-wrapper">
+            <a href="#" role="button" id="menu-toggle">
+                <span class = "glyphicon glyphicon-triangle-left"></span>
+            </a>
+            <div data-ng-app="vopApp" class="fullHeight angular-content">
+                <div data-ng-view class="fullHeight">
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- bootstrap scripts -->
+<script src="./assets/javascript/modules/bootstrap.min.js"></script>
+<script src="./assets/javascript/modules/stomp.js"></script>
+
+
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="./assets/javascript/sidebarMenu.js"></script>
+
+<!-- Include modules -->
+<script src="./app/app.js"></script>
+
+<!-- Controllers events -->
+<script src="./app/controllers/events/eventListController.js"></script>
+<script src="./app/controllers/events/eventAddController.js"></script>
+<script src="./app/controllers/events/eventShowController.js"></script>
+<script src="./app/controllers/events/eventEditController.js"></script>
+<script src="./app/directives/gmapsEventShowDirective.js"></script>
+<script src="./app/directives/gmapsEventAddDirective.js"></script>
+<script src="./app/directives/gmapsEventEditDirective.js"></script>
+
+<!-- Controllers users -->
+<script src="./app/controllers/users/userListController.js"></script>
+<script src="./app/controllers/users/userAddController.js"></script>
+<script src="./app/controllers/users/userEditController.js"></script>
+<script src="./app/controllers/users/userShowController.js"></script>
+<script src="./app/controllers/users/userEventsShowController.js"></script>
+<script src="./app/controllers/users/userChangePassController.js"></script>
+<script src="./app/controllers/users/userForgotPasswordController.js"></script>
+<script src="./app/controllers/users/userListAdminController.js"></script>
+<script src="./app/controllers/users/userForgotPasswordRecoverController.js"></script>
+<script src="./app/controllers/users/userMailValidationController.js"></script>
+<script src="./app/directives/gmapsUserEventsShowDirective.js"></script>
+
+<!-- Controllers routes -->
+<script src="assets/javascript/modules/angular-resource.min.js"></script>
+<script src="assets/javascript/modules/angular-messages.min.js"></script>
+<script src="./app/controllers/routes/routeAddController.js"></script>
+<script src="./app/controllers/routes/routeEditController.js"></script>
+<script src="./app/directives/gmapsRouteEditDirective.js"></script>
+
+
+<!-- Controllers travels -->
+<script src="./app/controllers/travels/travelAddController.js"></script>
+<script src="./app/controllers/travels/travelEditController.js"></script>
+<script src="./app/controllers/travels/travelShowController.js"></script>
+<script src="./app/controllers/travels/travelListController.js"></script>
+<script src="./app/directives/gmapsTravelAddDirective.js"></script>
+<script src="./app/directives/gmapsTravelShowDirective.js"></script>
+
+<!-- Controllers POIs -->
+<script src="./app/controllers/pois/poiAddController.js"></script>
+<script src="./app/controllers/pois/poiEditController.js"></script>
+<script src="./app/controllers/pois/poiShowController.js"></script>
+<script src="./app/controllers/pois/poiListController.js"></script>
+<script src="./app/directives/gmapsPoiShowDirective.js"></script>
+<script src="./app/directives/gmapsPoiAddDirective.js"></script>
+<script src="./app/directives/gmapsPoiEditDirective.js"></script>
+
+<!-- Controllers defaults -->
+<script src="./app/controllers/defaults/404Controller.js"></script>
+<script src="./app/controllers/defaults/notImpController.js"></script>
+<script src="./app/controllers/defaults/indexController.js"></script>
+<script src="./app/controllers/defaults/contactController.js"></script>
+<script src="./app/controllers/defaults/authenticationController.js"></script>
+
+<!-- services -->
+<script src="./app/services/commonServices/general.js"></script>
+<script src="./app/services/resourceServices/_resources.js"></script>
+<script src="./app/services/resourceServices/eventService.js"></script>
+<script src="./app/services/resourceServices/eventTypeService.js"></script>
+<script src="./app/services/resourceServices/poiService.js"></script>
+<script src="./app/services/resourceServices/routeService.js"></script>
+<script src="./app/services/resourceServices/transportationTypeService.js"></script>
+<script src="./app/services/resourceServices/travelService.js"></script>
+<script src="./app/services/resourceServices/userEventsShowService.js"></script>
+<script src="./app/services/resourceServices/userPasswordService.js"></script>
+<script src="./app/services/resourceServices/userService.js"></script>
+<script src="./app/services/authenticationServices/authServices.js"></script>
+<script src="./app/services/notificationServices/RabbitReceiver.js"></script>
+
+<script src="./app/services/resourceServices/userForgotPasswordService.js"></script>
+<script src="./app/services/resourceServices/userAdminService.js"></script>
+<script src="./app/services/resourceServices/userRoleService.js"></script>
+<script src="./app/services/resourceServices/userForgotPasswordRecoverService.js"></script>
+<script src="./app/services/resourceServices/userMailValidationService.js"></script>
+
+<!-- Google maps controls -->
+<script src="./assets/javascript/markerDropper.js"></script>
+<script src="./assets/javascript/showRouteButton.js"></script>
+<script src="./assets/javascript/waypointAdder.js"></script>
+
+<!-- Other necessary scripts -->
+<script src="assets/javascript/modules/angular-translate.min.js"></script>
+<script src="./app/translation_tables/translations_nl.js"></script>
+
+</body>
+</html>

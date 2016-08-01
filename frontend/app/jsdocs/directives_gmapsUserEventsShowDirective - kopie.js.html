@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: directives/gmapsUserEventsShowDirective - kopie.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: directives/gmapsUserEventsShowDirective - kopie.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>angular.module('vopEvent').directive("gmapsUserEventsShow", function () {
+    return {
+        restrict: "A",
+        scope: false,
+        link: function (scope, element, attrs, ngModel) {
+            var directionsService;
+            /**
+             * @constant SPECIALMARKERICON
+             * @description The icon for the marker
+             * @type {string}
+             */
+            var MARKERICON = 'assets/images/map-marker.svg';
+            /**
+             * @constant SPECIALMARKERICON
+             * @description The icon for the marker
+             * @type {string}
+             */
+            var SPECIALMARKERICON = 'assets/images/map-pin-special.svg';
+
+            scope.geocoder = new google.maps.Geocoder();
+            directionsService = new google.maps.DirectionsService();
+
+            scope.mapOptions = {
+                // Center on Ghent!
+                center: {lat: 51.0533593, lng: 3.723252},
+                zoom: 10
+            };
+
+            // Make new map with mapoptions
+            scope.map = new google.maps.Map(element[0].querySelector('#map'), scope.mapOptions);
+            var trafficLayer = new google.maps.TrafficLayer();
+            trafficLayer.setMap(scope.map);
+            scope.promise.then(function () {
+                var infoWindow = new google.maps.InfoWindow({
+                    content: "&lt;p>" + scope.clickedEvent.description + "&lt;/p>"
+                });
+                var bounds = new google.maps.LatLngBounds();
+                angular.forEach(scope.userEvents, function (value) {
+                    var image_url = null;
+                    if (value.source.icon_url != null) {
+                        image_url = value.source.icon_url;
+                    } else {
+                        image_url = 'assets/images/gent_slim op weg_lijn_donkergrijs.png';
+                    }
+                    // Check if the event is still active
+                    if (value.active) {
+                        var m = new google.maps.Marker({
+                            position: {
+                                lat: value.coordinates.lat,
+                                lng: value.coordinates.lon
+                            },
+                            icon: SPECIALMARKERICON,
+                            draggable: false,
+                            animation: google.maps.Animation.DROP,
+                            map: scope.map
+                        });
+                        bounds.extend(m.getPosition());
+                        m.addListener('click', function () {
+                            scope.geocoder.geocode({
+                                'location': {
+                                    lat: value.coordinates.lat,
+                                    lng: value.coordinates.lon
+                                }
+                            }, function (results, status) {
+                                if (status === google.maps.GeocoderStatus.OK) {
+                                    if (results[0]) {
+                                        scope.$apply(function () {
+                                            scope.clickedEvent = value;
+                                            var content = "&lt;div id='infoWindow' style='text-align: left'>&lt;div class='row'>&lt;div class='col-sm-4'>&lt;img src='" + image_url + "' height='50' width='50'/>&lt;/div>&lt;div class='col-sm-8'>&lt;p>&lt;strong>" +
+                                                value.type.type + "&lt;/strong>&lt;/p>&lt;/div>&lt;/div>&lt;strong>Beschrijving&lt;/strong>&lt;p>" +
+                                                value.description + "&lt;/p>&lt;strong>Adres&lt;/strong>&lt;p>" + results[0].formatted_address + "&lt;/p>&lt;strong>Publicatie datum&lt;/strong>&lt;p>" + value.publication_time + "&lt;/p>&lt;/div>";
+                                            infoWindow.setContent(content);
+                                            infoWindow.open(scope.map, m);
+                                        });
+                                    } else {
+                                        alert('Google vond geen resultaten');
+                                    }
+                                }
+                            });
+
+                        });
+                        scope.map.fitBounds(bounds);
+                    }
+                })
+            });
+        }
+    }
+});
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="angular_module.vopApp.vopTravel.module_routeEditController.html">routeEditController</a></li><li><a href="angular_module.vopApp.vopTravel.module_travelAddController.html">travelAddController</a></li><li><a href="angular_module.vopApp.vopTravel.module_travelListController.html">travelListController</a></li></ul><h3>Classes</h3><ul><li><a href="angular_module.myApp.html">myApp</a></li><li><a href="angular_module.vopApp.contactController.html">contactController</a></li><li><a href="angular_module.vopApp.404Controller.html">404Controller</a></li><li><a href="angular_module.vopApp.indexController.html">indexController</a></li><li><a href="angular_module.vopApp.notImpController.html">notImpController</a></li><li><a href="angular_module.vopApp.vopAuth.Authentication.html">Authentication</a></li><li><a href="angular_module.vopApp.vopAuth.authenticationController.html">authenticationController</a></li><li><a href="angular_module.vopApp.vopAuth.authInterceptor.html">authInterceptor</a></li><li><a href="angular_module.vopApp.vopAuth.Authorization.html">Authorization</a></li><li><a href="angular_module.vopApp.vopAuth.403Controller.html">403Controller</a></li><li><a href="angular_module.vopApp.vopAuth.Roles.html">Roles</a></li><li><a href="angular_module.vopApp.vopAuth.Session.html">Session</a></li><li><a href="angular_module.vopApp.vopEvent.eventAddController.html">eventAddController</a></li><li><a href="angular_module.vopApp.vopEvent.eventEditController.html">eventEditController</a></li><li><a href="angular_module.vopApp.vopEvent.eventListController.html">eventListController</a></li><li><a href="angular_module.vopApp.vopEvent.eventShowController.html">eventShowController</a></li><li><a href="angular_module.vopApp.vopPOI.poiAddController.html">poiAddController</a></li><li><a href="angular_module.vopApp.vopPOI.poiEditController.html">poiEditController</a></li><li><a href="angular_module.vopApp.vopPOI.poiListController.html">poiListController</a></li><li><a href="angular_module.vopApp.vopPOI.poiShowController.html">poiShowController</a></li><li><a href="angular_module.vopApp.vopRoute.routeAddController.html">routeAddController</a></li><li><a href="angular_module.vopApp.vopRoute.routeEditController.html">routeEditController</a></li><li><a href="angular_module.vopApp.vopUser.userAddController.html">userAddController</a></li><li><a href="angular_module.vopApp.vopUser.userChangePassController.html">userChangePassController</a></li><li><a href="angular_module.vopApp.vopUser.userEditController.html">userEditController</a></li><li><a href="angular_module.vopApp.vopUser.userEventsShowController.html">userEventsShowController</a></li><li><a href="angular_module.vopApp.vopUser.userForgotPasswordController.html">userForgotPasswordController</a></li><li><a href="angular_module.vopApp.vopUser.userForgotPasswordRecoverController.html">userForgotPasswordRecoverController</a></li><li><a href="angular_module.vopApp.vopUser.userListAdminController.html">userListAdminController</a></li><li><a href="angular_module.vopApp.vopUser.userListController.html">userListController</a></li><li><a href="angular_module.vopApp.vopUser.userMailValidationController.html">userMailValidationController</a></li><li><a href="angular_module.vopApp.vopUser.userShowController.html">userShowController</a></li></ul><h3>Global</h3><ul><li><a href="global.html#config">config</a></li><li><a href="global.html#configmoduleEvent">config module Event</a></li><li><a href="global.html#configmodulePOI">config module POI</a></li><li><a href="global.html#configmoduleRoute">config module Route</a></li><li><a href="global.html#configmoduleTravel">config module Travel</a></li><li><a href="global.html#configmoduleuser">config module user</a></li><li><a href="global.html#formatTime">formatTime</a></li><li><a href="global.html#icon">icon</a></li><li><a href="global.html#MARKERICON">MARKERICON</a></li><li><a href="global.html#ROLE_ADMIN">ROLE_ADMIN</a></li><li><a href="global.html#ROLE_OPERATOR">ROLE_OPERATOR</a></li><li><a href="global.html#ROLE_USER">ROLE_USER</a></li><li><a href="global.html#SPECIALMARKERICON">SPECIALMARKERICON</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.0</a> on Mon May 16 2016 22:07:46 GMT+0200 (Romance (zomertijd))
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

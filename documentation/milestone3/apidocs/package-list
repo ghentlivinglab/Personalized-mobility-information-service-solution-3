@@ -1,0 +1,17 @@
+vop.groep7.vop7backend
+vop.groep7.vop7backend.Controllers
+vop.groep7.vop7backend.Datasources
+vop.groep7.vop7backend.Exceptions
+vop.groep7.vop7backend.Models
+vop.groep7.vop7backend.Models.APIModels
+vop.groep7.vop7backend.Models.APIModels.Authentication
+vop.groep7.vop7backend.Models.APIModels.Datadump
+vop.groep7.vop7backend.Models.Domain
+vop.groep7.vop7backend.Models.Domain.Events
+vop.groep7.vop7backend.Security
+vop.groep7.vop7backend.Spring
+vop.groep7.vop7backend.database
+vop.groep7.vop7backend.database.mongodb
+vop.groep7.vop7backend.database.sql
+vop.groep7.vop7backend.factories
+vop.groep7.vop7backend.rabbitmq

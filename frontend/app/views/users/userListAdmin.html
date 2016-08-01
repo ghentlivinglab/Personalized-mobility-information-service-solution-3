@@ -1,0 +1,92 @@
+<div class="container-fluid panel ">
+    <div id="overlappingForm" class="row col-sm-10">
+        <div class="col-sm-offset-1 col-sm-10">
+            <p>
+                Bent u zeker dat u dit profiel met gebruikersnaam {{selectedForRemoval.first_name}} {{selectedForRemoval.last_name}} wilt verwijderen?
+            </p>
+        </div>
+        <div class="col-sm-offset-1 col-sm-10">
+            <button class="btn icon-btn btn-success btn-vop btn-125px" data-ng-click="deleteUser()" title="Ja">
+                <span class="glyphicon btn-glyphicon glyphicon-ok img-circle text-success pull-left"></span>
+                <span class="btn-vop-center-text">Ja</span>
+            </button>
+            <button class="btn icon-btn btn-danger btn-vop btn-125px" data-ng-click="deleteNo()" title="Neen">
+                <span class="glyphicon btn-glyphicon glyphicon-remove img-circle text-danger pull-left"></span>
+                <span class="btn-vop-center-text">Neen</span>
+            </button>
+        </div>
+    </div>
+        <div id="changeRole" class="overlappingDiv row col-sm-10">
+            <div class="col-sm-10 col-sm-offset-1">
+                <label for="singleSelect">
+                    Welke rol wilt u toekennen aan gebruiker {{selectedForChange.first_name}} {{selectedForChange.last_name}}?
+                </label>
+                <select name="singleSelect" id="singleSelect" data-ng-model="selectedRole" data-ng-init="selectedRole" data-ng-options="'Roles.' + role | translate for role in roles">
+                </select>
+            </div>
+            <br/>
+            <div class="col-sm-10 col-sm-offset-1" style="margin-top: 15px">
+                <button class="btn icon-btn btn-success btn-vop btn-125px" data-ng-click="changeRole()" title="Ja">
+                    <span class="glyphicon btn-glyphicon glyphicon-ok img-circle text-success pull-left"></span>
+                    <span class="btn-vop-center-text">Opslaan</span>
+                </button>
+                <button class="btn icon-btn btn-danger btn-vop btn-125px" data-ng-click="noChangeRole()" title="Neen">
+                    <span class="glyphicon btn-glyphicon glyphicon-remove img-circle text-danger pull-left"></span>
+                    <span class="btn-vop-center-text">Annuleren</span>
+                </button>
+            </div>
+        </div>
+    <div id="userList" class="well table-responsive">
+        <h2>
+            Alle gebruikers
+        </h2>
+        <table class = "table table-condensed table-striped table-hover">
+            <thead>
+            <tr>
+                <th>
+                    userId
+                </th>
+                <th>
+                    voornaam
+                </th>
+                <th>
+                    achternaam
+                </th>
+                <th>
+                    toegangsniveau
+                </th>
+                <th>
+                    <!-- empty th for buttons -->
+                </th>
+            </tr>
+            </thead><tbody>
+        <tr
+                data-ng-repeat = "user in users"
+        >
+            <td>
+                {{user.id}}
+            </td>
+            <td>
+                {{user.first_name}}
+            </td>
+            <td>
+                {{user.last_name}}
+            </td>
+            <td>
+                {{"Roles." + user.role | translate}}
+            </td>
+            <td>
+                <div class="pull-right">
+                    <button data-ng-click = "selectForRoleChange(user)" class="btn badge" title="promote">
+                        <span class="glyphicon glyphicon-arrow-up"></span>
+                    </button>
+                    <button data-ng-click = "deleteUserFunction(user.id)" class="btn badge" title="Verwijderen">
+                        <span class="glyphicon glyphicon-trash"></span>
+                    </button>
+                </div>
+            </td>
+        </tr>
+        </tbody>
+        </table>
+    </div>
+</div>

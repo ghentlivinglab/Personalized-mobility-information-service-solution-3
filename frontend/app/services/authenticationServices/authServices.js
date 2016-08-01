@@ -1,0 +1,629 @@
+var authModule = angular.module('vopAuth');
+
+/**
+ @author Frontend-team
+ @memberof angular_module.vopApp.vopAuth
+ @constructor Authentication
+ */
+authModule.factory('Authentication',['Session', '$q', function(Session, $q){
+    return {
+
+        /**
+         * @function login
+         * @memberof angular_module.vopApp.vopAuth.Authentication
+         * @description
+         * Logs in a user with the given credentials by creating a session.
+         * @param {Object=} credentials Object that at least contains a property 'email' with as value the e-mailaddress 
+         *                      of the user that is trying to log in, and a property 'password' with as value the password
+         *                      of the same user
+         * @return {promise} the promise of the session created with the user's information provided by the server as response to
+         *                      the given credentials or a promise rejected with the string-message "Incomplete credentials" if either the email
+         *                      or the password is missing in the given credentials.
+         *
+         */
+        login: function(credentials){
+            if(credentials.email == null || credentials.password == null){
+                //User didn't give up email or password or were not initialized (binded) correctly
+                return $q.reject("Incomplete credentials!");
+            }
+
+            return Session.openSession(credentials);
+        },
+
+        /**
+         * @function logout
+         * @memberof angular_module.vopApp.vopAuth.Authentication
+         * @description
+         * Logs the user out.
+         * @return {promise} the promise of the session closing and deleting all saved information of the user saved while logging in
+         */
+        logout: function(){
+            return Session.closeSession();
+        }
+    };
+}]);
+
+
+/**
+ @author Frontend-team
+ @memberof angular_module.vopApp.vopAuth
+ @constructor Session
+ */
+authModule.factory('Session', ['$http', '$cookies', '$q', '$location', 'Roles','HOSTNAME','RabbitReceiver', function ($http, $cookies, $q, $location, Roles, HOSTNAME, RabbitReceiver) {
+    var session =  {
+        //cookie-key for refresh-token
+        key_token : 'vopro7_token',
+        //cookie-key for userid
+        key_id : 'vopro7_usrid',
+        //cookie-key for role
+        key_role : 'vopro7_role',
+        //cookie-key for user url
+        key_url : 'vopro7_usrurl',
+        //cookie-key for access-token
+        key_access_token : 'vopro7_access_token',
+        //cookie-key for number of unseen events
+        key_unseen_events : 'vopro7_events', 
+
+        STATES: {
+            CLOSED: 0,
+            OPEN: 1,
+            LOGGING_IN: 2,
+            LOGGING_OUT: 3
+        },
+
+        state: undefined,
+
+
+
+
+        /**
+         * @ngdoc method
+         * @name openSession
+         * @memberof angular_module.vopApp.vopAuth.Session
+         * @description
+         * Used to open/create a session for a user. Asks the server to authenticate the user with the given credentials and creates
+         * a session only if the server authenticated the user correctly and sends a refresh token back.
+         * @param {Object=} credentials Object that at least contains a property 'email' with as value the e-mailaddress 
+         *                      of the user that is trying to log in, and a property 'password' with as value the password
+         *                      of the same user
+         * @return {promise} the promise of the response of the server to the given credentials.
+         *
+         */
+        openSession : function (credentials) {
+            this.state = this.STATES.LOGGING_IN;
+            //set variable to be able to refer to the this-object in the scope of the functions we're going to define
+            var session = this;
+
+            var saveRefreshToken = function(token){
+                $cookies.put(session.key_token, token.token);
+                $cookies.put(session.key_id, token.user_id);
+                $cookies.put(session.key_role, Roles.mapRole(token.role));
+                //the hostname is sent with in the user_url but we don't need that
+                //@TODO: hardgecodeerde url vervangen door HOSTNAME(voorlopig niet want hostname kan veranderen maar de gestuurde url blijft dezelfde)
+                var finalURL = token.user_url.replace("https://vopro7.ugent.be/api/", "/"); 
+                $cookies.put(session.key_url, finalURL);
+            };
+
+            var deferred = $q.defer();
+            
+            $http.post(HOSTNAME.URL + "refresh_token/regular", credentials).success(function(response){
+                //log-in on server succeeded
+                //create current user's session localy by using cookies !!!!!COOKIE IS ALWAYS SAVED AS A STRING even if value is a number!!!!
+                saveRefreshToken(response);
+                session.refreshAccessToken().then(function(response_acc){
+                    sidebarMenu();
+                    deferred.resolve(response_acc);
+                    RabbitReceiver.startReceiving();
+                }, deferred.reject);
+            }).error(function(response){
+                //log-in failed(due to incorrect credentials or problem with server/connection)
+                deferred.reject(response);
+            });
+
+            return deferred.promise.then(function(response){
+                    session.state = session.STATES.OPEN;
+                    return $q.resolve(response);
+                }, function(response){
+                    session.state = session.STATES.CLOSED;
+                    return $q.reject(response);
+                });
+        },
+
+        /**
+         * @function refreshAccessToken
+         * @memberof angular_module.vopApp.vopAuth.Session
+         * @description
+         * Returns the saved access token created specially for the user by the server. This is the token that gives the user access
+         * to the services of the server
+         * @return {String} the string-representation of access-token.
+         *
+         */
+        refreshAccessToken: function() {
+            if(this.isOpen() || this.isLoggingIn()){
+                var session=this;
+                var refreshToken = this.getUserToken();
+                var deferred = $q.defer();
+                $cookies.remove(session.key_access_token);
+                $http.post(HOSTNAME.URL+'access_token',{'token':refreshToken}).success(function (accessResponse) {
+                    $cookies.put(session.key_access_token, accessResponse.token, {expires: new Date(accessResponse.exp)});//, secure: true});
+                    deferred.resolve(accessResponse);
+                }).error(function(response){
+                    alert("De server kan u niet identificeren! Gelieve opnieuw in te loggen.");
+                    session.closeSession().finally(function(){
+                        deferred.reject(response);
+                        $location.path('/login');
+                    });
+                    deferred.reject(response);
+                });
+                return deferred.promise;
+            } else {
+                return $q.reject();
+            }
+        },
+
+        /**
+         * @ngdoc method
+         * @name getUserToken
+         * @memberof angular_module.vopApp.vopAuth.Session
+         * @description
+         * Returns the saved refres-token given by the server when opening the session
+         * @return {String} the string-representation of the refresh-token.
+         *
+         */
+        getUserToken: function(){
+            return $cookies.get(this.key_token);
+        },
+
+        /**
+         * @ngdoc method
+         * @name getUserId
+         * @memberof angular_module.vopApp.vopAuth.Session
+         * @description
+         * Returns the saved userid given by the server when opening the session
+         * @return {String} the string-representation of the userid of the user that logged in and created the session.
+         *
+         */
+        getUserId: function(){
+            return $cookies.get(this.key_id);
+        },
+
+        /**
+         * @ngdoc method
+         * @name getUserRole
+         * @memberof angular_module.vopApp.vopAuth.Session
+         * @description
+         * Returns the saved role of the user given by the server when opening the session
+         * @return {String} the string-representation of the role of the user that logged in and created the session.
+         *
+         */
+        getUserRole: function(){
+            return $cookies.get(this.key_role);
+        },
+
+        /**
+         * @ngdoc method
+         * @name getUserUrl
+         * @memberof angular_module.vopApp.vopAuth.Session
+         * @description
+         * Returns the url to the profile of the user given by the server when opening the session
+         * @return {String} the string-representation of the url to the profile of the user that logged in and created the session.
+         *
+         */
+        getUserUrl: function(){
+            return $cookies.get(this.key_url);
+        },
+
+        /**
+         * @ngdoc method
+         * @name getAccessToken
+         * @memberof angular_module.vopApp.vopAuth.Session
+         * @description
+         * Returns the saved access token created specially for the user by the server. This is the token that gives the user access
+         * to the services of the server
+         * @return {String} the string-representation of access-token.
+         *
+         */
+        getAccessToken: function() {
+            return $cookies.get(this.key_access_token);
+        },
+
+        /**
+         * @ngdoc method
+         * @name getUnseenEvents
+         * @memberof angular_module.vopApp.vopAuth.Session
+         * @description
+         * Returns the number of events the user has been alerted for and hasn't seen yet.
+         * @return {Number} the number of events the user has been alerted for and hasn't seen yet.
+         *
+         */
+        setUnseenEvents: function(n) {
+            return $cookies.put(this.key_unseen_events, n);
+        },
+
+        /**
+         * @ngdoc method
+         * @name getUnseenEvents
+         * @memberof angular_module.vopApp.vopAuth.Session
+         * @description
+         * Returns the number of events the user has been alerted for and hasn't seen yet.
+         * @return {Number} the number of events the user has been alerted for and hasn't seen yet.
+         *
+         */
+        getUnseenEvents: function() {
+            return $cookies.get(this.key_unseen_events);
+        },
+
+        /**
+         * @function closeSession
+         * @memberof angular_module.vopApp.vopAuth.Session
+         * @description
+         * Method that closes an open session if one is open. Must be called in order to correctly log out a logged in user.
+         * @return {promise} promise that has been rejected if no session is op. Resolved promise otherwise.
+         *
+         */
+        closeSession: function () {
+            var deferred = $q.defer();
+            if(this.isOpen()){
+                this.state = this.STATES.LOGGING_OUT;
+                var session = this;
+                var refreshToken=this.getUserToken();
+                $http.post(HOSTNAME.URL + "refresh_token/logout", {'token':refreshToken}).finally(function(response){
+                    $cookies.remove(session.key_access_token);
+                    session.state = session.STATES.CLOSED;
+                    deferred.resolve(response);
+                });
+                $cookies.remove(session.key_token);
+                $cookies.remove(session.key_role);
+                $cookies.remove(session.key_id);
+                $cookies.remove(session.key_url);
+                sidebarMenu();
+                RabbitReceiver.stopReceiving();
+            } else {
+                var msg = "Can't close session!! No session has been openend!!";
+                deferred.reject(msg);
+            }
+            return deferred.promise;
+        },
+
+        /**
+         * @function isOpen
+         * @memberof angular_module.vopApp.vopAuth.Session
+         * @description
+         * Method that checks wether a session is open.
+         * @return {Boolean} returns true only if a refresh token has been saved.
+         *
+         */
+        isOpen: function(){
+            return this.state == this.STATES.OPEN;
+        },
+
+        /**
+         * @function isClosed
+         * @memberof angular_module.vopApp.vopAuth.Session
+         * @description
+         * Method that checks if nobody is logged in, trying to log in or trying to log out.
+         * @return {Boolean} returns true only if a refresh token has been saved.
+         *
+         */
+        isClosed: function(){
+            return this.state == this.STATES.CLOSED;
+        },
+
+        /**
+         * @function isLoggingIn
+         * @memberof angular_module.vopApp.vopAuth.Session
+         * @description
+         * Method that checks if a user is trying to log in.
+         * @return {Boolean} returns true only if a user is trying to log in.
+         *
+         */
+        isLoggingIn: function(){
+            return this.state == this.STATES.LOGGING_IN;
+        },
+
+        /**
+         * @function isLoggingOut
+         * @memberof angular_module.vopApp.vopAuth.Session
+         * @description
+         * Method that checks if the user is trying to log out in order to close a session.
+         * @return {Boolean} returns true only if someone is trying to close the current session.
+         *
+         */
+        isLoggingOut: function(){
+            return this.state == this.STATES.LOGGING_OUT;
+        }
+    }
+
+    if(session.getUserToken()){
+        session.state = session.STATES.OPEN;
+    } else {
+        session.state = session.STATES.CLOSED;
+    }
+    
+    return session;
+}]);
+
+/**
+ @author Frontend-team
+ @memberof angular_module.vopApp.vopAuth
+ @constructor Roles
+ */
+authModule.factory('Roles', function(){
+    return {
+        /**
+         * The value for the user role
+         * @type {number}
+         */
+        ROLE_USER: 0,
+
+        /**
+         * The value for the operator role
+         * @type {number}
+         */
+        ROLE_OPERATOR: 1,
+
+        /**
+         * The value for the administrator role
+         * @type {number}
+         */
+        ROLE_ADMIN: 2,
+        
+        /**
+         * @function getUser
+         * @memberof angular_module.vopApp.vopAuth.Roles
+         * @description
+         * Method to get the value used for the user role
+         * @return {number} the value used to represent the user role
+         *
+         */
+        getUser: function(){
+            return this.ROLE_USER;  
+        },
+        
+        /**
+         * @function getOperator
+         * @memberof angular_module.vopApp.vopAuth.Roles
+         * @description
+         * Method to get the value used for the operator role
+         * @return {number} the value used to represent the operator role
+         *
+         */
+        getOperator: function(){
+            return this.ROLE_OPERATOR;
+        },
+
+        /**
+         * @function getAdmin
+         * @memberof angular_module.vopApp.vopAuth.Roles
+         * @description
+         * Method to get the value used for the administrator role
+         * @return {number} the value used to represent the administrator role
+         *
+         */
+        getAdmin: function(){
+            return this.ROLE_ADMIN;
+        },
+
+        /**
+         * @function mapRole
+         * @memberof angular_module.vopApp.vopAuth.Roles
+         * @description
+         * Function that maps a role-name to his value
+         * @param {string=} role_name the name of the role
+         * @return {number} the value used to represent the administrator role
+         *
+         */
+        mapRole: function(role_name){
+            return this[role_name];
+        },
+        
+        /**
+         * @function hasPermission
+         * @memberof angular_module.vopApp.vopAuth.Roles
+         * @description
+         * Function that compares two role-values. It can be used for testing 
+         * if a user has the role required (or higher role) for an operation
+         * @param {number=} required the value of the role to be compared with (i.e. the minimum required role)
+         * @param {number=} actualValue the value of the role that has to be compared (i.e. the role of the user)
+         * @return {boolean} returns false if and only if <emph>required<emph> represents a higher role than
+         * <emph>actualValue<emph> does
+         */
+        hasPermission: function(required, actualValue){
+            return required <= actualValue;
+        }
+    };
+});
+
+
+
+/**
+ @author Frontend-team
+ @memberof angular_module.vopApp.vopAuth
+ @constructor Authorization
+ */
+authModule.factory('Authorization', ['Roles', 'Session', '$q', '$rootScope', '$location', function (Roles, Session, $q, $rootScope, $location) {
+
+    return {
+        routeForUnauthorizedAccess: '/403',
+
+        /**
+         * @function accessDenied
+         * @memberof angular_module.vopApp.vopAuth.Authorization
+         * @description
+         * Function called when access to a route is being denied
+         * @param {promise=} deferred a promise that keeps the state of the authorization-checking.
+         *      This function will reject it with "Access refused" only if Authorization is enabled.
+         *      Otherwise the promise will be resolved with "Access should be refused but authorization is disabled"
+         * @param {string=} route where user must be redirected to
+         */
+        accesDenied: function(deferred, route){
+            $location.path(route);
+            //As there could be some delay when location change event happens,
+            //we will keep a watch on $locationChangeSuccess event
+            //and would resolve promise only when this event occurs so we're
+            //sure the user has been redirected!
+            $rootScope.$on('$locationChangeSuccess', function() {
+                deferred.reject("Access refused");
+            });
+        },
+
+        /**
+         * @function hasPermission
+         * @memberof angular_module.vopApp.vopAuth.Authorization
+         * @description
+         * Checks wether or not the logged in user has permission to continue based on his role 
+         * @param {number=} requiredRole the lowest role that the user must have in order to continue
+         * @return {Boolean} false only if the logged in user has a lower role than the one specified
+         */
+        hasPermission: function(requiredRole){
+            return Roles.hasPermission(requiredRole, Session.getUserRole());
+        },
+
+        /**
+         * @function notLoggedInCheck
+         * @memberof angular_module.vopApp.vopAuth.Authorization
+         * @description
+         * Function called when a route requires no user to be logged in
+         */
+        notLoggedInCheck: function () {
+            // we will return a promise .
+            var deferred = $q.defer();
+
+            if (Session.isOpen()) {
+                //a user is logged in
+                this.accesDenied(deferred, Session.getUserUrl());
+            } else {
+                deferred.resolve('Nobody is logged in. OK!');
+            }
+            return deferred.promise;
+        },
+
+        /**
+         * @function loggedInCheck
+         * @memberof angular_module.vopApp.vopAuth.Authorization
+         * @description
+         * Function called when a route requires that a user is logged in
+         */
+        loggedInCheck: function () {
+            // we will return a promise .
+            var deferred = $q.defer();
+
+            if (!Session.isOpen()) {
+                //no user is logged in
+                this.accesDenied(deferred, this.routeForUnauthorizedAccess);
+            } else {
+                deferred.resolve('User is logged in. OK!');
+            }
+            return deferred.promise;
+        },
+
+        /**
+         * @function permissionCheck
+         * @memberof angular_module.vopApp.vopAuth.Authorization
+         * @description
+         * Function called when access to a route requiring a logged in user with a certain role (and/or id) must be checked.
+         * @param {number=} requiredRole the lowest role that the user may have in order to continue
+         * @param {number=} requiredUserId the userid that the user must have in order to continue
+         */
+        permissionCheck: function (requiredRole, requiredUserId) {
+            //promise to return.
+            var deferred = $q.defer();
+            var autho = this;
+            var success = function(response){
+                //If a user is logged in.
+                //We cannot forget that all cookies are strings so all user's information will be strings
+                    // or no userid is required or the userid corresponds to the userid of the logged in user
+                if( (requiredUserId == null || Session.getUserId() === (''+requiredUserId))
+                                // user has all required permission
+                            && autho.hasPermission(requiredRole) ) {
+                    deferred.resolve("User has all required permissions. Access granted!");
+                } else {
+                    //user hasn't all required permissions
+                    autho.accesDenied(deferred, autho.routeForUnauthorizedAccess);
+                }
+            };
+            var error = function(response){
+                //If no user is logged in
+                //acces has already been denied whith loggedInCheck
+                deferred.reject(response);
+            };
+            // First check if a user is logged in
+            this.loggedInCheck().then(success, error);
+            return deferred.promise;
+        }
+
+    };
+}]);
+
+
+
+/**
+ @author Frontend-team
+ @memberof angular_module.vopApp.vopAuth
+ @constructor authInterceptor
+ */
+authModule.factory('authInterceptor', function($q, $injector, HOSTNAME) {
+    return {
+        /**
+         * @function request
+         * @memberof angular_module.vopApp.vopAuth.Authorization
+         * @description
+         * Intercepts all outgoing requests and adds the token of the user to the header
+         */
+        request: function(config) {
+            if (config.url !== null && config.url.search(HOSTNAME.URL) >= 0) {
+                var Session = $injector.get('Session');
+                config.headers['X-token'] = Session.getAccessToken();
+            }
+            return config;
+        },
+
+        /**
+         * @function responseError
+         * @memberof angular_module.vopApp.vopAuth.Authorization
+         * @description
+         * Intercepts all incomming error-responses
+         */
+        responseError: function(response) {
+
+            var Session = $injector.get('Session');
+            var $http = $injector.get('$http');
+            var $location = $injector.get('$location');
+            //deferred to know if access-token had to be refreshed and has been refreshed
+            //so http-request can be resent
+            var deferred = $q.defer();  
+
+            // 403 = not allowed ==> access-token is not valid for the action
+            if (response.status === 403) {
+                var access_token = Session.getAccessToken();
+                if(Session.isOpen() && access_token){ 
+                    //Someone is logged in and access-token has not expired yet
+                    $location.path("/403");
+                    deferred.reject();
+                } else if(Session.isOpen()){ 
+                    //Someone is logged in but his acces-token has expired
+                    Session.refreshAccessToken().then(deferred.resolve, deferred.reject);
+                } else {
+                    //Nobody is logged in
+                    $location.path('/login');
+                }
+
+                return deferred.promise.then(function() {
+                    // access-token had to be refreshed and has been refreshed 
+                    // ==> resend http-request and continue with response of new request
+                    return $http(response.config);
+                }, function(){
+                    // access-token does not need to or can not be refreshed
+                    // ==> just continue with the error response
+                    return response;
+                });
+            } else if(response.status === 418 || response.status >= 500){
+                //418 ----> error with database
+                //500 or greater ----> error with backend or server not available
+                alert("Er werd een probleem ontdekt. Gelieve later opnieuw te proberen en/of contact op te nemen met onze diensten.");
+            }
+            // !!! other errors must always be handled by the sender of the request !!!
+            return $q.reject(response);
+        }
+    };
+});

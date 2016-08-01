@@ -1,0 +1,66 @@
+<div class="container-fluid" gmaps-poi-show>
+  <div>
+      <button class="btn icon-btn btn-vop btn-135px" data-ng-click = "goBack()" title="Terug" >
+          <span class="glyphicon btn-glyphicon glyphicon-circle-arrow-left img-circle pull-left"></span>
+          <span class="btn-vop-center-text"> Ga terug </span>
+      </button>
+  </div>
+    <div class="well row">
+        <div class="col-sm-4">
+            <h3>{{poi.name}}</h3>
+
+            <label> Adres:</label>
+            <p>
+                {{poi.address.street}} {{poi.address.housenumber}}
+            </p>
+            <p>
+                {{poi.address.city}} {{poi.address.postal_code}}
+            </p>
+            <p>
+                {{poi.address.country}}
+            </p>
+
+            <label> Straal:</label>
+            <p>{{poi.radius}} meter</p>
+
+            <label>Actief:</label>
+            <p>
+                <span data-ng-show="poi.active" class="glyphicon glyphicon-ok text-success"></span>
+                <span data-ng-hide="poi.active" class="glyphicon glyphicon-remove text-danger"></span>
+            </p>
+
+            <label>Informeer me bij:</label>
+            <p>{{ "EventTypes." + poi.notify_for_event_types[0].type | translate }}</p>
+            <p data-ng-repeat="type in poi.notify_for_event_types" data-ng-if="$index > 0"> {{ "EventTypes." + type.type | translate }}</p>
+
+            <label>Meldingen via:</label>
+            <p>
+                E-mail : <span data-ng-show="poi.notify.email" class="glyphicon glyphicon-ok text-success"></span><span data-ng-hide="poi.notify.email" class="glyphicon glyphicon-remove text-danger"></span>
+            </p>
+
+
+
+
+        </div>
+
+
+        <div class="col-sm-8">
+            <div id="mapWrapper" class="well row">
+                <h4>Kaart:</h4>
+                <div id="map" class="col-sm-12" style="height: 500px;">
+                    <center>Waiting for the map...</center>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <button class="btn icon-btn btn-primary btn-vop btn-200px" data-ng-click = "edit()" title="Wijzigen">
+                <span class="glyphicon btn-glyphicon glyphicon-edit img-circle text-primary pull-left"></span>
+                <span class="btn-vop-center-text">Wijzigen</span>
+            </button>
+            <button class="btn icon-btn btn-danger btn-vop btn-200px" data-ng-click = "delete()" title="Verwijderen">
+                <span class="glyphicon btn-glyphicon glyphicon-trash img-circle text-danger pull-left"></span>
+                <span class="btn-vop-center-text">Verwijderen</span>
+            </button>
+      </div>
+    </div>
+</div>

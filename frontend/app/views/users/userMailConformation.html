@@ -1,0 +1,26 @@
+<form name="userAddForm"
+      role="form"
+      data-ng-submit="addUserFunction()"
+      class="form-horizontal">
+    <div class="form-group row">
+        <!-- email code -->
+        <div class="col-md-6 col-md-offset-1">
+            <label for="code"> Email code </label>
+            <input type="text"
+                   class="form-control"
+                   data-ng-model="code"
+                   id="code"
+                   name="code"
+                   placeholder="Geef de code in"
+                   required/>
+        </div>
+
+        <!-- submit button -->
+        <div class="col-md-5">
+            <button class="btn icon-btn btn-primary" type="submit" title="Valideer">
+                <span class="glyphicon btn-glyphicon glyphicon-apple img-circle text-primary"></span>
+                Valideer mijn email
+            </button>
+        </div>
+    </div>
+</form>

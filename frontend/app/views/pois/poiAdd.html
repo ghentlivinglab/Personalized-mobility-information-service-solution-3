@@ -1,0 +1,139 @@
+<div gmaps-poi-add>
+    <!-- ALERTS -->
+    <div id="errorMessage" class="row form-group divMessages">
+        <h3 class="text-center">Opgelet</h3>
+        <br/>
+        <p class="text-center"></p>
+        <input class="btn btn-primary pull-right specialButton" value="Sluiten" data-ng-click="close()"/>
+        <!-- Here comes the error message as specified in javascript -->
+    </div>
+    
+    <div class="container-fluid poiAdd">
+    
+        <div class="row form-group">
+            <div class="col-sm-10 col-sm-offset-1 col-xs-12">
+    
+                <form name="poiAddForm" role="form" data-ng-submit="save()">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <h3>Interessepunt toevoegen</h3>
+                        </div>
+                    </div>
+    
+                    <!-- NAME -->
+                    <div class="row form-group">
+                        <div class="col-sm-2">
+                            <label>
+                                Naam:<span class="glyphicon glyphicon-asterisk"></span>
+                            </label>
+                        </div>
+                        <div class="col-sm-10">
+                            <input type="text"
+                                   class="form-control"
+                                   data-ng-model="poi.name"
+                                   placeholder="Naam interessepunt"
+                                   required/>
+                        </div>
+                    </div>
+    
+                    <!-- ACTIVE -->
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <label>
+                                Actief:
+                            </label>
+                            <input type="checkbox"
+                                   data-ng-model="poi.active"
+                            />
+                        </div>
+                    </div>
+    
+                    <!-- NOTIFY_FOR_EVENT_TYPES -->
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <label>
+                                Informeer me bij:
+                            </label>
+                        </div>
+                        <div class="col-sm-9">
+                        <input type="checkbox"
+                               data-ng-click="selectAll()"
+                               data-ng-model="selectedAll"/> Selecteer alles
+                    	</div>
+                    	<div class="col-sm-9 col-sm-offset-3" data-ng-repeat="type in eventTypes">
+                        <input type="checkbox"
+                               data-ng-true-value="{{type}}"
+                               data-ng-model="tempHolder[$index]"
+                               data-ng-click="checking()"/> {{ "EventTypes." + type.type | translate}}
+                        </div>
+                    </div>
+    
+                    <!-- NOTIFY -->
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <label>
+                                Informeer me via:
+                            </label>
+                        </div>
+                        <div class="col-sm-9">
+                            <input type="checkbox"
+                                   data-ng-model="poi.notify.email"
+                            /> E-mail
+                        </div>
+                        <!--<div class="col-sm-9 col-sm-offset-3">-->
+                            <!--<input type="checkbox"-->
+                                   <!--data-ng-model="poi.notify.cell_number"-->
+                            <!--/> Gsm-->
+                        <!--</div>-->
+                    </div>
+    
+                    <!-- DUMMY INPUT TO MAKE THE DUMMY BUTTON WORK -->
+                    <input type="submit" id="poiAddForm" class="hidden" />
+                </form>
+    
+                <div id="mapWrapper" class="row">
+                    <div id="map" class="col-md-12" style="height: 575px;">
+                        <center>Waiting for the map...</center>
+                    </div>
+                </div>
+    
+                <form class="navbar-form" id="pointAutocompleteForm">
+                    <div class="input-group">
+                        <input type="text" class="form-control autocomplete" placeholder="Geef een punt op"
+                               id="pointAutocomplete" required/>
+                    </div>
+                </form>
+    
+                <form class="navbar-form" id="radiusForm">
+                    <div class="input-group">
+                        <input type="number"
+                               class="form-control"
+                               data-ng-model="poi.radius"
+                               placeholder="straal (meter)"
+                               id="radius"
+                               min="0"
+                               max="15000"
+                               required/>
+                    </div>
+                </form>
+    
+                <div class="row">
+                    <div class="col-sm-12">
+                        <button class="btn icon-btn btn-danger btn-vop btn-125px" data-ng-click="cancel()"
+                                title="Annuleren">
+                            <span class="glyphicon btn-glyphicon glyphicon-remove img-circle text-danger pull-left"></span>
+                            <span class="btn-vop-center-text">Annuleren</span>
+                        </button>
+    
+                        <button class="btn icon-btn btn-success btn-vop btn-125px" data-ng-click="submit()" title="Opslaan">
+                            <span class="glyphicon btn-glyphicon glyphicon-floppy-disk img-circle text-success pull-left"></span>
+                            <span class="btn-vop-center-text">Opslaan</span>
+                        </button>
+                    </div>
+                </div>
+    
+            </div>
+        </div>
+    
+    </div>
+</div>

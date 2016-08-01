@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Mobiliteit Gent</string>
+    <string name="active">Active</string>
+    <string name="are_you_sure">Are you sure</string>
+    <string name="cell_number">Cell number</string>
+    <string name="description">Description</string>
+    <string name="edit_time">Time of last changes</string>
+    <string name="email">Email address</string>
+    <string name="email_validated">Email validated</string>
+    <string name="error_401">Login failed: email and/or password was incorrect</string>
+    <string name="error_403">Access denied</string>
+    <string name="error_418">Something\'s wrong with the database</string>
+    <string name="first_name">First name</string>
+    <string name="forgot_password"><u>Forgot your password? Click here.</u></string>
+    <string name="jam">Jams</string>
+    <string name="last_name">Last name</string>
+    <string name="location">Location</string>
+    <string name="logging_out">You are about to log out.</string>
+    <string name="login_button">Login</string>
+    <string name="logout">Logout</string>
+    <string name="map">Show on map</string>
+    <string name="mute">Receive notifications</string>
+    <string name="no">No</string>
+    <string name="no_events">There are no relevant events for you at the moment.</string>
+    <string name="password">Password</string>
+    <string name="profile">Profile</string>
+    <string name="pub_time">Publication time</string>
+    <string name="push_messages_working">Push notifications have been enabled</string>
+    <string name="registration"><u>No account yet? Register here.</u></string>
+    <string name="title_activity_maps">Map</string>
+    <string name="transports">Relevant modes of transportation</string>
+    <string name="type">Type of event</string>
+    <string name="wrong_communication">Something\'s wrong with the communication. Please check your connection.</string>
+    <string name="yes">Yes</string>
+    <string name="notification">Mobility Ghent</string>
+</resources>

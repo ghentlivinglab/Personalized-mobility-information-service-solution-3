@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: controllers/travels/travelEditController.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: controllers/travels/travelEditController.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+* @author Frontend team
+* @module routeEditController
+* @description Controller related to editing routes.
+* @memberof angular_module.vopApp.vopTravel
+*/
+angular.module('vopTravel').controller('travelEditController', function ($scope, $http, $routeParams, $location, Travel) {
+  Travel.get({userId: $routeParams.userId, travelId: $routeParams.travelId},function(data) {
+    /**
+  	@member travel
+  	@description travel to edit
+  	@memberof angular_module.vopApp.vopTravel.travelEditController
+  	*/
+    $scope.travel = data;
+    $scope.travel.time=[];
+    // Make new dates. Only the time is important, so use a dummy date (because it's needed for the controller of date).
+    $scope.travel.time[0]=new Date("January 1, 1970 "+$scope.travel.time_interval[0]);
+    $scope.travel.time[1]=new Date("January 1, 1970 "+$scope.travel.time_interval[1]);
+
+  });
+
+  /**
+  @description The function will save the changes made to the travel.
+  @function editTravel
+  @memberof angular_module.vopApp.vopTravel.travelEditController
+  */
+  $scope.editTravel = function () {
+    $scope.travel.time_interval[0]=formatTime($scope.travel.time[0]);
+    $scope.travel.time_interval[1]=formatTime($scope.travel.time[1]);
+    //Save changes.
+    $scope.travel.$edit({userId: $routeParams.userId});
+    //Go back to the route list.
+    $location.path("/user/" + $routeParams.userId + "/travel/" + $routeParams.travelId);
+  };
+
+  /**
+   @description The function will cancel all made changes and revert to the show-page of the travel.
+   @function cancel
+   @memberof angular_module.vopApp.vopTravel.travelEditController
+   */
+  $scope.cancel=function(){
+    $location.path("/user/" + $routeParams.userId + "/travel/" + $routeParams.travelId);
+  };
+
+  /**
+   * @function selectAllDays
+   * @description functions that unchecks or checks all the boxes when necessary
+   * @memberof angular_module.vopApp.vopTravel.travelEditController
+   */
+  $scope.selectAllDays = function(){
+    if($scope.selectedAllDays){
+      for(var k = 0; k &lt; $scope.travel.recurring.length; k++){
+        $scope.travel.recurring[k] = true;
+      }
+    } else {
+      for(var i = 0; i &lt; $scope.travel.recurring.length; i++){
+        $scope.travel.recurring[i] = false;
+      }
+    }
+  };
+
+  /**
+   * @function checking
+   * @description functions that unchecks or checks the selected all option when necessary
+   * @memberof angular_module.vopApp.vopTravel.travelEditController
+   */
+  $scope.checkingDays = function(){
+    var tmp = true;
+    for(var i = 0; i &lt; $scope.travel.recurring.length; i++){
+      if($scope.travel.recurring[i] == false){
+        tmp = false;
+      }
+    }
+    $scope.selectedAllDays = tmp;
+  };
+});
+
+
+
+/**
+* @function formatTime
+* @description Converts the hours and minutes of a javascript date to a string (formatted HH:mm).
+* @param date - a javascript date.
+*/
+var formatTime = function(date) {
+  var hours,minutes;
+  if (date.getMinutes() &lt; 10) {
+    minutes = "0" + date.getMinutes().toString();
+  } else {
+    minutes = date.getMinutes().toString();
+  }
+  if (date.getHours() &lt; 10) {
+    hours = "0" + date.getHours().toString();
+  } else {
+    hours = date.getHours().toString();
+  }
+  return hours + ":" + minutes;
+};
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="angular_module.vopApp.vopTravel.module_routeEditController.html">routeEditController</a></li><li><a href="angular_module.vopApp.vopTravel.module_travelAddController.html">travelAddController</a></li><li><a href="angular_module.vopApp.vopTravel.module_travelListController.html">travelListController</a></li></ul><h3>Classes</h3><ul><li><a href="angular_module.myApp.html">myApp</a></li><li><a href="angular_module.vopApp.contactController.html">contactController</a></li><li><a href="angular_module.vopApp.404Controller.html">404Controller</a></li><li><a href="angular_module.vopApp.indexController.html">indexController</a></li><li><a href="angular_module.vopApp.notImpController.html">notImpController</a></li><li><a href="angular_module.vopApp.vopAuth.Authentication.html">Authentication</a></li><li><a href="angular_module.vopApp.vopAuth.authenticationController.html">authenticationController</a></li><li><a href="angular_module.vopApp.vopAuth.authInterceptor.html">authInterceptor</a></li><li><a href="angular_module.vopApp.vopAuth.Authorization.html">Authorization</a></li><li><a href="angular_module.vopApp.vopAuth.403Controller.html">403Controller</a></li><li><a href="angular_module.vopApp.vopAuth.Roles.html">Roles</a></li><li><a href="angular_module.vopApp.vopAuth.Session.html">Session</a></li><li><a href="angular_module.vopApp.vopEvent.eventAddController.html">eventAddController</a></li><li><a href="angular_module.vopApp.vopEvent.eventEditController.html">eventEditController</a></li><li><a href="angular_module.vopApp.vopEvent.eventListController.html">eventListController</a></li><li><a href="angular_module.vopApp.vopEvent.eventShowController.html">eventShowController</a></li><li><a href="angular_module.vopApp.vopPOI.poiAddController.html">poiAddController</a></li><li><a href="angular_module.vopApp.vopPOI.poiEditController.html">poiEditController</a></li><li><a href="angular_module.vopApp.vopPOI.poiListController.html">poiListController</a></li><li><a href="angular_module.vopApp.vopPOI.poiShowController.html">poiShowController</a></li><li><a href="angular_module.vopApp.vopRoute.routeAddController.html">routeAddController</a></li><li><a href="angular_module.vopApp.vopRoute.routeEditController.html">routeEditController</a></li><li><a href="angular_module.vopApp.vopUser.userAddController.html">userAddController</a></li><li><a href="angular_module.vopApp.vopUser.userChangePassController.html">userChangePassController</a></li><li><a href="angular_module.vopApp.vopUser.userEditController.html">userEditController</a></li><li><a href="angular_module.vopApp.vopUser.userEventsShowController.html">userEventsShowController</a></li><li><a href="angular_module.vopApp.vopUser.userForgotPasswordController.html">userForgotPasswordController</a></li><li><a href="angular_module.vopApp.vopUser.userForgotPasswordRecoverController.html">userForgotPasswordRecoverController</a></li><li><a href="angular_module.vopApp.vopUser.userListAdminController.html">userListAdminController</a></li><li><a href="angular_module.vopApp.vopUser.userListController.html">userListController</a></li><li><a href="angular_module.vopApp.vopUser.userMailValidationController.html">userMailValidationController</a></li><li><a href="angular_module.vopApp.vopUser.userShowController.html">userShowController</a></li></ul><h3>Global</h3><ul><li><a href="global.html#config">config</a></li><li><a href="global.html#configmoduleEvent">config module Event</a></li><li><a href="global.html#configmodulePOI">config module POI</a></li><li><a href="global.html#configmoduleRoute">config module Route</a></li><li><a href="global.html#configmoduleTravel">config module Travel</a></li><li><a href="global.html#configmoduleuser">config module user</a></li><li><a href="global.html#formatTime">formatTime</a></li><li><a href="global.html#icon">icon</a></li><li><a href="global.html#MARKERICON">MARKERICON</a></li><li><a href="global.html#ROLE_ADMIN">ROLE_ADMIN</a></li><li><a href="global.html#ROLE_OPERATOR">ROLE_OPERATOR</a></li><li><a href="global.html#ROLE_USER">ROLE_USER</a></li><li><a href="global.html#SPECIALMARKERICON">SPECIALMARKERICON</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.0</a> on Mon May 16 2016 22:07:46 GMT+0200 (Romance (zomertijd))
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

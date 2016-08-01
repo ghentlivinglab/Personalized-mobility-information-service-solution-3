@@ -1,0 +1,227 @@
+\documentclass[11pt,twoside,a4paper]{article}
+
+\usepackage[dutch]{babel}
+\usepackage{a4wide} % Bladgroote is A4
+\usepackage{enumitem}
+\usepackage{graphicx} % Om figuren te kunnen verwerken
+\usepackage{verbatim} 
+\usepackage{parskip} % witruimte tussen paragrafen introduceren.
+%\usepackage[nottoc]{tocbibind}
+\usepackage[normal]{caption}
+\usepackage{type1ec}
+\usepackage{hyperref}
+
+
+\newcommand{\copyimage}[4]{ 			%SYNTAX: \copyimage{<img_name>}{<label>}{<width>}{caption}
+	\begin{figure}
+	%\begin{center}
+	\includegraphics[width=#3]{images/#1}
+	\caption{\textit{#4}}\label{#2}
+	%\end{center}
+	\end{figure}
+}
+
+\newcommand{\copyimageH}[4]{ 			%SYNTAX: \copyimageH{<img_name>}{<label>}{<width>}{caption}
+	\begin{figure}[ht]
+	%\begin{center}
+	\includegraphics[width=#3]{images/#1}
+	\caption{\textit{#4}}\label{#2}
+	%\end{center}
+	\end{figure}
+}
+
+\renewcommand{\familydefault}{\sfdefault}
+
+
+\title{Ontwerpsbeslissingen}
+\newcommand{\logo}{../latex_extra/images/ugent.png}
+
+
+
+\begin{document}
+
+\input{../latex_extra/titlepage/titlepage}
+
+
+
+	\tableofcontents
+	
+	\newpage
+	
+	\section{Inleiding}
+	\paragraph{}Dit is de documentatie over de ontwerpsbeslissingen van de webapplicatie ``Verkeerscentrum van Gent"', een webapplicatie voor alle weggebruikers in Gent. Het doel van de applicatie is om het reizen in Gent makkelijker te maken.% en zo het verkeer in Gent te ordenen.
+	Het geeft up-to-date verkeersinformatie om de gebruiker te kunnen bijstaan in zijn dagelijks vervoer en zijn transportkeuzes.De webapplicatie zelf is beschikbaar via dit url-adres: \url{https://vopro7.ugent.be/app/index.html} of via een link op de homepagina van de ontwikkelingsteam: \url{https://vopro7.ugent.be}\footnote{De knop ``Ga naar de applicatie"' op de homepagina leidt u naar de webapplicatie.}.
+	\paragraph{}Dit document beschrijft de ontwerpsbeslissingen van deze applicatie. Dit bevat de beslissingen over de aanpak en manier van werken, de software die gekozen is en de keuzes qua algoritmes. Elke afweging die gemaakt is en zijn resultaat kan in dit document teruggevonden worden.
+	
+	\section{Management}
+	
+	\paragraph{} We hebben gekozen voor een agile development proces. Dit is gebaseerd op het agile manifest:
+	
+	\begin{itemize}
+	\item \textbf{Mensen en hun onderlinge interactie} boven processen en hulpmiddelen
+	\item \textbf{Werkende software} boven allesomvattende documentatie
+	\item \textbf{Samenwerking met de klant} boven contractonderhandelingen
+	\item \textbf{Inspelen op verandering} boven het volgen van een plan
+	\end{itemize}
+	
+	\paragraph{}
+	De verschillende milestones worden dan aangepakt met behulp van volgende meetings:
+	
+	\subsection{De sprint planning}	
+	
+	\paragraph{}
+	Bij het begin van de milestone beginnen we met het oplijsten van alle mogelijke taken. Hierbij hebben we zowel rechtstreeks met de volledige groep gewerkt als via kleinere subteams waarbij we resultaten achteraf konden vergelijken en samenvoegen.
+	
+	\paragraph{}
+	Na het opstellen van alle taken werden de prioriteiten bepaald. Als laatste werd hieraan een hoeveelheid werk gekoppeld met behulp van een planning poker sessie. Hiervoor bepaalde iedereen apart voor elke usecase de hoeveelheid werk deze usecase zou zijn (relatief ten opzichte van een vooraf gekozen usecase) door een kaart (met mogelijke waarden 0,1,2,3,5,8,13,20,50) voor zich uit te schuiven. Nadat iedereen een keuze gemaakt had werden deze omgedraaid en kwam een discussie op gang om een min of meer correcte inschatting te proberen maken.
+	
+	\subsection{De scrum meeting}
+	
+	\paragraph{}
+	Meermaals per week, kwamen we in groep samen om de huidige stand van zaken te overlopen. Hierbij moet iedereen de volgende vragen beantwoorden:
+	
+	\begin{itemize}
+	\item Wat heb je gedaan sinds de vorige scrum meeting?
+	\item Wat zijn je plannen om te doen tegen de volgende scrum meeting?
+	\end{itemize}
+	
+	\subsection{De review/retrospective meeting}
+	
+	\paragraph{}
+	Na iedere sprint hebben we besproken wat er niet goed is gegaan tijdens de voorbije sprint en de lessen die we daaruit konden trekken.
+	
+	\section{Software}
+	
+	\paragraph{}	
+	We hebben gekozen voor de volgende software en bibliotheken te gebruiken:
+	
+	\subsection{Database}
+	
+	We gebruiken zowel een traditionele (postgres) als een NoSQL database. Voor alle logische data die nodig is om een correcte werking van de software te verkijgen gebruiken we de traditionele database. De structuur van de eventdata maakt het eenvoudiger om deze data in een NoSQL database op te slaan. Hiervoor maken we gebruik van mongodb. Deze databank kan ook gebruikt worden om het klikgedrag van de gebruikers van de website te bestuderen.
+	
+	\begin{itemize}
+	\item Mongodb
+	
+MongoDB is een opensource document-georiënteerde database en is geschreven in C++. Er is geen schema, de documenten worden in de vorm van BSON (binair JSON) opgeslagen en de structuur van deze documenten is flexibel. De database kan gemakkelijk gedistribueerd worden, de data wordt dan over meerdere computers verspreid om gedistribueerde gegevensverwerking mogelijk te maken. MongoDB is geen relationeel databasemanagementsysteem. Er is geen ondersteuning voor joins en voldoet ook niet aan de ACID-regels want de ondersteuning voor transacties is beperkt. MongoDB wordt gerekend tot de zogenaamde NoSQL-databases.
+
+Er is speciale ondersteuning voor het opslaan van loginformatie (capped collections) en voor het opslaan van blobs. MongoDB kan goed gebruikt worden voor het opslaan en analyseren van bezoekersaantallen en het klikgedrag op een druk bezochte website. Ook voor het cachen van gegevens voor sneller zoeken is MongoDB heel geschikt omdat deze datacache over meerdere computers kan worden verspreid.
+
+Voor complexe data-analyse en aggregatie kunnen er MapReduce-functies geschreven worden met behulp van JavaScript.
+
+De naam 'MongoDB' is afgeleid van het Amerikaanse slangwoord "humongous" wat extreem groot betekent.\footnote{Bron: https://nl.wikipedia.org/wiki/MongoDB}. 	
+	
+	\item Postgres
+	
+PostgreSQL is een vrije relationele-databaseserver, uitgegeven onder de PostgreSQL licence, gelijkwaardig aan de flexibele BSD-licentie. Het biedt een alternatief voor zowel opensource-databasemanagementsystemen, zoals MariaDB en Firebird, als voor propri\"etaire systemen, zoals Oracle, Oracle MySQL, Sybase, DB2 en Microsoft SQL Server. PostgreSQL wordt niet beheerd of gecontroleerd door \'e\'en enkel bedrijf, maar steunt op een wereldwijde gemeenschap van ontwikkelaars en bedrijven.
+
+PostgreSQL wordt officieel uitgesproken als "post-gress-Q-L" (poost-kress-Q-L), maar veel gebruikers korten het af tot "postgres".\footnote{Bron: https://nl.wikipedia.org/wiki/PostgreSQL}. 		
+	
+	\end{itemize}
+	
+	\subsection{Backend}
+	
+	Voor de server maken we gebruik van Java wat elk teamlid ondertussen onder de knie heeft. Voor de softwarebouw te automatiseren maken we gebruik van Maven. Deze tool staat goed gedocumenteerd en draait al een tijdje mee in de java wereld.
+	
+	\begin{itemize}
+	\item Java
+	
+Java is een objectgeori\"enteerde programmeertaal. Java is een platformonafhankelijke taal die qua syntaxis grotendeels gebaseerd is op de (eveneens objectgeori\"enteerde) programmeertaal C++. Java beschikt echter over een uitgebreidere klassenbibliotheek dan C++. \footnote{Bron: https://nl.wikipedia.org/wiki/Java\_(programmeertaal)}. 			
+
+	
+	\item Maven
+	
+Apache Maven is een softwaregereedschap voor Java-projectmanagement en geautomatiseerde softwarebouw. Het is gelijk in functionaliteit aan het gereedschap Apache Ant (en iets minder aan PHP's PEAR en Perl's CPAN), maar heeft een simpelere bouwconfiguratie, gebaseerd op de taal XML. Maven wordt gefaciliteerd door de Apache Software Foundation, waar het voorheen een onderdeel was van het Jakarta Project.
+
+Maven gebruikt een ``Project Object Model"' (POM) om het softwareontwikkeltraject te sturen. In de POM staan verder de afhankelijkheden met andere modules en componenten, waaruit de volgorde van bouwen bepaald wordt. In de POM kunnen naast de gebruikelijke stappen als compileren en samenvoegen voor distributie, extra acties gedefinieerd worden die het ontwikkelproces kunnen ondersteunen. Voorbeelden hiervan zijn automatisch testen, (statische) codeverificatie en analyse van ``Code Coverage"' door de testen.
+
+Een belangrijk aspect van Maven is de zogenaamde ``repository"' waarin verschillende versies van componenten opgeslagen zijn. Dit kunnen componenten zijn waarvan de te bouwen software rechtstreeks afhankelijk is. Ook kunnen dit componenten zijn die het bouwproces zelf ondersteunen. Maven biedt ondersteuning om de repository automatisch te vullen met versies die op het internet aangeboden worden, via Apache en andere organisaties.	\footnote{https://nl.wikipedia.org/wiki/Apache\_Maven}.
+	\end{itemize}
+	
+	\subsection{Frontend}
+	
+	Voor de code in de browser kozen we voor JavaScript in combinatie met het jQuery en AngularJS. Om eenvoudig tot een goede opmaak te komen maken we ook gebruik van het bootstrap framework.
+	
+	\begin{itemize}
+	
+	\item JavaScript
+	
+	JavaScript is een veelgebruikte scriptingtaal om webpagina's interactief te maken en webapplicaties te ontwikkelen. Het script wordt middels HTML overgebracht in de webbrowser en wordt hierin uitgevoerd.
+
+De syntaxis van JavaScript vertoont overeenkomsten met de programmeertaal Java, maar dit is voornamelijk het gevolg van de gemeenschappelijke afkomst van de programmeertaal C. Omdat beide talen het meest zichtbaar zijn op en rond de browser, maar vooral door de naamgeving, worden ze vaak met elkaar verward. De gelijkenis houdt daar echter op, want JavaScript heeft inhoudelijk meer gemeen met functionele programmeertalen, het biedt prototype-gebaseerde overerving en niet, zoals Java en de meeste objectgeori\"enteerde talen, klasse-gebaseerde overerving.\footnote{Bron: https://nl.wikipedia.org/wiki/JQuery}	
+	
+	\item jQuery
+
+JQuery is een vrij JavaScript-framework voor dynamische en interactieve websites, onder andere voor het bewerken van het DOM en CSS en interactie met de webserver (ook bekend als AJAX). De ontwikkeling van jQuery is begonnen door de Amerikaan John Resig.
+
+JQuery is vrijgegeven onder de MIT-licentie en de GNU General Public License.\footnote{Bron: https://nl.wikipedia.org/wiki/JQuery}
+	
+	\item AngularJS
+	
+AngularJS, vaak aangeduid als Angular, is een opensource webapplicatieframework dat wordt onderhouden door Google en een collectief van individuele ontwikkelaars en bedrijven die bezig zijn de mogelijkheden voor het ontwikkelen van Single Page Applications (SPA) te verbeteren. Het doel is het vereenvoudigen van zowel de ontwikkeling als het testen van dergelijke applicaties door het aanbieden van een framework voor client-side model-view-controller (MVC)-architectuur, samen met componenten die gewoonlijk worden gebruikt in Rich Internet Applications.
+
+Het framework werkt door eerst de HTML-pagina te lezen, waarin aanvullende specifieke HTML-attributen zijn opgenomen. Die attributen worden geïnterpreteerd als directieven (Engels: directives) die ervoor zorgen dat Angular invoer- of uitvoercomponenten van de pagina koppelt aan een model dat wordt weergegeven door middel van standaard JavaScript-variabelen. De waarden van die JavaScript-variabelen kunnen worden ingesteld binnen de code, of worden opgehaald uit statische of dynamische JSON-dataobjecten.\footnote{Bron: https://nl.wikipedia.org/wiki/AngularJS}.
+	
+	\item bootstrap
+	
+Bootstrap is een verzameling hulpmiddelen voor het maken van websites en webtoepassingen. Het is gratis en open source. Het bevat sjablonen gebaseerd op HTML en CSS voor typografie, formulieren, knoppen, navigatie en andere interfaceonderdelen. Het bevat ook JavaScript-extensies. Het bootstrap-framework is bedoeld om webontwikkeling te vereenvoudigen	\footnote{Bron: https://nl.wikipedia.org/wiki/Bootstrap\_(framework)}.
+	
+	\end{itemize}
+	
+	
+	\subsection{Varia}
+
+	\begin{itemize}
+	
+	\item RabbitMQ
+	
+	Om berichten te kunnen sturen van de server en de gebruiker (via de browser of de app) maken we gebruik van RabbitMQ.\\
+	
+RabbitMQ is open source message broker software dat het Advanced Message Queuing Protocol (AMQP) implementeert. De RabbitMQ server is geschreven in de programmeertaal Erlang en is gebouwd op het Open Telecom Platform framework voor clustering en failover. Client bibliotheken om te communiceren met de makelaar zijn beschikbaar voor alle belangrijke programmeertalen. De broncode is vrijgegeven onder de Mozilla Public License. \footnote{Bron: https://en.wikipedia.org/wiki/RabbitMQ}.
+
+	\item Grunt
+	
+Grunt is een task runner die we gebruiken voor het concateneren en verkorten van de frontend code, wat de code sneller en veiliger maakt.
+
+	\end{itemize}	
+	
+	\section{Algoritmes}
+	
+	\subsection{Berekenen van de routes}	
+	
+	\paragraph{}
+	Om de server te ontlasten en te vermijden dat er teveel request gestuurd worden naar de google API hebben we besloten om de route te laten berekenen in de browser. Dit heeft als gevolg dat bij een nieuwe route tussenliggende punten moeten doorgestuurd worden.
+	
+	\paragraph{}
+	Een gevolg van deze aanpak is dat er problemen kunnen optreden met onderliggende routes wanneer het begin- en eindpunt van een travel worden aangepast. Bijgevolg verbieden we het om het begin- en eindpunt van een travel aan te passen.
+	
+	\subsection{Notificatie algoritme}	
+	
+	\paragraph{}
+	Het event matchen met een route is de bottleneck van de applicatie. Hiervoor hebben we een query nodig die alle punten op een route vergelijkt een bepaald punt. Dit geeft de volgende query:
+	
+	\begin{equation}
+	(lat2m (route_{lat} - event_{lat}))^{2} +(lon2m(route_{lon} - event_{lon}))^{2} < R^{2}
+	\end{equation}
+	
+	\paragraph{}
+	Hierbij zijn \emph{lat2m} en \emph{lon2m} constanten die een aantal graden latitude of longitude omzetten naar het aantal meter. Deze worden berekend op basis van een referentiepunt, aangezien deze constanten vari\"eren bij verschillende breedtegraden. Het ingestelde referentiepunt is 51$^{\circ}$3'NB, 3$^{\circ}$42'OL wat volgens wikipedia overeenkomt met centrum Gent.
+	
+	\paragraph{}
+	Een mogelijke verbetering bestaat erin om \emph{lat2m} en \emph{lon2m} aan elkaar gelijk te stellen. Dit zorgt ervoor dat voorgaande formule zich vereenvoudigt tot:
+	
+	\begin{equation}
+	(route_{lat} - event_{lat})^{2} +(route_{lon} - event_{lon})^{2} < (\frac{R}{degree2m})^{2}
+	\end{equation}
+	
+	Dit heeft wel tot gevolg dat ellipsvormig rond een bepaald punt in de route gezocht wordt in plaats van cirkelvormig.
+	
+	\paragraph{}
+	Een andere methode om deze formule te vereenvoudigen is een nieuw coordinatenstelsel te defini\"eren. Hierbij zouden de coordinaten in de database opgeslaan worden als aantal meter ten opzichte van een vast gekozen referentiepunt. Dit zou de formule vereenvoudigen tot:
+	
+	\begin{equation}
+	(route_{mx} - event_{mx})^{2} +(route_{my} - event_{my})^{2} < R^{2}
+	\end{equation}
+	
+	Hierbij is wel een zekere preprocessing vereist om de longitude en latitude steeds om te zetten naar het aantal meter van het referentiepunt.	
+	
+\end{document}

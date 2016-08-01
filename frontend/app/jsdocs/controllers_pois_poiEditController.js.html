@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: controllers/pois/poiEditController.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: controllers/pois/poiEditController.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>// Global variable to check if google api is already loaded (needed to avoid unexpected errors)
+var googleLoaded = false;
+
+/**
+ * @author Frontend team
+ * @memberof angular_module.vopApp.vopPOI
+ * @constructor poiEditController
+ */
+angular.module('vopPOI').controller('poiEditController', function($scope, $http, $location, $routeParams, $timeout, PointOfInterest, EventType) {
+    /**
+     * @constant icon
+     * @type {string}
+     */
+    var icon = 'assets/images/map-pin-special.svg';
+    // ...
+    $scope.geocoder;
+    // Variable that will contain the address-data of the added point entered by the user.
+    $scope.pointAutocomplete;
+    // Variable that will contain the data of the marker of the point in order to display a marker on the map.
+    $scope.pointMarker;
+    // Variable that will contain the data of the circle with the point at it's center.
+    $scope.circle;
+
+    // Gets the resource data in an async way through the service.
+    $scope.poi=PointOfInterest.get({userId: $routeParams.userId, poiId: $routeParams.poiId}, function(data){
+        /**
+         * @member poi
+         * @description point of interest to be edited
+         * @memberof angular_module.vopApp.vopPOI.poiEditController
+         */
+        $scope.poi = data;
+
+        /**
+         * @member eventTypes
+         * @description model to hold all the event types that can possibly selected
+         * @memberof angular_module.vopApp.vopPOI.poiEditController
+         * @type {*|{method, isArray}}
+         */
+        $scope.eventTypes = EventType.query();
+
+        /**
+         * @member tempHolder
+         * @description array to temporarily hold the answers of the selected events
+         * @memberof angular_module.vopApp.vopPOI.poiEditController
+         * @type {Array}
+         */
+        $scope.tempHolder = [];
+
+
+        //Checks the checkboxes that should be checked once the data has been received.
+        $scope.eventTypes.$promise.then(function(data2){
+            var i = 0;
+            angular.forEach(data2, function(event){
+                for(var j = 0; j &lt; $scope.poi.notify_for_event_types.length; j++){
+                    if(event.type == $scope.poi.notify_for_event_types[j].type){
+                        $scope.tempHolder[i] = event;
+                    }
+                }
+                i++;
+            });
+        });
+    });
+
+    /**
+     * @member selectedEventTypes
+     * @description array of the selected event types, ready to be send to the API
+     * @memberof angular_module.vopApp.vopPOI.poiEditController
+     * @type {Array}
+     */
+    $scope.selectedEventTypes = [];
+
+    /**
+     * @member selectedAll
+     * @description Boolean that checks if the user wishes to select all options
+     * @memberof angular_module.vopApp.vopPOI.poiEditController
+     * @type {Boolean}
+     */
+    $scope.selectedAll = false;
+    /**
+     * @function save
+     * @description The function will save the changes made to the point of interest and redirect to the show-page of this point of interest
+     * @memberof angular_module.vopApp.vopPOI.poiEditController
+     */
+    $scope.save = function(){
+        if($scope.pointMarker==null){
+            $scope.showErrorMessage("Gelieve een addres in te geven.");
+            return;
+        }
+        $scope.geocoder.geocode({'location': $scope.pointMarker.position}, function(results, status){
+            if (status === google.maps.GeocoderStatus.OK) {
+                if (results[0]) {
+                    $scope.$apply(function () {
+                        $scope.poi.address = formatAddress(results[0], $scope.pointMarker.getPosition());
+                        angular.forEach($scope.tempHolder, function(entry){
+                            if(entry!=null &amp;&amp; entry != false){
+                                $scope.selectedEventTypes.push(entry);
+
+                            }
+                        });
+                        $scope.poi.notify_for_event_types = $scope.selectedEventTypes;
+                        $scope.poi.$edit({userId: $routeParams.userId});
+                        $location.path('/user/' + $routeParams.userId + '/poi/' + $routeParams.poiId);
+                    });
+                } else {
+                    window.alert('No results found');
+                }
+            } else {
+                window.alert('Geocoder failed due to: ' + status);
+            }
+        });
+
+    };
+
+    /**
+     * @function cancel
+     * @description The function will redirect to the show page of the point of interest
+     * @memberof angular_module.vopApp.vopPOI.poiEditController
+     */
+    $scope.cancel = function(){
+        $location.path('/user/' + $routeParams.userId + '/poi/' + $routeParams.poiId);
+    };
+
+    /**
+     * @function submit
+     * @description round about way of making the submit button work in multiple browsers as it is not inside the form
+     * @memberof angular_module.vopApp.vopPOI.poiEditController
+     */
+    $scope.submit = function(){
+        //simulate the clicking of the submit button
+        $timeout(function(){$("#poiEditForm").click();},0);
+    };
+
+    /**
+     * @function selectAll
+     * @description functions that unchecks or checks all the boxes when necessary
+     * @memberof angular_module.vopApp.vopPOI.poiEditController
+     */
+    $scope.selectAll = function(){
+        if($scope.selectedAll){
+            var k = 0;
+            angular.forEach($scope.eventTypes, function(type){
+                $scope.tempHolder[k] = type;
+                k++;
+            });
+        } else {
+            for(var i = 0; i &lt; $scope.eventTypes.length; i++){
+                $scope.tempHolder[i] = false;
+            }
+        }
+    };
+
+    /**
+     * @function checking
+     * @description functions that unchecks or checks the selected all option when necessary
+     * @memberof angular_module.vopApp.vopPOI.poiEditController
+     */
+    $scope.checking = function(){
+        var tmp = true;
+        if($scope.tempHolder.length  == $scope.eventTypes.length) {
+            for (var i = 0; i &lt; $scope.tempHolder.length; i++) {
+                if ($scope.tempHolder[i] == false) {
+                    tmp = false;
+                }
+            }
+        } else {
+            tmp = false;
+        }
+        $scope.selectedAll = tmp;
+    };
+});
+
+var formatAddress = function(address, position){
+  var result={};
+  result.housenumber = "1";
+  address.address_components.forEach(function(entry){
+    if(entry.types[0]==="route" || entry.types[0]==="premise"){
+      result.street = entry.long_name;
+    } else if(entry.types[0]==="street_number"){
+      result.housenumber = entry.long_name;
+    } else if (entry.types[0]==="locality"){
+      result.city = entry.long_name;
+    } else if(entry.types[0]==="country"){
+      result.country = entry.short_name;
+    } else if(entry.types[0]==="postal_code"){
+      result.postal_code = entry.long_name;
+    }
+  });
+  result.coordinates = {
+    lat: position.lat(),
+    lon: position.lng()
+  };
+  return result;
+};
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="angular_module.vopApp.vopTravel.module_routeEditController.html">routeEditController</a></li><li><a href="angular_module.vopApp.vopTravel.module_travelAddController.html">travelAddController</a></li><li><a href="angular_module.vopApp.vopTravel.module_travelListController.html">travelListController</a></li></ul><h3>Classes</h3><ul><li><a href="angular_module.myApp.html">myApp</a></li><li><a href="angular_module.vopApp.contactController.html">contactController</a></li><li><a href="angular_module.vopApp.404Controller.html">404Controller</a></li><li><a href="angular_module.vopApp.indexController.html">indexController</a></li><li><a href="angular_module.vopApp.notImpController.html">notImpController</a></li><li><a href="angular_module.vopApp.vopAuth.Authentication.html">Authentication</a></li><li><a href="angular_module.vopApp.vopAuth.authenticationController.html">authenticationController</a></li><li><a href="angular_module.vopApp.vopAuth.authInterceptor.html">authInterceptor</a></li><li><a href="angular_module.vopApp.vopAuth.Authorization.html">Authorization</a></li><li><a href="angular_module.vopApp.vopAuth.403Controller.html">403Controller</a></li><li><a href="angular_module.vopApp.vopAuth.Roles.html">Roles</a></li><li><a href="angular_module.vopApp.vopAuth.Session.html">Session</a></li><li><a href="angular_module.vopApp.vopEvent.eventAddController.html">eventAddController</a></li><li><a href="angular_module.vopApp.vopEvent.eventEditController.html">eventEditController</a></li><li><a href="angular_module.vopApp.vopEvent.eventListController.html">eventListController</a></li><li><a href="angular_module.vopApp.vopEvent.eventShowController.html">eventShowController</a></li><li><a href="angular_module.vopApp.vopPOI.poiAddController.html">poiAddController</a></li><li><a href="angular_module.vopApp.vopPOI.poiEditController.html">poiEditController</a></li><li><a href="angular_module.vopApp.vopPOI.poiListController.html">poiListController</a></li><li><a href="angular_module.vopApp.vopPOI.poiShowController.html">poiShowController</a></li><li><a href="angular_module.vopApp.vopRoute.routeAddController.html">routeAddController</a></li><li><a href="angular_module.vopApp.vopRoute.routeEditController.html">routeEditController</a></li><li><a href="angular_module.vopApp.vopUser.userAddController.html">userAddController</a></li><li><a href="angular_module.vopApp.vopUser.userChangePassController.html">userChangePassController</a></li><li><a href="angular_module.vopApp.vopUser.userEditController.html">userEditController</a></li><li><a href="angular_module.vopApp.vopUser.userEventsShowController.html">userEventsShowController</a></li><li><a href="angular_module.vopApp.vopUser.userForgotPasswordController.html">userForgotPasswordController</a></li><li><a href="angular_module.vopApp.vopUser.userForgotPasswordRecoverController.html">userForgotPasswordRecoverController</a></li><li><a href="angular_module.vopApp.vopUser.userListAdminController.html">userListAdminController</a></li><li><a href="angular_module.vopApp.vopUser.userListController.html">userListController</a></li><li><a href="angular_module.vopApp.vopUser.userMailValidationController.html">userMailValidationController</a></li><li><a href="angular_module.vopApp.vopUser.userShowController.html">userShowController</a></li></ul><h3>Global</h3><ul><li><a href="global.html#config">config</a></li><li><a href="global.html#configmoduleEvent">config module Event</a></li><li><a href="global.html#configmodulePOI">config module POI</a></li><li><a href="global.html#configmoduleRoute">config module Route</a></li><li><a href="global.html#configmoduleTravel">config module Travel</a></li><li><a href="global.html#configmoduleuser">config module user</a></li><li><a href="global.html#formatTime">formatTime</a></li><li><a href="global.html#icon">icon</a></li><li><a href="global.html#MARKERICON">MARKERICON</a></li><li><a href="global.html#ROLE_ADMIN">ROLE_ADMIN</a></li><li><a href="global.html#ROLE_OPERATOR">ROLE_OPERATOR</a></li><li><a href="global.html#ROLE_USER">ROLE_USER</a></li><li><a href="global.html#SPECIALMARKERICON">SPECIALMARKERICON</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.0</a> on Mon May 16 2016 22:07:46 GMT+0200 (Romance (zomertijd))
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

@@ -1,0 +1,774 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>karma_html</title>
+<style>
+body { background-color: #eeeeee; padding: 0; margin: 5px; overflow-y: scroll; }
+#HTMLReporter h1 { font-size: 12px; font-weight: normal; text-align: right; margin: 10px 0 10px 0 !important; }
+#HTMLReporter { font-size: 11px; font-family: Monaco, "Lucida Console", monospace; line-height: 14px; color: #333333; }
+#HTMLReporter a { text-decoration: none; }
+#HTMLReporter a:hover { text-decoration: underline; }
+#HTMLReporter p, #HTMLReporter h1, #HTMLReporter h2, #HTMLReporter h3, #HTMLReporter h4, #HTMLReporter h5, #HTMLReporter h6 { margin: 0; line-height: 14px; }
+#HTMLReporter .banner, #HTMLReporter .symbolSummary, #HTMLReporter .summary, #HTMLReporter .resultMessage, #HTMLReporter .specDetail .description, #HTMLReporter .alert .bar, #HTMLReporter .stackTrace { padding-left: 9px; padding-right: 9px; }
+
+#HTMLReporter #jasmine_content { position: fixed; right: 100%; }
+#HTMLReporter .version { color: #aaaaaa; }
+#HTMLReporter .banner { margin-top: 14px; }
+#HTMLReporter .duration { color: #aaaaaa; float: right; }
+#HTMLReporter .exceptions { color: #fff; float: right; margin-top: 5px; margin-right: 5px; }
+#HTMLReporter .bar { line-height: 28px; font-size: 14px; display: block; color: #eee; }
+#HTMLReporter .runningAlert { background-color: #666666; }
+#HTMLReporter .skippedAlert { background-color: #aaaaaa; }
+#HTMLReporter .skippedAlert:first-child { background-color: #333333; }
+#HTMLReporter .skippedAlert:hover { text-decoration: none; color: white; text-decoration: underline; }
+#HTMLReporter .passingAlert { background-color: #a6b779; }
+#HTMLReporter .passingAlert:first-child { background-color: #5e7d00; }
+#HTMLReporter .failingAlert { background-color: #cf867e; }
+#HTMLReporter .failingAlert:first-child { background-color: #b03911; }
+#HTMLReporter .results { margin-top: 14px; }
+#HTMLReporter #details { display: none; }
+#HTMLReporter .resultsMenu { color: #999; background-color: #fff; }
+
+#HTMLReporter .summaryMenuItem { font-weight: normal; text-decoration: none; margin-right: 5px; color: #333; }
+#HTMLReporter .detailsMenuItem { font-weight: normal; text-decoration: none; margin-left: 5px; color: #999; }
+
+#HTMLReporter.showDetails .summaryMenuItem { color: #999; }
+#HTMLReporter.showDetails .detailsMenuItem { color: #333; }
+#HTMLReporter.showDetails .summaryMenuItem:hover { text-decoration: underline; }
+#HTMLReporter             .detailsMenuItem:hover { text-decoration: underline; }
+
+
+#HTMLReporter.showDetails .summary { display: none; }
+#HTMLReporter.showDetails #details { display: block; }
+#HTMLReporter .summary { margin-top: 14px; margin-bottom: 40px; }
+#HTMLReporter .summary .suite .suite, #HTMLReporter .summary .specSummary { margin-left: 14px; }
+#HTMLReporter .summary .specSummary.passed { color: #5e7d00; }
+#HTMLReporter .summary .specSummary.failed { color: #b03911; }
+#HTMLReporter .summary .specSummary.skipped { color: #ba9d37; }
+#HTMLReporter .description + .suite { margin-top: 0; }
+#HTMLReporter .suite { margin-top: 14px; }
+#HTMLReporter .suite a { color: #333333; }
+#HTMLReporter #details .specDetail { margin-bottom: 28px; }
+#HTMLReporter #details .specDetail .description { display: block; color: white; background-color: #b03911; }
+#HTMLReporter .resultMessage { padding-top: 14px; color: #333333; }
+#HTMLReporter .resultMessage span.result { display: block; }
+#HTMLReporter .stackTrace { margin: 5px 0 0 0; max-height: 224px; overflow: auto; 
+    line-height: 18px; color: #666666; border: 1px solid #ddd; background: white; white-space: pre; }
+
+
+.fold-buttons { float: right; }
+.fold-buttons a { color: #fff; font-size: 12px; }
+.fold-buttons { display: none } 
+#HTMLReporter .br { margin-top: 8px; }
+#HTMLReporter .section-starter { font-size: 14px; line-height: 18px }
+#HTMLReporter .summary-section { 
+  cursor: -webkit-zoom-out; cursor: -moz-zoom-out; cursor: zoom-out; 
+  background: #fafafa; 
+  padding: 10px; 
+  border-bottom: #eaeaea 1px solid; }
+#HTMLReporter .summary-section.folded { 
+  cursor: -webkit-zoom-in; cursor: -moz-zoom-in; cursor: zoom-in; 
+  padding-bottom: 8px;
+}
+#HTMLReporter .summary-section.folded div { display: none }
+#HTMLReporter .summary-section.folded div.section-starter { display: block }
+/*#HTMLReporter .summary-section:hover { background: #e9e9e9; }*/
+#HTMLReporter .summary-section:hover { background: #f5f5f5; }
+#HTMLReporter .summary-section-totals { 
+  font-size: 11px;
+  display: none; 
+  margin-left: 11px; 
+  overflow: hidden; 
+  position: relative;
+  top: -1px; 
+}
+#HTMLReporter .summary-section.folded .summary-section-totals { display: inline; }
+#HTMLReporter .summary-section-total { color: #fff; vertical-align: baseline; padding: 1px 8px; }
+#HTMLReporter .summary-section-total.passed { background: #5e7d00;  }
+#HTMLReporter .summary-section-total.failed { background: #b03911;  }
+#HTMLReporter .summary-section-total.skipped { background: #ba9d37;  }
+
+#HTMLReporter { font-size: 12px; line-height: 18px; } /*larget font-size*/
+
+</style>
+</head>
+
+<body id="HTMLReporter" class="html-reporter showDetails">
+<h1>Tested in Chrome 50.0.2661 (Windows 10 0.0.0) on Mon May 16 2016</h1>
+
+<div class="alert">
+
+
+<!-- <span class="failingAlert bar">Failed 4 specs</span> -->
+<span class="failingAlert bar"><span class="fold-buttons"><a href="#" onclick="fold();">Fold</a> | 
+  <a href="#" onclick="unfold();">Unfold</a></span>88 specs, 4 failed, 0 pending</span>
+<span class="resultsMenu bar">
+<a class="summaryMenuItem" onclick="showSummary();" href="#">Spec List<a>|<a 
+   class="detailsMenuItem" onclick="showFailures();" href="#">Failures</a>
+</span>
+
+
+
+</div>
+<div class="results">
+  <div class="summary">
+  
+  
+  
+  
+  
+    <div class="suite passed">
+      <span class="description">404Controller</span>
+    
+      <div class="specSummary passed">
+      <span class="description">should correctly display a link to the homepage when the user is not logged in</span>
+      </div>
+    
+      <div class="specSummary passed">
+      <span class="description">should correctly display a link to the user's events when logged in</span>
+      </div>
+    
+    </div>
+  
+    <div class="suite passed">
+      <span class="description">authentication/authorization 403Controller</span>
+    
+      <div class="specSummary passed">
+      <span class="description">should exist</span>
+      </div>
+    
+    </div>
+  
+    <div class="suite failed">
+      <span class="description">authentication/authorization Authentication Login</span>
+    
+      <div class="specSummary failed">
+      <span class="description">should correctly create a new session when the login button is pressed and the credentials are correct</span>
+      </div>
+    
+      <div class="specSummary failed">
+      <span class="description">should correctly raise an alert when the login button is pressed and the credentials are incorrect</span>
+      </div>
+    
+      <div class="specSummary passed">
+      <span class="description">should correctly raise an alert when the login button is pressed and the credentials are incomplete</span>
+      </div>
+    
+      <div class="specSummary passed">
+      <span class="description">should correctly refresh the access token when access to the backend is refused, if there is an existing session</span>
+      </div>
+    
+      <div class="specSummary passed">
+      <span class="description">should define a link as well as reset the validator when the validation error message is closed</span>
+      </div>
+    
+    </div>
+  
+    <div class="suite failed">
+      <span class="description">authentication/authorization Authentication Logout</span>
+    
+      <div class="specSummary failed">
+      <span class="description">should correctly log out if a session exists</span>
+      </div>
+    
+      <div class="specSummary passed">
+      <span class="description">should reject logout if no session exists</span>
+      </div>
+    
+    </div>
+  
+    <div class="suite passed">
+      <span class="description">authentication/authorization Authorization</span>
+    
+      <div class="specSummary passed">
+      <span class="description">should pass permission check when user is authorized</span>
+      </div>
+    
+      <div class="specSummary passed">
+      <span class="description">should fail permission check when user is not authorized</span>
+      </div>
+    
+      <div class="specSummary passed">
+      <span class="description">should fail permission check when user is not logged in</span>
+      </div>
+    
+    </div>
+  
+    <div class="suite passed">
+      <span class="description">contactController</span>
+    
+      <div class="specSummary passed">
+      <span class="description">should exist</span>
+      </div>
+    
+    </div>
+  
+    <div class="suite passed">
+      <span class="description">Event Controllers eventListController</span>
+    
+      <div class="specSummary passed">
+      <span class="description">should create &quot;eventList&quot; model with 1 event for each of the events received from the backend</span>
+      </div>
+    
+      <div class="specSummary passed">
+      <span class="description">should correctly delete events</span>
+      </div>
+    
+      <div class="specSummary passed">
+      <span class="description">should create &quot;events&quot; model with 1 poi for each of the pois received from the backend</span>
+      </div>
+    
+      <div class="specSummary passed">
+      <span class="description">should correctly delete events</span>
+      </div>
+    
+      <div class="specSummary passed">
+      <span class="description">should define a link</span>
+      </div>
+    
+    </div>
+  
+    <div class="suite passed">
+      <span class="description">Event Controllers eventShowController</span>
+    
+      <div class="specSummary passed">
+      <span class="description">should correctly create an event model using an event retrieved from the backend</span>
+      </div>
+    
+      <div class="specSummary passed">
+      <span class="description">should define some links</span>
+      </div>
+    
+    </div>
+  
+    <div class="suite passed">
+      <span class="description">Event Controllers eventEditController</span>
+    
+      <div class="specSummary passed">
+      <span class="description">should correctly create an event model using an event retrieved from the backend</span>
+      </div>
+    
+      <div class="specSummary passed">
+      <span class="description">should correctly edit the event</span>
+      </div>
+    
+    </div>
+  
+    <div class="suite failed">
+      <span class="description">Event Controllers eventAddController</span>
+    
+      <div class="specSummary failed">
+      <span class="description">should correctly add events</span>
+      </div>
+    
+    </div>
+  
+    <div class="suite passed">
+      <span class="description">indexController</span>
+    
+      <div class="specSummary passed">
+      <span class="description">should define some links</span>
+      </div>
+    
+    </div>
+  
+    <div class="suite passed">
+      <span class="description">notImpController</span>
+    
+      <div class="specSummary passed">
+      <span class="description">should exist</span>
+      </div>
+    
+    </div>
+  
+    <div class="suite passed">
+      <span class="description">Point of Interest Controllers poiListController</span>
+    
+      <div class="specSummary passed">
+      <span class="description">should create &quot;pois&quot; model with 1 poi for each of the pois received from the backend</span>
+      </div>
+    
+      <div class="specSummary passed">
+      <span class="description">should correctly delete pois</span>
+      </div>
+    
+      <div class="specSummary passed">
+      <span class="description">should correctly reload when deletion fails</span>
+      </div>
+    
+      <div class="specSummary passed">
+      <span class="description">should define some links</span>
+      </div>
+    
+    </div>
+  
+    <div class="suite passed">
+      <span class="description">Point of Interest Controllers poiShowController</span>
+    
+      <div class="specSummary passed">
+      <span class="description">should correctly create a poi model using a poi retrieved from the backend</span>
+      </div>
+    
+      <div class="specSummary passed">
+      <span class="description">should define some links</span>
+      </div>
+    
+      <div class="specSummary passed">
+      <span class="description">should correctly delete the poi</span>
+      </div>
+    
+    </div>
+  
+    <div class="suite passed">
+      <span class="description">Point of Interest Controllers poiEditController</span>
+    
+      <div class="specSummary passed">
+      <span class="description">should correctly create a poi model using a poi retrieved from the backend</span>
+      </div>
+    
+      <div class="specSummary passed">
+      <span class="description">should correctly edit the poi</span>
+      </div>
+    
+      <div class="specSummary passed">
+      <span class="description">should define a link to return to the poi list page</span>
+      </div>
+    
+    </div>
+  
+    <div class="suite passed">
+      <span class="description">Point of Interest Controllers poiAddController</span>
+    
+      <div class="specSummary passed">
+      <span class="description">should correctly add pois</span>
+      </div>
+    
+      <div class="specSummary passed">
+      <span class="description">should define a link to return to the list of pois</span>
+      </div>
+    
+    </div>
+  
+    <div class="suite passed">
+      <span class="description">Route Controllers routeAddController</span>
+    
+      <div class="specSummary passed">
+      <span class="description">should create models for eventtypes using data received from their respective endpoints</span>
+      </div>
+    
+    </div>
+  
+    <div class="suite passed">
+      <span class="description">Route Controllers routeEditController</span>
+    
+      <div class="specSummary passed">
+      <span class="description">should correctly retrieve a travel from the backend and display it</span>
+      </div>
+    
+      <div class="specSummary passed">
+      <span class="description">should correctly update all of the required fields and send a PUT request to the &quot;route&quot; endpoint when the edit button is pressed</span>
+      </div>
+    
+      <div class="specSummary passed">
+      <span class="description">should define a link</span>
+      </div>
+    
+    </div>
+  
+    <div class="suite passed">
+      <span class="description">Travel Controllers travelListController</span>
+    
+      <div class="specSummary passed">
+      <span class="description">should create &quot;travelList&quot; model with 1 travel for each of the travels received from the backend</span>
+      </div>
+    
+      <div class="specSummary passed">
+      <span class="description">should define some links</span>
+      </div>
+    
+    </div>
+  
+    <div class="suite passed">
+      <span class="description">Travel Controllers String/Date Conversion</span>
+    
+      <div class="specSummary passed">
+      <span class="description">should correctly convert travel.time_interval between string and date</span>
+      </div>
+    
+    </div>
+  
+    <div class="suite passed">
+      <span class="description">Travel Controllers travelShowController</span>
+    
+      <div class="specSummary passed">
+      <span class="description">should correctly retrieve a travel from the backend and display it</span>
+      </div>
+    
+      <div class="specSummary passed">
+      <span class="description">should correctly delete routes</span>
+      </div>
+    
+      <div class="specSummary passed">
+      <span class="description">should define some links</span>
+      </div>
+    
+      <div class="specSummary passed">
+      <span class="description">should correctly add routes</span>
+      </div>
+    
+      <div class="specSummary passed">
+      <span class="description">should correctly delete the travel</span>
+      </div>
+    
+    </div>
+  
+    <div class="suite passed">
+      <span class="description">Travel Controllers travelEditController</span>
+    
+      <div class="specSummary passed">
+      <span class="description">should correctly create a model for a travel and its route using travels and routes retreived from the backend</span>
+      </div>
+    
+      <div class="specSummary passed">
+      <span class="description">should correctly make a PUT request to the travel user's travel resource when the edit button is clicked</span>
+      </div>
+    
+    </div>
+  
+    <div class="suite passed">
+      <span class="description">Travel Controllers travelAddController</span>
+    
+      <div class="specSummary passed">
+      <span class="description">should correctly log an error message when the add button is clicked and geocoding fails</span>
+      </div>
+    
+      <div class="specSummary passed">
+      <span class="description">should correctly make a POST request to the travel resource when the add button is clicked</span>
+      </div>
+    
+      <div class="specSummary passed">
+      <span class="description">should correctly add a route and make a POST request to the travel resource when the add button is clicked and the route isn't saved yet</span>
+      </div>
+    
+      <div class="specSummary passed">
+      <span class="description">should correctly log an error message when the geocoder returns no results</span>
+      </div>
+    
+    </div>
+  
+    <div class="suite passed">
+      <span class="description">User Controllers userListController</span>
+    
+      <div class="specSummary passed">
+      <span class="description">should create &quot;userList&quot; model with 1 user for each of the users received from the backend</span>
+      </div>
+    
+      <div class="specSummary passed">
+      <span class="description">should correctly delete users by ID</span>
+      </div>
+    
+    </div>
+  
+    <div class="suite passed">
+      <span class="description">User Controllers userShowController</span>
+    
+      <div class="specSummary passed">
+      <span class="description">should create &quot;user&quot; model using the user received from the backend</span>
+      </div>
+    
+      <div class="specSummary passed">
+      <span class="description">should download a user dump when an admin requests it</span>
+      </div>
+    
+    </div>
+  
+    <div class="suite passed">
+      <span class="description">User Controllers userEditController</span>
+    
+      <div class="specSummary passed">
+      <span class="description">should create &quot;user&quot; model using the user received from the backend</span>
+      </div>
+    
+      <div class="specSummary passed">
+      <span class="description">should correctly make a PUT request to the user endpoint when the edit button is clicked and the input is valid</span>
+      </div>
+    
+      <div class="specSummary passed">
+      <span class="description">should display an error message when the edit button is pressed and either name contains invalid characters</span>
+      </div>
+    
+      <div class="specSummary passed">
+      <span class="description">should display an error message when the edit button is pressed and the given cellphone number is invalid</span>
+      </div>
+    
+    </div>
+  
+    <div class="suite passed">
+      <span class="description">User Controllers userChangePassController</span>
+    
+      <div class="specSummary passed">
+      <span class="description">should make a POST request to the change_password endpoint when the input is valid</span>
+      </div>
+    
+      <div class="specSummary passed">
+      <span class="description">should make a POST request to the change_password endpoint when the input is valid, then display an error message if the old password is incorrect</span>
+      </div>
+    
+      <div class="specSummary passed">
+      <span class="description">should display an error message when the edit button is pressed and the passwords aren't equal</span>
+      </div>
+    
+      <div class="specSummary passed">
+      <span class="description">should define a link</span>
+      </div>
+    
+    </div>
+  
+    <div class="suite passed">
+      <span class="description">User Controllers userForgotPasswordController</span>
+    
+      <div class="specSummary passed">
+      <span class="description">should make a POST request to the forgot_password endpoint when the input is valid</span>
+      </div>
+    
+      <div class="specSummary passed">
+      <span class="description">should display an error message when the input is invalid</span>
+      </div>
+    
+    </div>
+  
+    <div class="suite passed">
+      <span class="description">User Controllers userForgotPasswordRecoverController</span>
+    
+      <div class="specSummary passed">
+      <span class="description">should make a POST request to the forgot_password endpoint (when the given passwords are equal), then log in</span>
+      </div>
+    
+      <div class="specSummary passed">
+      <span class="description">should display an error message when password recovery fails because the server returns an error</span>
+      </div>
+    
+      <div class="specSummary passed">
+      <span class="description">should display an error message when the passwords are different</span>
+      </div>
+    
+    </div>
+  
+    <div class="suite passed">
+      <span class="description">User Controllers userAddController successful validation</span>
+    
+      <div class="specSummary passed">
+      <span class="description">should validate, send a POST request and log in when passwords are equal and all fields are correctly filled in</span>
+      </div>
+    
+      <div class="specSummary passed">
+      <span class="description">should validate, send a POST request and display an error message when passwords are equal and all fields are correctly filled in but login fails</span>
+      </div>
+    
+      <div class="specSummary passed">
+      <span class="description">should validate and display an error message when the fields are correctly filled in but the terms of service haven't been agreed to</span>
+      </div>
+    
+      <div class="specSummary passed">
+      <span class="description">should validate, send a POST request when passwords are equal and all fields are correctly filled in but the email is already in use or invalid</span>
+      </div>
+    
+      <div class="specSummary passed">
+      <span class="description">should validate, send a POST request when passwords are equal and all fields are correctly filled in but an error occurs while processing the POST request</span>
+      </div>
+    
+    </div>
+  
+    <div class="suite passed">
+      <span class="description">User Controllers userAddController unsuccessful validation</span>
+    
+      <div class="specSummary passed">
+      <span class="description">shouldn't validate when passwords are different (but all fields are filled in) and display the appropriate message</span>
+      </div>
+    
+      <div class="specSummary passed">
+      <span class="description">shouldn't validate not all fields are filled in</span>
+      </div>
+    
+      <div class="specSummary passed">
+      <span class="description">should display an error message when the add button is pressed and the given cellphone number is invalid</span>
+      </div>
+    
+      <div class="specSummary passed">
+      <span class="description">should display an error message when the add button is pressed and the first or last name contains invalid characters</span>
+      </div>
+    
+    </div>
+  
+    <div class="suite passed">
+      <span class="description">User Controllers userEventsShowController</span>
+    
+      <div class="specSummary passed">
+      <span class="description">should retrieve the user's events from the backends and create a model for them</span>
+      </div>
+    
+    </div>
+  
+    <div class="suite passed">
+      <span class="description">User Controllers userListAdminController</span>
+    
+      <div class="specSummary passed">
+      <span class="description">should create &quot;userList&quot; model with 1 user for each of the users received from the backend</span>
+      </div>
+    
+      <div class="specSummary passed">
+      <span class="description">should correctly delete users by ID</span>
+      </div>
+    
+      <div class="specSummary passed">
+      <span class="description">should correctly change users' roles</span>
+      </div>
+    
+    </div>
+  
+    <div class="suite passed">
+      <span class="description">User Controllers userMailValidationController</span>
+    
+      <div class="specSummary passed">
+      <span class="description">should correctly complete email verification when the verification link is clicked</span>
+      </div>
+    
+      <div class="specSummary passed">
+      <span class="description">should correctly display an error when the email verification link is clicked and the server returns an error</span>
+      </div>
+    
+    </div>
+  
+  
+</div>
+
+<div id="details">
+  
+  
+  <div class="specDetail failed">
+    <span class="description">authentication/authorization Authentication Login should correctly create a new session when the login button is pressed and the credentials are correct</span>
+    <div class="stackTrace">
+      <div class="resultMessage">Error: Failed to execute 'send' on 'WebSocket': Still in CONNECTING state.
+    at Error (native)
+    at Client._transmit (http://localhost:9876/absoluteC:/Users/treso/Documents/Github.ugent/vopro/groep-07_frontend/frontend/assets/javascript/modules/stomp.js?04633cbbb92fac37d967d6346101d927eb2072be:170:26)
+    at Client.disconnect (http://localhost:9876/absoluteC:/Users/treso/Documents/Github.ugent/vopro/groep-07_frontend/frontend/assets/javascript/modules/stomp.js?04633cbbb92fac37d967d6346101d927eb2072be:360:12)
+    at Object.stopReceiving (http://localhost:9876/base/services/notificationServices/RabbitReceiver.js?8696a1cb88ae7c6eca5e61ab587f73a8bae27d00:65:17)
+    at Object.session.closeSession (http://localhost:9876/base/services/authenticationServices/authServices.js?35b18805b95666cd0bca2a097fd60b2eb7271831:9:7283)
+    at Object.&lt;anonymous&gt; (http://localhost:9876/base/tests/karma-jasmine-tests/authSpec.js?acfe4f9f10157d7e13edc88d558d7975bba95114:47:13)
+    at Object.invoke (http://localhost:9876/absoluteC:/Users/treso/Documents/Github.ugent/vopro/groep-07_frontend/frontend/assets/javascript/modules/angular.min.js?f996478ab60e8f38e1995eb5b076af3bde4ba094:41:295)
+    at Object.workFn (http://localhost:9876/base/tests/karma-jasmine-tests/angular-mocks.js?f5bee343de90d394fe6e4c779d913e192d21f96a:2810:20)
+Error: Declaration Location
+    at window.inject.angular.mock.inject (http://localhost:9876/base/tests/karma-jasmine-tests/angular-mocks.js?f5bee343de90d394fe6e4c779d913e192d21f96a:2778:25)
+    at Suite.&lt;anonymous&gt; (http://localhost:9876/base/tests/karma-jasmine-tests/authSpec.js?acfe4f9f10157d7e13edc88d558d7975bba95114:38:112)
+    at Suite.&lt;anonymous&gt; (http://localhost:9876/base/tests/karma-jasmine-tests/authSpec.js?acfe4f9f10157d7e13edc88d558d7975bba95114:37:6)
+    at Suite.&lt;anonymous&gt; (http://localhost:9876/base/tests/karma-jasmine-tests/authSpec.js?acfe4f9f10157d7e13edc88d558d7975bba95114:27:2)</div>
+    </div>
+  </div>
+  
+  <div class="specDetail failed">
+    <span class="description">authentication/authorization Authentication Login should correctly raise an alert when the login button is pressed and the credentials are incorrect</span>
+    <div class="stackTrace">
+      <div class="resultMessage">TypeError: Cannot read property 'code' of undefined
+    at http://localhost:9876/base/controllers/defaults/authenticationController.js?dd9baf97ace004d4da46aa9971729fc5137d94c4:9:961
+    at http://localhost:9876/absoluteC:/Users/treso/Documents/Github.ugent/vopro/groep-07_frontend/frontend/assets/javascript/modules/angular.min.js?f996478ab60e8f38e1995eb5b076af3bde4ba094:126:404
+    at m.$eval (http://localhost:9876/absoluteC:/Users/treso/Documents/Github.ugent/vopro/groep-07_frontend/frontend/assets/javascript/modules/angular.min.js?f996478ab60e8f38e1995eb5b076af3bde4ba094:141:47)
+    at m.$digest (http://localhost:9876/absoluteC:/Users/treso/Documents/Github.ugent/vopro/groep-07_frontend/frontend/assets/javascript/modules/angular.min.js?f996478ab60e8f38e1995eb5b076af3bde4ba094:138:140)
+    at m.$apply (http://localhost:9876/absoluteC:/Users/treso/Documents/Github.ugent/vopro/groep-07_frontend/frontend/assets/javascript/modules/angular.min.js?f996478ab60e8f38e1995eb5b076af3bde4ba094:141:341)
+    at g (http://localhost:9876/absoluteC:/Users/treso/Documents/Github.ugent/vopro/groep-07_frontend/frontend/assets/javascript/modules/angular.min.js?f996478ab60e8f38e1995eb5b076af3bde4ba094:94:139)
+    at handleResponse (http://localhost:9876/base/tests/karma-jasmine-tests/angular-mocks.js?f5bee343de90d394fe6e4c779d913e192d21f96a:1352:9)
+    at Function.$httpBackend.flush (http://localhost:9876/base/tests/karma-jasmine-tests/angular-mocks.js?f5bee343de90d394fe6e4c779d913e192d21f96a:1788:26)
+    at Object.&lt;anonymous&gt; (http://localhost:9876/base/tests/karma-jasmine-tests/authSpec.js?acfe4f9f10157d7e13edc88d558d7975bba95114:93:19)
+    at Object.invoke (http://localhost:9876/absoluteC:/Users/treso/Documents/Github.ugent/vopro/groep-07_frontend/frontend/assets/javascript/modules/angular.min.js?f996478ab60e8f38e1995eb5b076af3bde4ba094:41:295)
+Error: Declaration Location
+    at window.inject.angular.mock.inject (http://localhost:9876/base/tests/karma-jasmine-tests/angular-mocks.js?f5bee343de90d394fe6e4c779d913e192d21f96a:2778:25)
+    at Suite.&lt;anonymous&gt; (http://localhost:9876/base/tests/karma-jasmine-tests/authSpec.js?acfe4f9f10157d7e13edc88d558d7975bba95114:75:108)
+    at Suite.&lt;anonymous&gt; (http://localhost:9876/base/tests/karma-jasmine-tests/authSpec.js?acfe4f9f10157d7e13edc88d558d7975bba95114:37:6)
+    at Suite.&lt;anonymous&gt; (http://localhost:9876/base/tests/karma-jasmine-tests/authSpec.js?acfe4f9f10157d7e13edc88d558d7975bba95114:27:2)</div>
+    </div>
+  </div>
+  
+  
+  
+  <div class="specDetail failed">
+    <span class="description">authentication/authorization Authentication Logout should correctly log out if a session exists</span>
+    <div class="stackTrace">
+      <div class="resultMessage">Error: Failed to execute 'send' on 'WebSocket': Still in CONNECTING state.
+    at Error (native)
+    at Client._transmit (http://localhost:9876/absoluteC:/Users/treso/Documents/Github.ugent/vopro/groep-07_frontend/frontend/assets/javascript/modules/stomp.js?04633cbbb92fac37d967d6346101d927eb2072be:170:26)
+    at Client.disconnect (http://localhost:9876/absoluteC:/Users/treso/Documents/Github.ugent/vopro/groep-07_frontend/frontend/assets/javascript/modules/stomp.js?04633cbbb92fac37d967d6346101d927eb2072be:360:12)
+    at Object.stopReceiving (http://localhost:9876/base/services/notificationServices/RabbitReceiver.js?8696a1cb88ae7c6eca5e61ab587f73a8bae27d00:65:17)
+    at Object.session.closeSession (http://localhost:9876/base/services/authenticationServices/authServices.js?35b18805b95666cd0bca2a097fd60b2eb7271831:9:7283)
+    at Object.&lt;anonymous&gt; (http://localhost:9876/base/tests/karma-jasmine-tests/authSpec.js?acfe4f9f10157d7e13edc88d558d7975bba95114:144:14)
+    at Object.invoke (http://localhost:9876/absoluteC:/Users/treso/Documents/Github.ugent/vopro/groep-07_frontend/frontend/assets/javascript/modules/angular.min.js?f996478ab60e8f38e1995eb5b076af3bde4ba094:41:295)
+    at Object.workFn (http://localhost:9876/base/tests/karma-jasmine-tests/angular-mocks.js?f5bee343de90d394fe6e4c779d913e192d21f96a:2810:20)
+Error: Declaration Location
+    at window.inject.angular.mock.inject (http://localhost:9876/base/tests/karma-jasmine-tests/angular-mocks.js?f5bee343de90d394fe6e4c779d913e192d21f96a:2778:25)
+    at Suite.&lt;anonymous&gt; (http://localhost:9876/base/tests/karma-jasmine-tests/authSpec.js?acfe4f9f10157d7e13edc88d558d7975bba95114:133:54)
+    at Suite.&lt;anonymous&gt; (http://localhost:9876/base/tests/karma-jasmine-tests/authSpec.js?acfe4f9f10157d7e13edc88d558d7975bba95114:131:4)
+    at Suite.&lt;anonymous&gt; (http://localhost:9876/base/tests/karma-jasmine-tests/authSpec.js?acfe4f9f10157d7e13edc88d558d7975bba95114:27:2)</div>
+    </div>
+  </div>
+  
+  
+  
+  <div class="specDetail failed">
+    <span class="description">Event Controllers eventAddController should correctly add events</span>
+    <div class="stackTrace">
+      <div class="resultMessage">TypeError: Cannot read property 'lat' of undefined
+    at m.scope.addJam (http://localhost:9876/base/directives/gmapsEventAddDirective.js?bb5a77289fe3a60a5972c42efc4becb92aedcfe1:9:1155)
+    at Object.&lt;anonymous&gt; (http://localhost:9876/base/tests/karma-jasmine-tests/eventControllerSpec.js?bccf473735917a88540a0e96db5dcfe017f1b17c:219:9)
+    at Object.invoke (http://localhost:9876/absoluteC:/Users/treso/Documents/Github.ugent/vopro/groep-07_frontend/frontend/assets/javascript/modules/angular.min.js?f996478ab60e8f38e1995eb5b076af3bde4ba094:41:295)
+    at Object.workFn (http://localhost:9876/base/tests/karma-jasmine-tests/angular-mocks.js?f5bee343de90d394fe6e4c779d913e192d21f96a:2810:20)
+Error: Declaration Location
+    at window.inject.angular.mock.inject (http://localhost:9876/base/tests/karma-jasmine-tests/angular-mocks.js?f5bee343de90d394fe6e4c779d913e192d21f96a:2778:25)
+    at Suite.&lt;anonymous&gt; (http://localhost:9876/base/tests/karma-jasmine-tests/eventControllerSpec.js?bccf473735917a88540a0e96db5dcfe017f1b17c:205:39)
+    at Suite.&lt;anonymous&gt; (http://localhost:9876/base/tests/karma-jasmine-tests/eventControllerSpec.js?bccf473735917a88540a0e96db5dcfe017f1b17c:179:3)
+    at http://localhost:9876/base/tests/karma-jasmine-tests/eventControllerSpec.js?bccf473735917a88540a0e96db5dcfe017f1b17c:1:1</div>
+    </div>
+  </div>
+  
+  
+</div>
+
+<script>
+
+var folded = false;
+
+document.body.onkeypress = function (e) {
+  if (!e || !e.keyCode) return;
+  switch (e.keyCode) {
+    case 102: toggleFold(); break;
+    case 49: showSummary(); break;
+    case 50: showFailures(); break;case 50: showFailures(); break;case 50: showFailures(); break;
+  }
+};
+
+function showSummary() { document.body.className = "html-reporter showSummary"; }
+function showFailures() { document.body.className = "html-reporter showDetails"; }
+
+function toggleSection(el) {
+  el.className = el.className === 'summary-section' ? 'summary-section folded' : 'summary-section';
+}
+
+function toggleFold() { (folded) ? unfold() : fold(); }
+function fold() {
+  var els = document.querySelectorAll('.summary-section');
+  for (var i = 0; i < els.length; i++) {
+    els[i].className = 'summary-section folded';
+  }
+  folded = true;
+}
+function unfold() {
+  var els = document.querySelectorAll('.summary-section');
+  for (var i = 0; i < els.length; i++) {
+    els[i].className = 'summary-section';
+  }
+  folded = false;
+}
+
+</script>
+
+
+</body>
+</html>
+

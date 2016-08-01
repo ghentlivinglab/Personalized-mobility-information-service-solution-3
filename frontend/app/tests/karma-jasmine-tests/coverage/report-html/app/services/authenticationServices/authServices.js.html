@@ -1,0 +1,1925 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for app\services\authenticationServices\authServices.js</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../../../prettify.css" />
+    <link rel="stylesheet" href="../../../base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="../../../index.html">all files</a> / <a href="index.html">app/services/authenticationServices/</a> authServices.js
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">84.62% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>121/143</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">78.38% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>29/37</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">84.78% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>39/46</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">84.62% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>121/143</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line high'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154
+155
+156
+157
+158
+159
+160
+161
+162
+163
+164
+165
+166
+167
+168
+169
+170
+171
+172
+173
+174
+175
+176
+177
+178
+179
+180
+181
+182
+183
+184
+185
+186
+187
+188
+189
+190
+191
+192
+193
+194
+195
+196
+197
+198
+199
+200
+201
+202
+203
+204
+205
+206
+207
+208
+209
+210
+211
+212
+213
+214
+215
+216
+217
+218
+219
+220
+221
+222
+223
+224
+225
+226
+227
+228
+229
+230
+231
+232
+233
+234
+235
+236
+237
+238
+239
+240
+241
+242
+243
+244
+245
+246
+247
+248
+249
+250
+251
+252
+253
+254
+255
+256
+257
+258
+259
+260
+261
+262
+263
+264
+265
+266
+267
+268
+269
+270
+271
+272
+273
+274
+275
+276
+277
+278
+279
+280
+281
+282
+283
+284
+285
+286
+287
+288
+289
+290
+291
+292
+293
+294
+295
+296
+297
+298
+299
+300
+301
+302
+303
+304
+305
+306
+307
+308
+309
+310
+311
+312
+313
+314
+315
+316
+317
+318
+319
+320
+321
+322
+323
+324
+325
+326
+327
+328
+329
+330
+331
+332
+333
+334
+335
+336
+337
+338
+339
+340
+341
+342
+343
+344
+345
+346
+347
+348
+349
+350
+351
+352
+353
+354
+355
+356
+357
+358
+359
+360
+361
+362
+363
+364
+365
+366
+367
+368
+369
+370
+371
+372
+373
+374
+375
+376
+377
+378
+379
+380
+381
+382
+383
+384
+385
+386
+387
+388
+389
+390
+391
+392
+393
+394
+395
+396
+397
+398
+399
+400
+401
+402
+403
+404
+405
+406
+407
+408
+409
+410
+411
+412
+413
+414
+415
+416
+417
+418
+419
+420
+421
+422
+423
+424
+425
+426
+427
+428
+429
+430
+431
+432
+433
+434
+435
+436
+437
+438
+439
+440
+441
+442
+443
+444
+445
+446
+447
+448
+449
+450
+451
+452
+453
+454
+455
+456
+457
+458
+459
+460
+461
+462
+463
+464
+465
+466
+467
+468
+469
+470
+471
+472
+473
+474
+475
+476
+477
+478
+479
+480
+481
+482
+483
+484
+485
+486
+487
+488
+489
+490
+491
+492
+493
+494
+495
+496
+497
+498
+499
+500
+501
+502
+503
+504
+505
+506
+507
+508
+509
+510
+511
+512
+513
+514
+515
+516
+517
+518
+519
+520
+521
+522
+523
+524
+525
+526
+527
+528
+529
+530
+531
+532
+533
+534
+535
+536
+537
+538
+539
+540
+541
+542
+543
+544
+545
+546
+547
+548
+549
+550
+551
+552
+553
+554
+555
+556
+557
+558
+559
+560
+561
+562
+563
+564
+565
+566
+567
+568
+569
+570
+571
+572
+573
+574
+575
+576
+577
+578
+579
+580
+581
+582
+583
+584
+585
+586
+587
+588
+589
+590
+591
+592
+593
+594
+595
+596
+597
+598
+599
+600
+601
+602
+603
+604
+605
+606
+607
+608
+609
+610
+611
+612
+613
+614
+615
+616
+617
+618
+619
+620
+621</td><td class="line-coverage quiet"><span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">13×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">63×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">68×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">5×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">118×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">14×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">63×</span>
+<span class="cline-any cline-yes">5×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">58×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">63×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">63×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">67×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">115×</span>
+<span class="cline-any cline-yes">115×</span>
+<span class="cline-any cline-yes">115×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">115×</span>
+<span class="cline-any cline-yes">115×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">var authModule = angular.module('vopAuth');
+&nbsp;
+/**
+ @author Frontend-team
+ @memberof angular_module.vopApp.vopAuth
+ @constructor Authentication
+ */
+authModule.factory('Authentication',['Session', '$q', function(Session, $q){
+    return {
+&nbsp;
+        /**
+         * @function login
+         * @memberof angular_module.vopApp.vopAuth.Authentication
+         * @description
+         * Logs in a user with the given credentials by creating a session.
+         * @param {Object=} credentials Object that at least contains a property 'email' with as value the e-mailaddress 
+         *                      of the user that is trying to log in, and a property 'password' with as value the password
+         *                      of the same user
+         * @return {promise} the promise of the session created with the user's information provided by the server as response to
+         *                      the given credentials or a promise rejected with the string-message "Incomplete credentials" if either the email
+         *                      or the password is missing in the given credentials.
+         *
+         */
+        login: function(credentials){
+            <span class="missing-if-branch" title="if path not taken" >I</span>if(credentials.email == null || credentials.password == null){
+                //User didn't give up email or password or were not initialized (binded) correctly
+<span class="cstat-no" title="statement not covered" >                return $q.reject("Incomplete credentials!");</span>
+            }
+&nbsp;
+            return Session.openSession(credentials);
+        },
+&nbsp;
+        /**
+         * @function logout
+         * @memberof angular_module.vopApp.vopAuth.Authentication
+         * @description
+         * Logs the user out.
+         * @return {promise} the promise of the session closing and deleting all saved information of the user saved while logging in
+         */
+        logout: <span class="fstat-no" title="function not covered" >function(){</span>
+            //console.log("Logging out...");
+<span class="cstat-no" title="statement not covered" >            return Session.closeSession();</span>
+        }
+    };
+}]);
+&nbsp;
+&nbsp;
+/**
+ @author Frontend-team
+ @memberof angular_module.vopApp.vopAuth
+ @constructor Session
+ */
+authModule.factory('Session', ['$http', '$cookies', '$q', '$location', 'Roles','HOSTNAME', function ($http, $cookies, $q, $location, Roles, HOSTNAME) {
+    var session =  {
+        //cookie-key for refresh-token
+        key_token : 'vopro7_token',
+        //cookie-key for userid
+        key_id : 'vopro7_usrid',
+        //cookie-key for role
+        key_role : 'vopro7_role',
+        //cookie-key for user url
+        key_url : 'vopro7_usrurl',
+        //cookie-key for access-token
+        key_access_token : 'vopro7_access_token',
+&nbsp;
+        STATES: {
+            CLOSED: 0,
+            OPEN: 1,
+            LOGGING_IN: 2,
+            LOGGING_OUT: 3
+        },
+&nbsp;
+        state: undefined,
+&nbsp;
+&nbsp;
+&nbsp;
+&nbsp;
+        /**
+         * @ngdoc method
+         * @name openSession
+         * @memberof angular_module.vopApp.vopAuth.Session
+         * @description
+         * Used to open/create a session for a user. Asks the server to authenticate the user with the given credentials and creates
+         * a session only if the server authenticated the user correctly and sends a refresh token back.
+         * @param {Object=} credentials Object that at least contains a property 'email' with as value the e-mailaddress 
+         *                      of the user that is trying to log in, and a property 'password' with as value the password
+         *                      of the same user
+         * @return {promise} the promise of the response of the server to the given credentials.
+         *
+         */
+        openSession : function (credentials) {
+            this.state = this.STATES.LOGGING_IN;
+            //set variable to be able to refer to the this-object in the scope of the functions we're going to define
+            var session = this;
+&nbsp;
+            var saveRefreshToken = function(token){
+                $cookies.put(session.key_token, token.token);
+                $cookies.put(session.key_id, token.user_id);
+                $cookies.put(session.key_role, Roles.mapRole(token.role));
+                //the hostname is sent with in the user_url but we don't need that
+                //@TODO: hardgecodeerde url vervangen door HOSTNAME(voorlopig niet want hostname kan veranderen maar de gestuurde url blijft dezelfde)
+                var finalURL = token.user_url.replace("https://vopro7.ugent.be/api/", "/"); 
+                $cookies.put(session.key_url, finalURL);
+            };
+&nbsp;
+            var deferred = $q.defer();
+            
+            $http.post(HOSTNAME.URL + "refresh_token/regular", credentials).success(function(response){
+                //log-in on server succeeded
+                //create current user's session localy by using cookies !!!!!COOKIE IS ALWAYS SAVED AS A STRING even if value is a number!!!!
+                saveRefreshToken(response);
+                session.refreshAccessToken().then(function(response_acc){
+                    sidebarMenu();
+                    deferred.resolve(response_acc);
+                }, deferred.reject);
+            }).error(function(response){
+                //log-in failed(due to incorrect credentials or problem with server/connection)
+                deferred.reject(response);
+            });
+&nbsp;
+            return deferred.promise.then(function(){
+                    session.state = session.STATES.OPEN;
+                }, function(){
+                    session.state = session.STATES.CLOSED;
+                });
+        },
+&nbsp;
+        /**
+         * @function refreshAccessToken
+         * @memberof angular_module.vopApp.vopAuth.Session
+         * @description
+         * Returns the saved access token created specially for the user by the server. This is the token that gives the user access
+         * to the services of the server
+         * @return {String} the string-representation of access-token.
+         *
+         */
+        refreshAccessToken: function() {
+            console.log("Refreshing access-token!!");
+            <span class="missing-if-branch" title="else path not taken" >E</span>if(this.isOpen() || this.isLoggingIn()){
+                console.log("Session is open: ok");
+                var session=this;
+                var refreshToken = this.getUserToken();
+                var deferred = $q.defer();
+                $cookies.remove(session.key_access_token);
+                $http.post(HOSTNAME.URL+'access_token',{'token':refreshToken}).success(function (accessResponse) {
+                    console.log("Response access-token: " + JSON.stringify(accessResponse));
+                    $cookies.put(session.key_access_token, accessResponse.token, {expires: new Date(accessResponse.exp)});//, secure: true});
+                    deferred.resolve(accessResponse);
+                }).error(<span class="fstat-no" title="function not covered" >function(response){</span>
+<span class="cstat-no" title="statement not covered" >                    alert("De server kan u niet identificeren! Gelieve opnieuw in te loggen.");</span>
+<span class="cstat-no" title="statement not covered" >                    session.closeSession().finally(<span class="fstat-no" title="function not covered" >function(){</span></span>
+<span class="cstat-no" title="statement not covered" >                        deferred.reject(response);</span>
+<span class="cstat-no" title="statement not covered" >                        $location.path('/login');</span>
+                    });
+<span class="cstat-no" title="statement not covered" >                    console.log("Could not get access-token!!");</span>
+<span class="cstat-no" title="statement not covered" >                    console.log("Error from request access-token: " + JSON.stringify(response));</span>
+<span class="cstat-no" title="statement not covered" >                    deferred.reject(response);</span>
+                });
+                return deferred.promise;
+            } else {
+<span class="cstat-no" title="statement not covered" >                console.log("Session is not open");</span>
+<span class="cstat-no" title="statement not covered" >                return $q.reject();</span>
+            }
+        },
+&nbsp;
+        /**
+         * @ngdoc method
+         * @name getUserToken
+         * @memberof angular_module.vopApp.vopAuth.Session
+         * @description
+         * Returns the saved refres-token given by the server when opening the session
+         * @return {String} the string-representation of the refresh-token.
+         *
+         */
+        getUserToken: function(){
+            return $cookies.get(this.key_token);
+        },
+&nbsp;
+        /**
+         * @ngdoc method
+         * @name getUserId
+         * @memberof angular_module.vopApp.vopAuth.Session
+         * @description
+         * Returns the saved userid given by the server when opening the session
+         * @return {String} the string-representation of the userid of the user that logged in and created the session.
+         *
+         */
+        getUserId: function(){
+            return $cookies.get(this.key_id);
+        },
+&nbsp;
+        /**
+         * @ngdoc method
+         * @name getUserRole
+         * @memberof angular_module.vopApp.vopAuth.Session
+         * @description
+         * Returns the saved role of the user given by the server when opening the session
+         * @return {String} the string-representation of the role of the user that logged in and created the session.
+         *
+         */
+        getUserRole: function(){
+            return $cookies.get(this.key_role);
+        },
+&nbsp;
+        /**
+         * @ngdoc method
+         * @name getUserUrl
+         * @memberof angular_module.vopApp.vopAuth.Session
+         * @description
+         * Returns the url to the profile of the user given by the server when opening the session
+         * @return {String} the string-representation of the url to the profile of the user that logged in and created the session.
+         *
+         */
+        getUserUrl: function(){
+            return $cookies.get(this.key_url);
+        },
+&nbsp;
+        /**
+         * @ngdoc method
+         * @name getAccessToken
+         * @memberof angular_module.vopApp.vopAuth.Session
+         * @description
+         * Returns the saved access token created specially for the user by the server. This is the token that gives the user access
+         * to the services of the server
+         * @return {String} the string-representation of access-token.
+         *
+         */
+        getAccessToken: function() {
+            return token = $cookies.get(this.key_access_token);
+        },
+&nbsp;
+        /**
+         * @function closeSession
+         * @memberof angular_module.vopApp.vopAuth.Session
+         * @description
+         * Method that closes an open session if one is open. Must be called in order to correctly log out a logged in user.
+         * @return {promise} promise that has been rejected if no session is op. Resolved promise otherwise.
+         *
+         */
+        closeSession: function () {
+            var deferred = $q.defer();
+            if(this.isOpen()){
+                this.state = this.STATES.LOGGING_OUT;
+                var session = this;
+                var refreshToken=this.getUserToken();
+                $http.post(HOSTNAME.URL + "refresh_token/logout", {'token':refreshToken}).finally(function(response){
+                    $cookies.remove(session.key_access_token);
+                    session.state = session.STATES.CLOSED;
+                    console.log("Session has been closed");
+                    deferred.resolve(response);
+                });
+                $cookies.remove(session.key_token);
+                $cookies.remove(session.key_role);
+                $cookies.remove(session.key_id);
+                $cookies.remove(session.key_url);
+                console.log("Session is closing...");
+                sidebarMenu();
+            } else {
+                var msg = "Can't close session!! No session has been openend!!";
+                console.log(msg);
+                deferred.reject(msg);
+            }
+            return deferred.promise;
+        },
+&nbsp;
+        /**
+         * @function isOpen
+         * @memberof angular_module.vopApp.vopAuth.Session
+         * @description
+         * Method that checks wether a session is open.
+         * @return {Boolean} returns true only if a refresh token has been saved.
+         *
+         */
+        isOpen: function(){
+            return this.state == this.STATES.OPEN;
+        },
+&nbsp;
+        /**
+         * @function isClosed
+         * @memberof angular_module.vopApp.vopAuth.Session
+         * @description
+         * Method that checks if nobody is logged in, trying to log in or trying to log out.
+         * @return {Boolean} returns true only if a refresh token has been saved.
+         *
+         */
+        isClosed: <span class="fstat-no" title="function not covered" >function(){</span>
+<span class="cstat-no" title="statement not covered" >            return this.state == this.STATES.CLOSED;</span>
+        },
+&nbsp;
+        /**
+         * @function isLoggingIn
+         * @memberof angular_module.vopApp.vopAuth.Session
+         * @description
+         * Method that checks if a user is trying to log in.
+         * @return {Boolean} returns true only if a user is trying to log in.
+         *
+         */
+        isLoggingIn: function(){
+            return this.state == this.STATES.LOGGING_IN;
+        },
+&nbsp;
+        /**
+         * @function isLoggingOut
+         * @memberof angular_module.vopApp.vopAuth.Session
+         * @description
+         * Method that checks if the user is trying to log out in order to close a session.
+         * @return {Boolean} returns true only if someone is trying to close the current session.
+         *
+         */
+        isLoggingOut: <span class="fstat-no" title="function not covered" >function(){</span>
+<span class="cstat-no" title="statement not covered" >            return this.state == this.STATES.LOGGING_OUT;</span>
+        }
+    }
+&nbsp;
+    if(session.getUserToken()){
+        session.state = session.STATES.OPEN;
+    } else {
+        session.state = session.STATES.CLOSED;
+    }
+    
+    return session;
+}]);
+&nbsp;
+/**
+ @author Frontend-team
+ @memberof angular_module.vopApp.vopAuth
+ @constructor Roles
+ */
+authModule.factory('Roles', function(){
+    return {
+        /**
+         * The value for the user role
+         * @type {number}
+         */
+        ROLE_USER: 0,
+&nbsp;
+        /**
+         * The value for the operator role
+         * @type {number}
+         */
+        ROLE_OPERATOR: 1,
+&nbsp;
+        /**
+         * The value for the administrator role
+         * @type {number}
+         */
+        ROLE_ADMIN: 2,
+        
+        /**
+         * @function getUser
+         * @memberof angular_module.vopApp.vopAuth.Roles
+         * @description
+         * Method to get the value used for the user role
+         * @return {number} the value used to represent the user role
+         *
+         */
+        getUser: function(){
+            return this.ROLE_USER;  
+        },
+        
+        /**
+         * @function getOperator
+         * @memberof angular_module.vopApp.vopAuth.Roles
+         * @description
+         * Method to get the value used for the operator role
+         * @return {number} the value used to represent the operator role
+         *
+         */
+        getOperator: function(){
+            return this.ROLE_OPERATOR;
+        },
+&nbsp;
+        /**
+         * @function getAdmin
+         * @memberof angular_module.vopApp.vopAuth.Roles
+         * @description
+         * Method to get the value used for the administrator role
+         * @return {number} the value used to represent the administrator role
+         *
+         */
+        getAdmin: function(){
+            return this.ROLE_ADMIN;
+        },
+&nbsp;
+        /**
+         * @function mapRole
+         * @memberof angular_module.vopApp.vopAuth.Roles
+         * @description
+         * Function that maps a role-name to his value
+         * @param {string=} role_name the name of the role
+         * @return {number} the value used to represent the administrator role
+         *
+         */
+        mapRole: function(role_name){
+            return this[role_name];
+        },
+        
+        /**
+         * @function hasPermission
+         * @memberof angular_module.vopApp.vopAuth.Roles
+         * @description
+         * Function that compares two role-values. It can be used for testing 
+         * if a user has the role required (or higher role) for an operation
+         * @param {number=} required the value of the role to be compared with (i.e. the minimum required role)
+         * @param {number=} actualValue the value of the role that has to be compared (i.e. the role of the user)
+         * @return {boolean} returns false if and only if &lt;emph&gt;required&lt;emph&gt; represents a higher role than
+         * &lt;emph&gt;actualValue&lt;emph&gt; does
+         */
+        hasPermission: function(required, actualValue){
+            return required &lt;= actualValue;
+        }
+    };
+});
+&nbsp;
+&nbsp;
+&nbsp;
+/**
+ @author Frontend-team
+ @memberof angular_module.vopApp.vopAuth
+ @constructor Authorization
+ */
+authModule.factory('Authorization', ['Roles', 'Session', '$q', '$rootScope', '$location', function (Roles, Session, $q, $rootScope, $location) {
+&nbsp;
+    return {
+        routeForUnauthorizedAccess: '/403',
+&nbsp;
+        /**
+         * @function accessDenied
+         * @memberof angular_module.vopApp.vopAuth.Authorization
+         * @description
+         * Function called when access to a route is being denied
+         * @param {promise=} deferred a promise that keeps the state of the authorization-checking.
+         *      This function will reject it with "Access refused" only if Authorization is enabled.
+         *      Otherwise the promise will be resolved with "Access should be refused but authorization is disabled"
+         * @param {string=} route where user must be redirected to
+         */
+        accesDenied: function(deferred, route){
+            $location.path(route);
+            //As there could be some delay when location change event happens,
+            //we will keep a watch on $locationChangeSuccess event
+            //and would resolve promise only when this event occurs so we're
+            //sure the user has been redirected!
+            $rootScope.$on('$locationChangeSuccess', function() {
+                deferred.reject("Access refused");
+            });
+        },
+&nbsp;
+        /**
+         * @function hasPermission
+         * @memberof angular_module.vopApp.vopAuth.Authorization
+         * @description
+         * Checks wether or not the logged in user has permission to continue based on his role 
+         * @param {number=} requiredRole the lowest role that the user must have in order to continue
+         * @return {Boolean} false only if the logged in user has a lower role than the one specified
+         */
+        hasPermission: function(requiredRole){
+            return Roles.hasPermission(requiredRole, Session.getUserRole());
+        },
+&nbsp;
+        /**
+         * @function notLoggedInCheck
+         * @memberof angular_module.vopApp.vopAuth.Authorization
+         * @description
+         * Function called when a route requires no user to be logged in
+         */
+        notLoggedInCheck: <span class="fstat-no" title="function not covered" >function () {</span>
+            //console.log('Checking if no user is already logged in...');
+            // we will return a promise .
+<span class="cstat-no" title="statement not covered" >            var deferred = $q.defer();</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >            if (Session.isOpen()) {</span>
+                //a user is logged in
+                //console.log('ERROR: Someone is logged in!! Redirecting to his profile');
+<span class="cstat-no" title="statement not covered" >                this.accesDenied(deferred, Session.getUserUrl());</span>
+            } else {
+<span class="cstat-no" title="statement not covered" >                deferred.resolve('Nobody is logged in. OK!');</span>
+                //console.log('Nobody is logged in. OK!');
+            }
+            //console.log();
+<span class="cstat-no" title="statement not covered" >            return deferred.promise;</span>
+        },
+&nbsp;
+        /**
+         * @function loggedInCheck
+         * @memberof angular_module.vopApp.vopAuth.Authorization
+         * @description
+         * Function called when a route requires that a user is logged in
+         */
+        loggedInCheck: function () {
+            console.log('Checking if user is loged in...');
+            // we will return a promise .
+            var deferred = $q.defer();
+&nbsp;
+            if (!Session.isOpen()) {
+                //no user is logged in
+                this.accesDenied(deferred, this.routeForUnauthorizedAccess);
+                console.log('ERROR: Nobody is logged in!!');
+            } else {
+                deferred.resolve('User is logged in. OK!');
+                console.log('User is logged in. OK!');
+            }
+            return deferred.promise;
+        },
+&nbsp;
+        /**
+         * @function permissionCheck
+         * @memberof angular_module.vopApp.vopAuth.Authorization
+         * @description
+         * Function called when access to a route requiring a logged in user with a certain role (and/or id) must be checked.
+         * @param {number=} requiredRole the lowest role that the user may have in order to continue
+         * @param {number=} requiredUserId the userid that the user must have in order to continue
+         */
+        permissionCheck: function (requiredRole, requiredUserId) {
+            //console.log('Checking if user has required permissions...');
+            //promise to return.
+            var deferred = $q.defer();
+            var autho = this;
+            var success = function(response){
+                //If a user is logged in.
+                //We cannot forget that all cookies are strings so all user's information will be strings
+                    // or no userid is required or the userid corresponds to the userid of the logged in user
+                if( (requiredUserId == null || <span class="branch-1 cbranch-no" title="branch not covered" >Session.getUserId() === (''+requiredUserId))</span>
+                                // user has all required permission
+                            &amp;&amp; autho.hasPermission(requiredRole) ) {
+                    deferred.resolve("User has all required permissions. Access granted!");
+                    //console.log("User has all required permissions. Access granted!");
+                } else {
+                    //user hasn't all required permissions
+                    autho.accesDenied(deferred, autho.routeForUnauthorizedAccess);
+                    ////console.log("User has not required permissions. Access refused!");
+                    //console.log("User has not all required permissions. Access refused!!!");
+                }
+            };
+            var error = function(response){
+                //If no user is logged in
+                //acces has already been denied whith loggedInCheck
+                deferred.reject(response);
+            };
+            // First check if a user is logged in
+            this.loggedInCheck().then(success, error);
+            return deferred.promise;
+        }
+&nbsp;
+    };
+}]);
+&nbsp;
+&nbsp;
+&nbsp;
+/**
+ @author Frontend-team
+ @memberof angular_module.vopApp.vopAuth
+ @constructor authInterceptor
+ */
+authModule.factory('authInterceptor', function($q, $injector, HOSTNAME) {
+    return {
+        /**
+         * @function request
+         * @memberof angular_module.vopApp.vopAuth.Authorization
+         * @description
+         * Intercepts all outgoing requests and adds the token of the user to the header
+         */
+        request: function(config) {
+            <span class="missing-if-branch" title="else path not taken" >E</span>if (config.url !== null &amp;&amp; config.url.search(HOSTNAME.URL) &gt;= 0) {
+                var Session = $injector.get('Session');
+                config.headers['X-token'] = Session.getAccessToken();
+                //config.headers['Access-Control-Allow-Origin'] = '*';
+            }
+            console.log("authInterceptor.request: request after: " + JSON.stringify(config));
+            return config;
+        },
+&nbsp;
+        /**
+         * @function responseError
+         * @memberof angular_module.vopApp.vopAuth.Authorization
+         * @description
+         * Intercepts all incomming error-responses
+         */
+        responseError: function(response) {
+            console.log("authInterceptor.responseError: received error: " + JSON.stringify(response));
+            var Session = $injector.get('Session');
+            var $http = $injector.get('$http');
+            var $location = $injector.get('$location');
+            //deferred to know if access-token had to be refreshed and has been refreshed
+            //so http-request can be resent
+            var deferred = $q.defer();  
+&nbsp;
+            // 403 = not allowed ==&gt; access-token is not valid for the action
+            if (response.status === 403) {
+                var access_token = Session.getAccessToken();
+                <span class="missing-if-branch" title="if path not taken" >I</span>if(Session.isOpen() &amp;&amp; access_token){ 
+                    //Someone is logged in and access-token has not expired yet
+<span class="cstat-no" title="statement not covered" >                    $location.path("/403");</span>
+<span class="cstat-no" title="statement not covered" >                    deferred.reject();</span>
+                } else <span class="missing-if-branch" title="else path not taken" >E</span>if(Session.isOpen()){ 
+                    //Someone is logged in but his acces-token has expired
+                    Session.refreshAccessToken().then(deferred.resolve, deferred.reject);
+                } else {
+                    //Nobody is logged in
+<span class="cstat-no" title="statement not covered" >                    $location.path('/login');</span>
+                }
+&nbsp;
+                return deferred.promise.then(function() {
+                    // access-token had to be refreshed and has been refreshed 
+                    // ==&gt; resend http-request and continue with response of new request
+                    return $http(response.config);
+                }, <span class="fstat-no" title="function not covered" >function(){</span>
+                    // access-token does not need to or can not be refreshed
+                    // ==&gt; just continue with the error response
+<span class="cstat-no" title="statement not covered" >                    return response;</span>
+                });
+            } else if(response.status === 418 || response.status &gt;= 500){
+                //418 ----&gt; error with database
+                //500 or greater ----&gt; error with backend or server not available
+                alert("Er werd een probleem ontdekt. Gelieve later opnieuw te proberen en/of contact op te nemen met onze diensten.");
+            }
+            // !!! other errors must always be handled by the sender of the request !!!
+            return $q.reject(response);
+        }
+    };
+});
+&nbsp;</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Mon May 16 2016 00:41:26 GMT+0200 (Romance Daylight Time)
+</div>
+</div>
+<script src="../../../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../../../sorter.js"></script>
+</body>
+</html>

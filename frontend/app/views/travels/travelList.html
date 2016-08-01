@@ -1,0 +1,18 @@
+<div class="container-fluid" >
+  <h1>Trajecten:</h1>
+  <div class="row">
+    <button class="btn icon-btn btn-success" data-ng-click = "addTravel()" title="Toevoegen travel">
+      <span class="glyphicon btn-glyphicon glyphicon-plus img-circle text-success"></span>
+      Voeg een traject toe
+    </button>
+  </div>
+  <div data-ng-repeat="travel in travelList">
+    <div class="well row row-fluid" data-ng-click="travelDetails(travel.id)" id="travelDiv">
+      <div class="col-sm-4">
+        <p><label>Naam:</label></p><p> {{ travel.name }}</p>
+        <p><label>Vertrekpunt:</label></p><p> {{ travel.startpoint.street }} {{ travel.startpoint.housenumber }}, {{ travel.startpoint.postal_code }} {{ travel.startpoint.city }}, {{ travel.startpoint.country }}</p>
+        <p><label>Bestemming:</label></p><p> {{ travel.endpoint.street }} {{ travel.endpoint.housenumber }}, {{ travel.endpoint.postal_code }} {{ travel.endpoint.city }}, {{ travel.endpoint.country }}</p>
+      </div>
+    </div>
+  </div>
+</div>

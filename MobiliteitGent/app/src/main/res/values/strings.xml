@@ -1,0 +1,51 @@
+<resources>
+    <string name="app_name">Mobiliteit Gent</string>
+
+    <string name="base_url" translatable="false">https://vopro7.ugent.be/</string>
+    <string name="registration_url" translatable="false">/app/#/user/add</string>
+    <string name="forgot_password_url" translatable="false">/app/#/user/forgot_password_request</string>
+    <string name="refresh_token_url" translatable="false">api/refresh_token/regular</string>
+    <string name="access_token_url" translatable="false">api/access_token</string>
+    <string name="logout_url" translatable="false">api/refresh_token/logout/</string>
+    <string name="user_events_url" translatable="false">api/event/?user_id=</string>
+
+    <string name="email">Email adres</string>
+    <string name="password">Wachtwoord</string>
+    <string name="login_button">Login</string>
+    <string name="wrong_communication">Er is iets mis met de communicatie. Gelieve uw internet verbinding te controleren.</string>
+    <string name="error_418">Er is iets mis met de databank.</string>
+    <string name="error_401">Inloggen mislukt: email en/of password is niet correct</string>
+    <string name="error_403">Toegang geweigerd</string>
+    <string name="map">Toon op kaart</string>
+
+    <string name="logout">Log uit</string>
+    <string name="profile">Profiel</string>
+    <string name="registration"><u>Nog geen account? Registreer dan hier.</u></string>
+    <string name="forgot_password"><u>Wachtwoord vergeten? Klik dan hier.</u></string>
+    <string name="logging_out">U staat op het punt om uzelf af te melden.</string>
+    <string name="are_you_sure">Bent u zeker?</string>
+    <string name="yes">Ja</string>
+    <string name="no">Nee</string>
+    <string name="description">Beschrijving</string>
+    <string name="pub_time">Tijd van publicatie</string>
+    <string name="edit_time">Tijd van laatste aanpassing</string>
+    <string name="active">Actief</string>
+    <string name="jam">Files</string>
+    <string name="type">Type gebeurtenis</string>
+    <string name="transports">Relevante vervoersmiddelen</string>
+    <string name="location">Locatie</string>
+    <string name="no_events">Er zijn voor u momenteel geen relevante gebeurtenissen.</string>
+    <string name="title_activity_maps">Map</string>
+    <string name="first_name">Voornaam</string>
+    <string name="last_name">Achternaam</string>
+    <string name="cell_number">Gsm nummer</string>
+    <string name="mute">Notificaties ontvangen</string>
+    <string name="email_validated">Email gevalideerd</string>
+    <string name="push_messages_working">Push berichten voor relevante gebeurtenissen zijn ingeschakeld.</string>
+    <string name="service_name" translatable="false">vopro7.vop.mobiliteitgent.PushMessageService</string>
+    <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">
+        AIzaSyC13yc-vGwx1AgT_b_XO37dmZc3wX36STE
+    </string>
+    <string name="google_app_id" translatable="false">549021611957</string>
+    <string name="notification">Mobiliteit Gent</string>
+</resources>

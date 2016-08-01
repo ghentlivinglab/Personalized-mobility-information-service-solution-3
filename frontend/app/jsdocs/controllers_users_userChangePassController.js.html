@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: controllers/users/userChangePassController.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: controllers/users/userChangePassController.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * @author Frontend team
+ * @memberof angular_module.vopApp.vopUser
+ * @constructor userChangePassController
+ */
+angular.module('vopUser').controller('userChangePassController', function($scope, $http, $routeParams, $location, User, UserPassword) {
+
+    /**
+     * @member user
+     * @description user to be edited
+     * @memberof angular_module.vopApp.vopUser.userChangePassController
+     */
+    $scope.user = User.get({ userId : $routeParams.id });
+
+    /**
+     * @member userPassword
+     * @description Model containing old and new password
+     * @memberof angular_module.vopApp.vopUser.userChangePassController
+     */
+    $scope.userPassword = new UserPassword();
+    $scope.userPassword.old_password = "";
+    $scope.userPassword.new_password = "";
+
+    /**
+     * @member notCompleteMessage
+     * @description contains the error message of what the user should do in order to successfully registrate himself
+     * @memberof angular_module.vopApp.vopUser.userChangePassController
+     * @type {string}
+     */
+    $scope.notCompleteMessage = "";
+
+    /**
+     * @member notValid
+     * @description model that contains if the user has completed all the correct steps
+     * @memberof angular_module.vopApp.vopUser.userChangePassController
+     * @type {boolean}
+     */
+    $scope.notValid = false;
+
+    /**
+     * @function addUserFunction
+     * @description checks if (most of) the fields are correct and if so tries to add the user to the database.
+     * @memberof angular_module.vopApp.vopUser.userChangePassController
+     */
+    $scope.save = function(){
+
+        //var credentials = {email: $scope.user.email, password: $scope.userPassword.old_password};
+
+        //Check if entered passwords are the same.
+        if($scope.userPassword.new_password != $scope.confirmPassword){
+            //The user's passwords did not match.
+            showError("Gelieve 2 identieke wachtwoorden in te geven.");
+            return -1;
+        }
+        $scope.userPassword.$save({userId: $routeParams.id}, function (response) {
+            $location.path('/user/' + $routeParams.id);
+        }, function(errorResponse){
+            showError("Uw oude wachtwoord is niet correct.");
+            return -1;
+        });
+
+        return 0;
+    };
+
+    /**
+     * @function showError
+     * @description helper function that goes back to the top of the page and shows an error message with the appropriate text
+     * @memberof angular_module.vopApp.vopUser.userChangePassController
+     * @param msg - error message that should be displayed
+     */
+    var showError = function(msg){
+        $scope.notCompleteMessage = msg;
+        $scope.notValid = true;
+        $(document).scrollTop(0);
+    };
+
+    /**
+     * @function alert
+     * @description closes the alert of the errormessage when activated
+     * @memberof angular_module.vopApp.vopUser.userChangePassController
+     */
+    $scope.alert = function(){
+        $scope.notValid = false;
+    };
+
+    /**
+     * @function goBack
+     * @description cancels the edit operation and returns to the profile page of the user
+     * @memberof angular_module.vopApp.vopUser.userChangePassController
+     */
+    $scope.goBack = function(){
+        //Redirect to the user's profile page.
+        $location.path('/user/' + $routeParams.id);
+    };
+});
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="angular_module.vopApp.vopTravel.module_routeEditController.html">routeEditController</a></li><li><a href="angular_module.vopApp.vopTravel.module_travelAddController.html">travelAddController</a></li><li><a href="angular_module.vopApp.vopTravel.module_travelListController.html">travelListController</a></li></ul><h3>Classes</h3><ul><li><a href="angular_module.myApp.html">myApp</a></li><li><a href="angular_module.vopApp.contactController.html">contactController</a></li><li><a href="angular_module.vopApp.404Controller.html">404Controller</a></li><li><a href="angular_module.vopApp.indexController.html">indexController</a></li><li><a href="angular_module.vopApp.notImpController.html">notImpController</a></li><li><a href="angular_module.vopApp.vopAuth.Authentication.html">Authentication</a></li><li><a href="angular_module.vopApp.vopAuth.authenticationController.html">authenticationController</a></li><li><a href="angular_module.vopApp.vopAuth.authInterceptor.html">authInterceptor</a></li><li><a href="angular_module.vopApp.vopAuth.Authorization.html">Authorization</a></li><li><a href="angular_module.vopApp.vopAuth.403Controller.html">403Controller</a></li><li><a href="angular_module.vopApp.vopAuth.Roles.html">Roles</a></li><li><a href="angular_module.vopApp.vopAuth.Session.html">Session</a></li><li><a href="angular_module.vopApp.vopEvent.eventAddController.html">eventAddController</a></li><li><a href="angular_module.vopApp.vopEvent.eventEditController.html">eventEditController</a></li><li><a href="angular_module.vopApp.vopEvent.eventListController.html">eventListController</a></li><li><a href="angular_module.vopApp.vopEvent.eventShowController.html">eventShowController</a></li><li><a href="angular_module.vopApp.vopPOI.poiAddController.html">poiAddController</a></li><li><a href="angular_module.vopApp.vopPOI.poiEditController.html">poiEditController</a></li><li><a href="angular_module.vopApp.vopPOI.poiListController.html">poiListController</a></li><li><a href="angular_module.vopApp.vopPOI.poiShowController.html">poiShowController</a></li><li><a href="angular_module.vopApp.vopRoute.routeAddController.html">routeAddController</a></li><li><a href="angular_module.vopApp.vopRoute.routeEditController.html">routeEditController</a></li><li><a href="angular_module.vopApp.vopUser.userAddController.html">userAddController</a></li><li><a href="angular_module.vopApp.vopUser.userChangePassController.html">userChangePassController</a></li><li><a href="angular_module.vopApp.vopUser.userEditController.html">userEditController</a></li><li><a href="angular_module.vopApp.vopUser.userEventsShowController.html">userEventsShowController</a></li><li><a href="angular_module.vopApp.vopUser.userForgotPasswordController.html">userForgotPasswordController</a></li><li><a href="angular_module.vopApp.vopUser.userForgotPasswordRecoverController.html">userForgotPasswordRecoverController</a></li><li><a href="angular_module.vopApp.vopUser.userListAdminController.html">userListAdminController</a></li><li><a href="angular_module.vopApp.vopUser.userListController.html">userListController</a></li><li><a href="angular_module.vopApp.vopUser.userMailValidationController.html">userMailValidationController</a></li><li><a href="angular_module.vopApp.vopUser.userShowController.html">userShowController</a></li></ul><h3>Global</h3><ul><li><a href="global.html#config">config</a></li><li><a href="global.html#configmoduleEvent">config module Event</a></li><li><a href="global.html#configmodulePOI">config module POI</a></li><li><a href="global.html#configmoduleRoute">config module Route</a></li><li><a href="global.html#configmoduleTravel">config module Travel</a></li><li><a href="global.html#configmoduleuser">config module user</a></li><li><a href="global.html#formatTime">formatTime</a></li><li><a href="global.html#icon">icon</a></li><li><a href="global.html#MARKERICON">MARKERICON</a></li><li><a href="global.html#ROLE_ADMIN">ROLE_ADMIN</a></li><li><a href="global.html#ROLE_OPERATOR">ROLE_OPERATOR</a></li><li><a href="global.html#ROLE_USER">ROLE_USER</a></li><li><a href="global.html#SPECIALMARKERICON">SPECIALMARKERICON</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.0</a> on Mon May 16 2016 22:07:46 GMT+0200 (Romance (zomertijd))
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

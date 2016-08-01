@@ -1,0 +1,6 @@
+{
+  "source": {
+    "include": ["app.js", "./controllers", "./services", "./directives"],
+    "exclude": []
+  }
+}

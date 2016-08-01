@@ -1,0 +1,66 @@
+<div class="editRoute container-fluid" gmaps-route-edit>
+    <h2 class="col-md-offset-1">Wijzig route</h2>
+    <br/>
+    <div id="addWaypoint" class="divMessages">
+        <h3 class="text-center">Waypoint toevoegen met adres</h3>
+        <br/>
+        <input id="waypointAutocomplete" placeholder=" Voeg uw waypoint toe" type="text" class="form-control"/>
+        <input data-ng-click="addMarkerWaypoint()" type="submit" class="btn btn-primary pull-right specialButton"
+               value="Voeg toe" id="addWaypointButton"/>
+    </div>
+    <div id="editRouteDiv">
+        <form name="addRoute" role="form" class="form-horizontal col-md-10 col-md-offset-1">
+            <div class="form-group">
+                <label>Deze route uitschakelen:</label>
+                <input type="checkbox" data-ng-value="true" data-ng-model="route.active" data-ng-true-value="false"
+                       data-ng-false-value="true"/> Ja
+            </div>
+            <div class="form-group">
+                <label>Meldingen via:</label>
+                <input type="checkbox" data-ng-value="true" data-ng-model="route.notify.email"/> E-mail
+                <!--<input type="checkbox" data-ng-value="true" data-ng-model="route.notify.cell_number"/> Gsm-->
+            </div>
+            <div class="form-group">
+                <label>Informeer me bij:</label>
+                <div>
+                    <input type="checkbox" data-ng-model="selectedAll" data-ng-click="selectAll()"/> Selecteer alles
+                </div>
+                <div data-ng-repeat="type in eventTypes">
+                    <input type="checkbox" data-ng-true-value="'{{ type.type }}'"
+                           data-ng-model="selectedEventTypesTemp[$index]"
+                           data-ng-click="checking()"/> {{ "EventTypes." + type.type | translate }}
+                </div>
+            </div>
+        </form>
+        <select id="mode" class="form-control" ng-change="renderRoute()" ng-model="transportationModel">
+            <option data-ng-repeat="type in transportationTypes" value="{{type}}">{{"TransportationTypes." + type | translate}}</option>
+        </select>
+        <div class="row">
+            <h4 class="col-md-10 col-md-offset-1">Versleep of verwijder uw tussenstops of voeg er nieuwe toe indien
+                gewenst via de kaart. Kijk zeker het gewenste transporttype na!</h4>
+        </div>
+        <div id="mapWrapper" class="row">
+            <div id="map" class="col-md-8 col-md-offset-1" style="height: 575px;">
+                <center>Waiting for the map...</center>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-11 col-md-offset-1">
+
+                <button type="submit" class="btn icon-btn btn-danger btn-vop btn-200px" data-ng-click="goBack()"
+                        style="margin-bottom: 1em;" title="Annuleren">
+                    <span class="glyphicon btn-glyphicon glyphicon-remove img-circle text-danger pull-left"></span>
+                    <span class="btn-vop-center-text"> Annuleren </span>
+                    <button type="submit" class="btn icon-btn btn-success btn-vop btn-200px" data-ng-click="editRoute()"
+                            style="margin-bottom: 1em;" title="Route wijzigen">
+                        <span class="glyphicon btn-glyphicon glyphicon-floppy-disk img-circle text-success pull-left"></span>
+                        <span class="btn-vop-center-text"> Opslaan</span>
+                    </button>
+                </button>
+
+            </div>
+        </div>
+    </div>
+  	<div id="markerDropper"></div>
+  	<div id="waypointAdder"></div>
+</div>

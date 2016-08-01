@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<types>
+    <type_object>
+        <type>Accident</type>  
+    </type_object>
+    
+    <type_object>
+        <type>Jam</type>
+    </type_object>
+    
+    <type_object>
+        <type>Weatherhazard</type>
+    </type_object>
+    
+    <type_object>
+        <type>Hazard</type>
+    </type_object>
+    
+    <type_object>
+        <type>Misc</type>
+    </type_object>
+    
+    <type_object>
+        <type>Construction</type>
+    </type_object>
+    
+    <type_object>
+        <type>Road_closed</type>
+    </type_object>
+</types>

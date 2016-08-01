@@ -1,0 +1,70 @@
+\documentclass[11pt,twoside,a4paper]{article}
+
+\usepackage[dutch]{babel}
+\usepackage{a4wide} % Bladgroote is A4
+\usepackage{enumitem}
+\usepackage{graphicx} % Om figuren te kunnen verwerken
+\usepackage{verbatim} 
+\usepackage{parskip} % witruimte tussen paragrafen introduceren.
+%\usepackage[nottoc]{tocbibind}
+\usepackage[normal]{caption}
+\usepackage{hyperref}
+\usepackage[ampersand]{easylist}
+\usepackage{hyperref}
+
+
+\title{Testhandleiding}
+
+
+\newcommand{\logo}{../latex_extra/images/ugent.png}
+
+\begin{document}
+
+\input{../latex_extra/titlepage/titlepage}
+
+
+\section*{Backend}
+
+\subsection*{Uitleg}
+
+\paragraph{}We hebben zowel unit testen als integratietesten geschreven. Voor de laatsgenoemde hebben we gebruik gemaakt van DbUnit (een JUnit extensie) en een in-memory databank (nl. HSQLDB) voor de klassen die de Postgres databank aanspreken. Voor de klassen die MongoDB nodig hebben, gebruiken we Fongo (een in-memory java implementatie van MongoDB). Voor de unit testen maken we gebruik van JUnit, in combinatie met Mockito om te mocken.
+
+\paragraph{}Voor de namen van de testklassen volgen we de standaard, namelijk de naam van de klasse die getest wordt gevolgd door `Test' indien het een unit test betreft (bvb. UserContollerTest), of gevolgd door `IT' indien het een integratietest is (bvb. UserDAOIT). Bij de namen van de testmethoden hebben we geopteerd voor een vast formaat: de naam van de methode die getest wordt, gevolgd door een underscore met daarachter hetgeen we verwachten dat de test doet. (bvb. createUser\_shouldCreateCorrect, getRoute\_shouldReturnNull, ...).
+
+\paragraph{}Deze volledige test suite wordt bij ons automatisch uitgevoerd bij het builden van de applicatie op de server.
+
+
+\subsection*{Handleiding}
+
+\begin{easylist}[itemize]
+    & Java 8 en Maven zijn vereist om de testen uit te voeren.
+    & Navigeer naar de directory backend/VOP7BackEnd.
+    & Voer \textbf{`mvn clean compile test integration-test install'} uit.
+    && De code wordt nu gecompileerd en getest.
+    & De jar staat nu in de target directory.
+    
+\end{easylist}
+
+\newpage
+
+\section*{Frontend}
+
+\subsection*{Uitleg}
+Om op een goede manier de frontend te kunnen testen hebben we zowel unittesten als integratietesten geschreven. Voor de unittesten hebben we de Karma-Jasmine framework gebruikt. De integratietesten hebben we met behulp van protractor geschreven.\\
+Door het gebruik van Google Maps waren wel niet alle code testbaar. Om dit grotendeels op te lossen en ten minste onze eigen AngularJS-code te kunnen testen hebben we alle code die gebruik maakt van Google Maps in apparte entiteiten (nl. directives) geplaatst.
+
+\subsection*{Handleiding}
+
+Vooraleer de frontend testen lokaal uitgevoerd kunnen worden moeten eerst Node.js en dan het testframework (Karma) geïnstalleerd worden. Om Node.js te installeren kan deze link worden gebruikt: \href{https://nodejs.org/en/download/}.\\
+
+Wanneer Node.js geïnstalleerd is, navigeer in de console naar de map /frontend/app/karma-jasmine-tests en voer het commando "npm install" uit om de benodigde packages te installeren.\\
+
+Om dan een Karma-server op te starten, voer "npm test" uit. Deze testserver zal onmiddelijk de testen draaien en automatisch opnieuw telkens wanneer de bestanden geïncludeerd in conf.js (in de array "files") aangepast worden. De testen genereren output in de console waar de de testserver opgestart is en coverage in de map /frontend/app/karma-jasmine-tests/coverage.
+Merk op dat een groot deel (bijna alle) controllers geen unit tests hebben. Dit is omdat de google map-gerelateerde code ze ontestbaar maakt. Daarom voeren we in de plaats daarvan protractor-testen uit.\\
+Om de Protractor-testen te starten, voer "npm protractor" uit.
+
+
+ 
+
+
+\end{document}

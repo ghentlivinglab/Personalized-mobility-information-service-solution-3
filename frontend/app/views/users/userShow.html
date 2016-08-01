@@ -1,0 +1,101 @@
+<div class="container-fluid">
+    <div id="overlappingForm" class="row  col-sm-10">
+        <div class="col-sm-offset-1 col-sm-10">
+            <p>
+                Bent u zeker dat u dit profiel wilt verwijderen?
+            </p>
+        </div>
+        <div class="col-sm-offset-1 col-sm-10">
+            <button class="btn icon-btn btn-success btn-vop btn-125px" data-ng-click="yes()" title="Ja">
+                <span class="glyphicon btn-glyphicon glyphicon-ok img-circle text-success pull-left"></span>
+                <span class="btn-vop-center-text">Ja</span>
+            </button>
+            <button class="btn icon-btn btn-danger btn-vop btn-125px" data-ng-click="no()" title="Neen">
+                <span class="glyphicon btn-glyphicon glyphicon-remove img-circle text-danger pull-left"></span>
+                <span class="btn-vop-center-text">Neen</span>
+            </button>
+        </div>
+    </div>
+    <div id="userShow">
+        <h1>Gebruikersprofiel</h1>
+        <br/>
+
+        <div class = "row">
+            <div class="col-sm-3">
+                <p>Voornaam: </p>
+            </div>
+            <div class="col-sm-4">
+                <p>{{ user.first_name }}</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-3">
+                <p>Achternaam: </p>
+            </div>
+            <div class="col-sm-4">
+                <p>{{ user.last_name }}</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-3">
+                <p>GSM-nummer: </p>
+            </div>
+            <div class="col-sm-4">
+                <p>{{ user.cell_number }}</p>
+            </div>
+        </div>
+        <div class = "row">
+            <div class="col-sm-3">
+                <p>E-mail: </p>
+            </div>
+            <div class="col-sm-4">
+                <p>{{ user.email }}</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-3">
+                <p>Meldingen aan: </p>
+            </div>
+            <div class="col-sm-4">
+                <span data-ng-show="!user.mute_notifications" class="glyphicon glyphicon-ok glyphicon-green"></span><span data-ng-hide="!user.mute_notifications" class="glyphicon glyphicon-remove glyphicon-red"></span>
+                <p></p>
+            </div>
+        </div>
+        <!-- Edit user -->
+        <div class="row">
+            <div class="col-sm-4">
+                <button class="btn icon-btn btn-primary btn-vop btn-200px" data-ng-click = "editUser()" title="Wijzig mijn gegevens">
+                    <span class="glyphicon btn-glyphicon glyphicon-edit img-circle text-primary pull-left"></span>
+                    <span class="btn-vop-center-text"> Wijzig mijn gegevens</span>
+                </button>
+            </div>
+        </div>
+        <!-- Datadump admin -->
+        <div class="row" data-ng-show="admin">
+            <div class="col-sm-4">
+                <button class="btn icon-btn btn-primary btn-vop btn-200px" data-ng-click = "downloadDatadump()" title="Mijn verkeersevents" >
+                    <span class="glyphicon btn-glyphicon glyphicon-download img-circle text-primary pull-left"></span>
+                    <span class="btn-vop-center-text">Download datadump</span>
+                </button>
+            </div>
+        </div>
+        <!-- change password user -->
+        <div class="row">
+            <div class="col-sm-4">
+                <button class="btn icon-btn btn-primary btn-vop btn-200px" data-ng-click = "changePass()" title="Wachtwoord wijzigen">
+                    <span class="glyphicon btn-glyphicon glyphicon-envelope img-circle text-primary pull-left"></span>
+                    <span class="btn-vop-center-text"> Wachtwoord wijzigen </span>
+                </button>
+            </div>
+        </div>
+        <!-- Delete user -->
+        <div class="row">
+            <div class="col-sm-4">
+                <button class="btn icon-btn btn-primary btn-vop btn-200px" data-ng-click = "delete()" title="Verwijder profiel">
+                    <span class="glyphicon btn-glyphicon glyphicon-remove img-circle text-primary pull-left"></span>
+                    <span class="btn-vop-center-text"> Profiel termineren </span>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

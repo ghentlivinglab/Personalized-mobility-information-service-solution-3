@@ -1,0 +1,75 @@
+<div class="container-fluid">
+    <div class = "row">
+        <div class="col-sm-6 col-sm-offset-3">
+            <div class="alert alert-danger" data-ng-show="notValid" id="alertBox">
+                <a class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                <p data-ng-bind="notCompleteMessage"></p>
+            </div>
+        </div>
+    </div>
+    <form
+            name 		= "userChangePass"
+            role 		= "form"
+            data-ng-submit	= "save()"
+            class		= "form-horizontal"
+    >
+        <!-- password -->
+        <div class = "form-group row">
+            <div class="col-sm-6 col-sm-offset-3">
+                <label for="password_old">Oud wachtwoord <span class = "glyphicon glyphicon-asterisk"></span></label>
+                <input
+                        type		= "password"
+                        class 		= "form-control"
+                        data-ng-model	= "userPassword.old_password"
+                        id			= "password_old"
+                        name		= "password_old"
+                        placeholder = "Geef uw wachtwoord"
+                        required
+                />
+            </div>
+        </div>
+
+        <div class = "form-group row">
+            <div class="col-sm-6 col-sm-offset-3">
+                <label for="password_new">Nieuw wachtwoord <span class = "glyphicon glyphicon-asterisk"></span></label>
+                <input
+                        type		= "password"
+                        class 		= "form-control"
+                        data-ng-model	= "userPassword.new_password"
+                        id			= "password_new"
+                        name		= "password_new"
+                        placeholder = "Geef uw paswoord"
+                        required
+                />
+            </div>
+        </div>
+
+        <div class = "form-group row">
+            <div class="col-sm-6 col-sm-offset-3">
+                <label for="confirmPassword">Bevestig nieuw wachtwoord <span class = "glyphicon glyphicon-asterisk"></span></label>
+                <input
+                        type		= "password"
+                        class 		= "form-control"
+                        data-ng-model	= "confirmPassword"
+                        id			= "confirmPassword"
+                        name		= "confirmPassword"
+                        placeholder = "Geef hetzelfde paswoord"
+                        required
+                />
+            </div>
+        </div>
+
+        <div class="row">
+            <div class = "col-sm-6 col-sm-offset-3">
+                <button class="btn icon-btn btn-danger btn-vop btn-125px" type = "button" data-ng-click="goBack()" title="Annuleren">
+                    <span class="glyphicon btn-glyphicon glyphicon-remove img-circle text-danger pull-left"></span>
+                    <span class="btn-vop-center-text"> Annuleren</span>
+                </button>
+                <button class="btn icon-btn btn-success btn-vop btn-125px" type = "submit" title="Opslaan">
+                    <span class="glyphicon btn-glyphicon glyphicon-floppy-disk img-circle text-success pull-left"></span>
+                    <span class="btn-vop-center-text"> Opslaan </span>
+                </button>
+            </div>
+        </div>
+    </form>
+</div>

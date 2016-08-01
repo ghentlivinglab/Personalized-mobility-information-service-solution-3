@@ -1,0 +1,122 @@
+<div class="editUser container-fluid">
+	<div class = "row">
+		<div class="col-md-10 col-md-offset-1">
+			<div class="alert alert-danger" data-ng-show="notValid" id="alertBox">
+				<a class="close" data-ng-click="alert()" aria-label="close">&times;</a>
+				<p>{{notCompleteMessage}}</p>
+			</div>
+		</div>
+	</div>
+	<form
+		name 		= "userEditForm"
+		role 		= "form"
+		data-ng-submit	= "editUserFunction()"
+		class		= "form-horizontal"
+	>
+
+	<!-- first name -->
+		<div class = "form-group row">
+			<div class="col-md-6 col-md-offset-1">
+				<label for="firstName">Voornaam</label>
+				<input
+					type		= "text"
+					class 		= "form-control"
+					data-ng-model	= "user.first_name"
+					id			= "firstName"
+					name		= "first_name"
+				/>
+			</div>
+		</div>
+
+
+	<!-- last name -->
+		<div class = "form-group row">
+			<div class="col-md-6 col-md-offset-1">
+				<label for="lastName">Achternaam</label>
+				<input
+					type		= "text"
+					class 		= "form-control"
+					data-ng-model	= "user.last_name"
+					id			= "lastName"
+					name		= "last_name"
+				/>
+			</div>
+		</div>
+
+
+	<!-- cellphone -->
+		<div class = "form-group row">
+			<div class = "col-md-6 col-md-offset-1">
+				<label for="cellphone" class="control-label">Gsm nummer</label>
+				<input
+					type		= "text"
+					class 		= "form-control"
+					data-ng-model	= "user.cell_number"
+					id			= "cellphone"
+					name		= "cellphone"
+				/>
+			</div>
+		</div>
+
+	<!-- email -->
+		<div class = "form-group row">
+			<div class="col-md-6 col-md-offset-1">
+				<label for="email">Email <span class = "glyphicon glyphicon-asterisk"></span></label>
+				<input
+					type		= "text"
+					class 		= "form-control"
+					data-ng-model	= "user.email"
+					id			= "email"
+					name		= "email"
+					required
+				/>
+			</div>
+		</div>
+
+	<!-- contact stop -->
+		<div class = "form-group row">
+			<div class="col-md-6 col-md-offset-1">
+				<label>
+					Notificeer mij
+				</label>
+				<input
+					type 		="checkbox"
+					data-ng-model	="user.mute_notifications"
+					data-ng-true-value="false"
+					data-ng-false-value="true"
+				/>
+			</div>
+		</div>
+
+
+	<!-- password -->
+		<!--<div class = "form-group row">-->
+			<!--<div class="col-md-6 col-md-offset-1">-->
+				<!--<label for="password">Wachtwoord <span class = "glyphicon glyphicon-asterisk"></span></label>-->
+				<!--<input-->
+					<!--type		= "password"-->
+					<!--class 		= "form-control"-->
+					<!--data-ng-model	= "user.password"-->
+					<!--id			= "password"-->
+					<!--name		= "password"-->
+					<!--placeholder = "Geef uw wachtwoord ter bevestiging"-->
+					<!--required-->
+				<!--/>-->
+			<!--</div>-->
+		<!--</div>-->
+
+
+		<div class="row">
+			<div class = "col-md-6 col-md-offset-1">
+				<button class="btn icon-btn btn-danger btn-vop btn-125px" type="button" data-ng-click="goBack()" title="Annuleren">
+					<span class="glyphicon btn-glyphicon glyphicon-remove img-circle text-danger pull-left"></span>
+					<span class="btn-vop-center-text"> Annuleren</span>
+				</button>
+				<button class="btn icon-btn btn-success btn-vop btn-125px" type = "submit" title="Opslaan">
+					<span class="glyphicon btn-glyphicon glyphicon-floppy-disk img-circle text-success pull-left"></span>
+					<span class="btn-vop-center-text"> Opslaan </span>
+				</button>
+			</div>
+		</div>
+	</form>
+</div>

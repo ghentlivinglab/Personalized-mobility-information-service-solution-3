@@ -1,0 +1,44 @@
+[
+    {
+        "publication_time": "2016-04-06 19:15:44.926878",
+        "active": false,
+        "last_edit_time": "2016-04-06 19:15:44.926878",
+        "type": {
+            "type": "RANDOM_TEST_EVENT"
+        },
+        "coordinates": {
+            "lon": "3.779090",
+            "lat": "51.043368"
+        },
+        "description": "Dit is een test event.",
+        "relevant_for_transportation_types": [
+            "auto",
+            "bus"
+        ],
+        "id": "0",
+        "links": [
+            {
+                "href": "https://vopro7.ugent.be/api/event/0",
+                "rel": "self"
+            }
+        ],
+        "jams": [
+            {
+                "delay": 2987,
+                "end_node": {
+                    "lon": "3.765745",
+                    "lat": "51.035747"
+                },
+                "start_node": {
+                    "lon": "3.721739",
+                    "lat": "51.075762"
+                },
+                "speed": 10
+            }
+        ],
+        "source": {
+            "name": "TestEvent",
+            "icon_url": "http://www.example.org/random_icon_url.png"
+        }
+    }
+]

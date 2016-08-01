@@ -1,0 +1,38 @@
+<div class="row">
+	<div class="col-sm-10 col-sm-offset-1">
+		<div class="alert alert-danger" data-ng-show="notValid" id="alertBox">
+			<a class="close" data-ng-click="alert()" aria-label="close">&times;</a>
+			<p>{{notCompleteMessage}}</p>
+		</div>
+	</div>
+</div>
+<form data-ng-submit="logIn()">
+	<div class="form-group row">
+		<label class="col-sm-3 col-sm-offset-2">E-mailadres:</label>
+		<div class="col-sm-5">
+			<input class = "form-control" data-ng-model="credentials.email" required/>
+		</div>
+	</div>
+	<div class="form-group row">
+		<label class="col-sm-3 col-sm-offset-2">Wachtwoord:</label>
+		<div class="col-sm-5">
+			<input class = "form-control" data-ng-model="credentials.password" type="password" required/>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-sm-4 col-sm-offset-2">
+			<button type="submit" id="log_usr_in" class="btn icon-btn btn-primary btn-vop fullWidthButton" title="Inloggen">
+				<span class="glyphicon btn-glyphicon glyphicon-log-in img-circle text-primary pull-left"></span>
+				<span class="btn-vop-center-text">Log in</span>
+			</button>
+		</div>
+		<div class="col-sm-4">
+			<button class="btn icon-btn btn-primary btn-vop fullWidthButton"
+					data-ng-click="forgotPass()" title="Wachtwoord vergeten">
+				<span class="glyphicon btn-glyphicon glyphicon-envelope img-circle text-success pull-left"></span>
+				<span class="btn-vop-center-text">Wachtwoord vergeten</span>
+			</button>
+		</div>
+	</div>
+</form>
+
